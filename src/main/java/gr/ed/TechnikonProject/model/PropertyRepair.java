@@ -5,13 +5,13 @@ import gr.ed.TechnikonProject.enums.RepairType;
 import java.time.LocalDate;
 
 public class PropertyRepair extends PersistentClass{
-    private String repairOwnerVAT;
-    private String repairPropertyE9;
+    private Integer repairOwnerId;
+    private Integer repairPropertyId;
     private RepairType repairType;
     private String repairDescription;
     private LocalDate repairSubmissionDate;
     private String repairWorkToBeDone;
-    private LocalDate repairProsopedStartDate;
+    private LocalDate repairProposedStartDate;
     private LocalDate repairProposedEndDate;
     private Double repairProposedCost;
     private Boolean repairAcceptance;
@@ -22,20 +22,20 @@ public class PropertyRepair extends PersistentClass{
     public PropertyRepair(){}
 
     
-    public String getRepairOwnerVAT() {
-        return repairOwnerVAT;
+    public Integer getRepairOwnerId() {
+        return repairOwnerId;
     }
 
-    public void setRepairOwnerVAT(String repairOwnerVAT) {
-        this.repairOwnerVAT = repairOwnerVAT;
+    public void setRepairOwnerId(Integer repairOwnerId) {
+        this.repairOwnerId = repairOwnerId;
     }
 
-    public String getRepairPropertyE9() {
-        return repairPropertyE9;
+    public Integer getRepairPropertyId() {
+        return repairPropertyId;
     }
 
-    public void setRepairPropertyE9(String repairPropertyE9) {
-        this.repairPropertyE9 = repairPropertyE9;
+    public void setRepairPropertyId(Integer repairPropertyId) {
+        this.repairPropertyId = repairPropertyId;
     }
 
     public RepairType getRepairType() {
@@ -70,12 +70,12 @@ public class PropertyRepair extends PersistentClass{
         this.repairWorkToBeDone = repairWorkToBeDone;
     }
 
-    public LocalDate getRepairProsopedStartDate() {
-        return repairProsopedStartDate;
+    public LocalDate getRepairProposedStartDate() {
+        return repairProposedStartDate;
     }
 
-    public void setRepairProsopedStartDate(LocalDate repairProsopedStartDate) {
-        this.repairProsopedStartDate = repairProsopedStartDate;
+    public void setRepairProposedStartDate(LocalDate repairProposedStartDate) {
+        this.repairProposedStartDate = repairProposedStartDate;
     }
 
     public LocalDate getRepairProposedEndDate() {
@@ -125,6 +125,14 @@ public class PropertyRepair extends PersistentClass{
     public void setRepairActualEndDate(LocalDate repairActualEndDate) {
         this.repairActualEndDate = repairActualEndDate;
     }
+
+    @Override
+    public String toString() {
+        return "PropertyRepair{" + "repairOwnerId=" + repairOwnerId + ", repairPropertyId=" + repairPropertyId + ", repairType=" + repairType + ", repairDescription=" + repairDescription + ", repairSubmissionDate=" + repairSubmissionDate + ", repairWorkToBeDone=" + repairWorkToBeDone + ", repairProposedStartDate=" + repairProposedStartDate + ", repairProposedEndDate=" + repairProposedEndDate + ", repairProposedCost=" + repairProposedCost + ", repairAcceptance=" + repairAcceptance + ", repairStatus=" + repairStatus + ", repairActualStartDate=" + repairActualStartDate + ", repairActualEndDate=" + repairActualEndDate + '}';
+    }
+
+   
+    
     
     
     
