@@ -2,88 +2,88 @@ package gr.ed.TechnikonProject.model;
 
 public class Owner extends PersistentClass {
 
-    private String vat;
-    private String name;
-    private String surname;
-    private String address;
-    private String phoneNumber;
-    private String email;
-    private String username;
-    private String password;
+    private String ownerVat;
+    private String ownerName;
+    private String ownerSurname;
+    private String ownerAddress;
+    private String ownerPhoneNumber;
+    private String ownerEmail;
+    private String ownerUsername;
+    private String ownerPwd;
 
     public Owner(String vat, String name, String surname, String address, String phoneNumber, String email, String username, String password) {
-        this.vat = vat;
-        this.name = name;
-        this.surname = surname;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.username = username;
-        this.password = password;
+        this.ownerVat = vat;
+        this.ownerName = name;
+        this.ownerSurname = surname;
+        this.ownerAddress = address;
+        this.ownerPhoneNumber = phoneNumber;
+        this.ownerEmail = email;
+        this.ownerUsername = username;
+        this.ownerPwd = password;
     }
 
-    public String getVat() {
-        return vat;
+    public String getOwnerVat() {
+        return ownerVat;
     }
 
-    public void setVat(String vat) {
-        this.vat = vat;
+    public void setOwnerVat(String ownerVat) {
+        this.ownerVat = ownerVat;
     }
 
-    public String getName() {
-        return name;
+    public String getOwnerName() {
+        return ownerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getOwnerSurname() {
+        return ownerSurname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setOwnerSurname(String ownerSurname) {
+        this.ownerSurname = ownerSurname;
     }
 
-    public String getAddress() {
-        return address;
+    public String getOwnerAddress() {
+        return ownerAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setOwnerAddress(String ownerAddress) {
+        this.ownerAddress = ownerAddress;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getOwnerPhoneNumber() {
+        return ownerPhoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setOwnerPhoneNumber(String ownerPhoneNumber) {
+        this.ownerPhoneNumber = ownerPhoneNumber;
     }
 
-    public String getEmail() {
-        return email;
+    public String getOwnerEmail() {
+        return ownerEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
     }
 
-    public String getUsername() {
-        return username;
+    public String getOwnerUsername() {
+        return ownerUsername;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setOwnerUsername(String ownerUsername) {
+        this.ownerUsername = ownerUsername;
     }
 
-    public String getPassword() {
-        return password;
+    public String getOwnerPwd() {
+        return ownerPwd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setOwnerPwd(String ownerPwd) {
+        this.ownerPwd = ownerPwd;
     }
 
 }

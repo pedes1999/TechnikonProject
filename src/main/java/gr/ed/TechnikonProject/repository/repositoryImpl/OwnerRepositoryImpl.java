@@ -11,44 +11,32 @@ public class OwnerRepositoryImpl extends RepositoryImpl<Owner> implements OwnerR
     public void update(int ownerId, Owner newData) {
         Owner owner = read(ownerId);
         if (owner != null) {
-            owner.setAddress(newData.getAddress());
-            owner.setEmail(newData.getEmail());
-            owner.setPassword(newData.getPassword());
+            owner.setOwnerAddress(newData.getOwnerAddress());
+            owner.setOwnerEmail(newData.getOwnerEmail());
+            owner.setOwnerPwd(newData.getOwnerPwd());
         }
-    }
-
-    @Override
-    public List<Owner> searchPerOwnerVat(String vat) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public List<Owner> searchPerOwnerEmail(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public List<Owner> readOwnerVat(String vat) {
         List<Owner> returnOwners = new ArrayList<>();
         for (Owner owner : read()) {
-            if (owner.getVat() != null && owner.getVat().contains(vat)) {
+            if (owner.getOwnerVat() != null && owner.getOwnerVat().contains(vat)) {
                 returnOwners.add(owner);
             }
         }
-        return returnOwners;}
+        return returnOwners;
+    }
 
     @Override
     public List<Owner> readOwnerEmail(String email) {
         List<Owner> returnOwners = new ArrayList<>();
         for (Owner owner : read()) {
-            if (owner.getEmail() != null && owner.getEmail().contains(email)) {
+            if (owner.getOwnerEmail() != null && owner.getOwnerEmail().contains(email)) {
                 returnOwners.add(owner);
             }
         }
-        return returnOwners;} 
+        return returnOwners;
+    }
 
 }
-
-
-
-
