@@ -4,17 +4,17 @@ import gr.ed.TechnikonProject.enums.PropertyType;
 import java.time.Year;
 
 public class Property extends PersistentClass{
-    private String propertyE9;
+    private Integer propertyE9;
     private String propertyAddress;
     private Year propertyConstructionYear;
     private PropertyType propertyType;
     private String propertyVATOwner;
 
-    public String getPropertyE9() {
+    public int getPropertyE9() {
         return propertyE9;
     }
 
-    public void setPropertyE9(String propertyE9) {
+    public void setPropertyE9(int propertyE9) {
         this.propertyE9 = propertyE9;
     }
 
@@ -49,6 +49,12 @@ public class Property extends PersistentClass{
     public void setPropertyVATOwner(String propertyVATOwner) {
         this.propertyVATOwner = propertyVATOwner;
     }
+
+    @Override
+    public String toString() {
+        return "Property{" + "propertyE9=" + propertyE9 + ", propertyAddress=" + propertyAddress + ", propertyConstructionYear=" + propertyConstructionYear + ", propertyType=" + propertyType + ", propertyVATOwner=" + propertyVATOwner + '}';
+    }
+    
     
     
 }
