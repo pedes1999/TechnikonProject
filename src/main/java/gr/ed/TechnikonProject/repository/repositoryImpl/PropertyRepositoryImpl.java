@@ -20,8 +20,12 @@ public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements 
     }
 
     @Override
-    public Property searchByPropertyId(int propertyId) {
-        return read(propertyId);
+    public List<Property> searchByPropertyId(int propertyE9) {
+        return read()
+                .stream()
+                .filter(property->property.getPropertyE9() == propertyE9)
+                .collect(Collectors.toList());
+               
     }
 
     @Override

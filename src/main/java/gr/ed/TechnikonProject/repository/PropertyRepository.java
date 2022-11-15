@@ -13,11 +13,11 @@ public interface PropertyRepository extends Repository<Property> {
     void updateAll(int propertyId, Property newProperty);
     
     /**
-     * Returns a specific property by its id
-     * @param propertyId
+     * 
+     * @param propertyE9
      * @return 
      */
-    Property searchByPropertyId(int propertyId);
+    List<Property> searchByPropertyId(int propertyE9);
     
     /**
      * Returns a list of properties of an owner using his/her VAT number
