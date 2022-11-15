@@ -1,5 +1,5 @@
 package gr.ed.TechnikonProject.model;
 
-public class Owner {
-   private int id;
+public class Owner extends PersistentClass{
+   
 }

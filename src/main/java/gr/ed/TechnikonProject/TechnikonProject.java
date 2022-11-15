@@ -1,8 +1,12 @@
 package gr.ed.TechnikonProject;
 
+import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
+import gr.ed.TechnikonProject.repository.repositoryImpl.PropertyRepairRepositoryImpl;
+
 public class TechnikonProject {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        PropertyRepairRepository prRepo = new PropertyRepairRepositoryImpl();
+
     }
 }

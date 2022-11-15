@@ -1,5 +1,5 @@
 package gr.ed.TechnikonProject.model;
 
-public class Property {
+public class Property extends PersistentClass{
 
 }
