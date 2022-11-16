@@ -1,6 +1,6 @@
 package gr.ed.TechnikonProject.model;
 
-public class Owner extends PersistentClass {
+public class Owner {
 
     private String ownerVat;
     private String ownerName;
@@ -85,5 +85,6 @@ public class Owner extends PersistentClass {
     public void setOwnerPwd(String ownerPwd) {
         this.ownerPwd = ownerPwd;
     }
+
 
 }
