@@ -4,7 +4,7 @@ import gr.ed.TechnikonProject.enums.RepairStatus;
 import gr.ed.TechnikonProject.enums.RepairType;
 import java.time.LocalDate;
 
-public class PropertyRepair extends PersistentClass{
+public class PropertyRepair{
     private Integer repairOwnerId;
     private Integer repairPropertyId;
     private RepairType repairType;

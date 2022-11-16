@@ -1,9 +1,8 @@
 package gr.ed.TechnikonProject.model;
-
 import gr.ed.TechnikonProject.enums.PropertyType;
 import java.time.Year;
 
-public class Property extends PersistentClass{
+public class Property{
     private Integer propertyE9;
     private String propertyAddress;
     private Year propertyConstructionYear;
