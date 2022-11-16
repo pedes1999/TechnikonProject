@@ -1,5 +1,5 @@
 package gr.ed.TechnikonProject.service;
 
-public interface IoService {
+public interface CustomerService {
 
 }
