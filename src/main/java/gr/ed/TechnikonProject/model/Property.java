@@ -3,18 +3,18 @@ import gr.ed.TechnikonProject.enums.PropertyType;
 import java.time.Year;
 
 public class Property{
-    private Integer propertyE9;
+    private Integer propertyIdE9;
     private String propertyAddress;
     private Year propertyConstructionYear;
     private PropertyType propertyType;
-    private String propertyVATOwner;
+    private Owner propertyVATOwner;
 
-    public int getPropertyE9() {
-        return propertyE9;
+    public int getpropertyIdE9() {
+        return propertyIdE9;
     }
 
-    public void setPropertyE9(int propertyE9) {
-        this.propertyE9 = propertyE9;
+    public void setpropertyIdE9(int propertyIdE9) {
+        this.propertyIdE9 = propertyIdE9;
     }
 
     public String getPropertyAddress() {
@@ -41,17 +41,17 @@ public class Property{
         this.propertyType = propertyType;
     }
 
-    public String getPropertyVATOwner() {
+    public Owner getPropertyVATOwner() {
         return propertyVATOwner;
     }
 
-    public void setPropertyVATOwner(String propertyVATOwner) {
+    public void setPropertyVATOwner(Owner propertyVATOwner) {
         this.propertyVATOwner = propertyVATOwner;
     }
 
     @Override
     public String toString() {
-        return "Property{" + "propertyE9=" + propertyE9 + ", propertyAddress=" + propertyAddress + ", propertyConstructionYear=" + propertyConstructionYear + ", propertyType=" + propertyType + ", propertyVATOwner=" + propertyVATOwner + '}';
+        return "Property{" + "propertyIdE9=" + propertyIdE9 + ", propertyAddress=" + propertyAddress + ", propertyConstructionYear=" + propertyConstructionYear + ", propertyType=" + propertyType + ", propertyVATOwner=" + propertyVATOwner + '}';
     }
     
     
