@@ -1,5 +1,5 @@
 package gr.ed.TechnikonProject.enums;
 
 public enum RepairStatus {
-PENDING,DECLINED,INPROGRESS,COMPLETE
+PENDING,DECLINED,IN_PROGRESS,COMPLETE
 }
