@@ -27,11 +27,6 @@ public class PropertyRepairRepositoryImpl extends RepositoryImpl<PropertyRepair>
     }
 
     @Override
-    public LocalDate updateRepairDate(int propertyRepairId, LocalDate dateTime) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public boolean updateRepairType(int propertyRepairId, RepairType repairType) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -52,12 +47,32 @@ public class PropertyRepairRepositoryImpl extends RepositoryImpl<PropertyRepair>
     }
 
     @Override
-    public boolean updateProposedCost(int propertyRepairId, double repairCost) throws Exception {
+    public boolean updateRepairProposedCost(int propertyRepairId, double repairCost) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public boolean updateRepairStatus(int propertRepairId, RepairStatus repairStatus) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean updateRepairProposedStartDate(int propertyRepairId, LocalDate dateTime) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean updateRepairProposedEndDate(int propertyRepairId, LocalDate dateTime) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean updateRepairActualStartDate(int propertyRepairId, LocalDate dateTime) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean updateRepairActualEndDate(int propertyRepairId, LocalDate dateTime) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
