@@ -39,7 +39,7 @@ public interface PropertyRepairRepository extends Repository<PropertyRepair> {
      * @return if Date is updated
      * @throws Exception
      */
-    boolean updateDateTime(int propertyRepairId , LocalDate dateTime) throws Exception;
+    LocalDate updateRepairDate(int propertyRepairId , LocalDate dateTime) throws Exception;
     
     /**
      *

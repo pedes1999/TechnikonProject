@@ -4,38 +4,42 @@ import gr.ed.TechnikonProject.enums.RepairStatus;
 import gr.ed.TechnikonProject.enums.RepairType;
 import java.time.LocalDate;
 
-public class PropertyRepair{
-    private Integer repairOwnerId;
-    private Integer repairPropertyId;
+public class PropertyRepair {
+    
+    private int propertyRepairId;
+    private Property repairProperty;
     private RepairType repairType;
     private String repairDescription;
-    private LocalDate repairSubmissionDate;
     private String repairWorkToBeDone;
+    private RepairStatus repairStatus;
+
+    //Actual Dates
+    private LocalDate repairSubmissionDate;
+    private LocalDate repairActualStartDate;
+    private LocalDate repairActualEndDate;
+
+    //Proposed by admin Data
     private LocalDate repairProposedStartDate;
     private LocalDate repairProposedEndDate;
     private Double repairProposedCost;
+
     private Boolean repairAcceptance;
-    private RepairStatus repairStatus;
-    private LocalDate repairActualStartDate;
-    private LocalDate repairActualEndDate;
+
+    public PropertyRepair() {
+    }
+
+    public int getPropertyRepairId() {
+        return propertyRepairId;
+    }
+
     
-    public PropertyRepair(){}
-
     
-    public Integer getRepairOwnerId() {
-        return repairOwnerId;
+    public Property getRepairProperty() {
+        return repairProperty;
     }
 
-    public void setRepairOwnerId(Integer repairOwnerId) {
-        this.repairOwnerId = repairOwnerId;
-    }
-
-    public Integer getRepairPropertyId() {
-        return repairPropertyId;
-    }
-
-    public void setRepairPropertyId(Integer repairPropertyId) {
-        this.repairPropertyId = repairPropertyId;
+    public void setRepairProperty(Property repairProperty) {
+        this.repairProperty = repairProperty;
     }
 
     public RepairType getRepairType() {
@@ -126,15 +130,4 @@ public class PropertyRepair{
         this.repairActualEndDate = repairActualEndDate;
     }
 
-    @Override
-    public String toString() {
-        return "PropertyRepair{" + "repairOwnerId=" + repairOwnerId + ", repairPropertyId=" + repairPropertyId + ", repairType=" + repairType + ", repairDescription=" + repairDescription + ", repairSubmissionDate=" + repairSubmissionDate + ", repairWorkToBeDone=" + repairWorkToBeDone + ", repairProposedStartDate=" + repairProposedStartDate + ", repairProposedEndDate=" + repairProposedEndDate + ", repairProposedCost=" + repairProposedCost + ", repairAcceptance=" + repairAcceptance + ", repairStatus=" + repairStatus + ", repairActualStartDate=" + repairActualStartDate + ", repairActualEndDate=" + repairActualEndDate + '}';
-    }
-
-   
-    
-    
-    
-    
-    
 }

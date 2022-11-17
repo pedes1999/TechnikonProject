@@ -12,7 +12,7 @@ import gr.ed.TechnikonProject.repository.repositoryImpl.PropertyRepairRepository
 public class TechnikonProject {
 
     public static void main(String[] args) {
-        PropertyRepairRepository prRepo = new PropertyRepairRepositoryImpl();
+   
       
     }
 }

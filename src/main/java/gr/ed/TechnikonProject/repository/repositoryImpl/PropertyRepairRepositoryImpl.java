@@ -27,7 +27,7 @@ public class PropertyRepairRepositoryImpl extends RepositoryImpl<PropertyRepair>
     }
 
     @Override
-    public boolean updateDateTime(int propertyRepairId, LocalDate dateTime) throws Exception {
+    public LocalDate updateRepairDate(int propertyRepairId, LocalDate dateTime) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
