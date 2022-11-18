@@ -8,22 +8,42 @@ import java.time.Year;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements PropertyRepository{
+public class PropertyRepositoryImpl implements PropertyRepository{
+
+  
 
     @Override
-    public List<Property> readByPropertyIdE9(int propertyIdE9) {
+    public int create(Property t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
+    public Property read(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Property> read() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean delete(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void updateAll(int propertyId, Property newProperty) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+
     public List<Property> readByVATNumber(Owner propertyVATOwner) {
+
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public boolean updatePropertyAddress(int propertyIdE9, String propertyAddress) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public boolean updatePropertyConstructionYear(int propertyIdE9, Year propertyConstructionYear) {

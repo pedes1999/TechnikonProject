@@ -2,22 +2,41 @@ package gr.ed.TechnikonProject.model;
 
 import gr.ed.TechnikonProject.enums.RepairStatus;
 import gr.ed.TechnikonProject.enums.RepairType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import java.time.LocalDate;
 
+@Entity
 public class PropertyRepair {
-    
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int propertyRepairId;
+
+    @ManyToOne
     private Property repairProperty;
+
+    @Column(columnDefinition = "enum('PAINTING','INSULATION', 'FRAMES', 'PLUMBING', 'ELECTRICAL_WORK')")
+    @Enumerated(EnumType.STRING)
     private RepairType repairType;
-    private String repairDescription;
-    private String repairWorkToBeDone;
+    
+    @Column(columnDefinition = "enum('PENDING','DECLINED','IN_PROGRESS', 'COMPLETE')")
+    @Enumerated(EnumType.STRING)
     private RepairStatus repairStatus;
 
+    private String repairDescription;
+    private String repairWorkToBeDone;
+    
     //Actual Dates
     private LocalDate repairSubmissionDate;
     private LocalDate repairActualStartDate;
     private LocalDate repairActualEndDate;
-
     //Proposed by admin Data
     private LocalDate repairProposedStartDate;
     private LocalDate repairProposedEndDate;
@@ -32,8 +51,6 @@ public class PropertyRepair {
         return propertyRepairId;
     }
 
-    
-    
     public Property getRepairProperty() {
         return repairProperty;
     }
@@ -129,5 +146,12 @@ public class PropertyRepair {
     public void setRepairActualEndDate(LocalDate repairActualEndDate) {
         this.repairActualEndDate = repairActualEndDate;
     }
+
+    @Override
+    public String toString() {
+        return "PropertyRepair{" + "propertyRepairId=" + propertyRepairId + ", repairProperty=" + repairProperty + ", repairType=" + repairType + ", repairStatus=" + repairStatus + ", repairDescription=" + repairDescription + ", repairWorkToBeDone=" + repairWorkToBeDone + ", repairSubmissionDate=" + repairSubmissionDate + ", repairActualStartDate=" + repairActualStartDate + ", repairActualEndDate=" + repairActualEndDate + ", repairProposedStartDate=" + repairProposedStartDate + ", repairProposedEndDate=" + repairProposedEndDate + ", repairProposedCost=" + repairProposedCost + ", repairAcceptance=" + repairAcceptance + '}';
+    }
+    
+    
 
 }
