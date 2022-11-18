@@ -1,13 +1,32 @@
 package gr.ed.TechnikonProject.model;
-import gr.ed.TechnikonProject.enums.PropertyType;
-import java.time.Year;
 
-public class Property{
+import gr.ed.TechnikonProject.enums.PropertyType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.time.Year;
+import java.util.List;
+
+@Entity
+public class Property {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int propertyId;
+
+    @ManyToOne
+    private Owner propertyOwner;
+
+    @OneToMany(mappedBy = "repairProperty")
+    private List<PropertyRepair> propertyRepairs;
+
     private Integer propertyE9;
     private String propertyAddress;
-    private Year propertyConstructionYear;
+    private int propertyConstructionYear;
     private PropertyType propertyType;
-    private String propertyVATOwner;
 
     public int getPropertyE9() {
         return propertyE9;
@@ -25,11 +44,27 @@ public class Property{
         this.propertyAddress = propertyAddress;
     }
 
-    public Year getPropertyConstructionYear() {
+    public void setPropertyId(int propertyId) {
+        this.propertyId = propertyId;
+    }
+
+    public void setPropertyOwner(Owner propertyOwner) {
+        this.propertyOwner = propertyOwner;
+    }
+
+    public void setPropertyRepairs(List<PropertyRepair> propertyRepairs) {
+        this.propertyRepairs = propertyRepairs;
+    }
+
+    public void setPropertyE9(Integer propertyE9) {
+        this.propertyE9 = propertyE9;
+    }
+
+    public int getPropertyConstructionYear() {
         return propertyConstructionYear;
     }
 
-    public void setPropertyConstructionYear(Year propertyConstructionYear) {
+    public void setPropertyConstructionYear(int propertyConstructionYear) {
         this.propertyConstructionYear = propertyConstructionYear;
     }
 
@@ -41,19 +76,5 @@ public class Property{
         this.propertyType = propertyType;
     }
 
-    public String getPropertyVATOwner() {
-        return propertyVATOwner;
-    }
 
-    public void setPropertyVATOwner(String propertyVATOwner) {
-        this.propertyVATOwner = propertyVATOwner;
-    }
-
-    @Override
-    public String toString() {
-        return "Property{" + "propertyE9=" + propertyE9 + ", propertyAddress=" + propertyAddress + ", propertyConstructionYear=" + propertyConstructionYear + ", propertyType=" + propertyType + ", propertyVATOwner=" + propertyVATOwner + '}';
-    }
-    
-    
-    
 }

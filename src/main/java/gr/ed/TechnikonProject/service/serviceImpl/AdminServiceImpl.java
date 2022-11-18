@@ -10,6 +10,7 @@ import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
 import gr.ed.TechnikonProject.repository.PropertyRepository;
 import gr.ed.TechnikonProject.service.AdminService;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +27,21 @@ public class AdminServiceImpl implements AdminService {
     }
     //ADDS
     
+    //Reads for owners
+      @Override
+    public Owner searchOwnerPerVat(String ownerVatNumber) {
+        Optional<Owner> owner = null;
+        
+        try {
+            //owner = ownerRepository.read(ownerVatNumber);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    
     //UPDATES FOR OWNER
        
     //UPDATES FOR PROPERTY
@@ -34,7 +50,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public boolean updatePropertyRepairType(PropertyRepair propertyRepair, RepairType prType) {
         try {
-            propertyRepairRepository.updateRepairType(propertyRepair.getPropertyRepairId(), prType);
+            //propertyRepairRepository.updateRepairType(propertyRepair.getPropertyRepairId(), prType);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,7 +62,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public boolean updatePropertyRepairDesc(PropertyRepair propertyRepair, String prDescription) {
         try {
-            propertyRepairRepository.updateRepairDesc(propertyRepair.getPropertyRepairId(), prDescription);
+            //propertyRepairRepository.updateRepairDesc(propertyRepair.getPropertyRepairId(), prDescription);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,7 +72,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public boolean updatePropertyRepairWorkToBeDone(PropertyRepair propertyRepair, String prWorkToBeDone) {
         try {
-            propertyRepairRepository.updateRepairWorkToBeDone(propertyRepair.getPropertyRepairId(), prWorkToBeDone);
+            //propertyRepairRepository.updateRepairWorkToBeDone(propertyRepair.getPropertyRepairId(), prWorkToBeDone);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -66,7 +82,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public boolean updatePropertyRepairStatus(PropertyRepair propertyRepair, RepairStatus prStatus) {
         try {
-            propertyRepairRepository.updateRepairStatus(propertyRepair.getPropertyRepairId(), prStatus);
+            //propertyRepairRepository.updateRepairStatus(propertyRepair.getPropertyRepairId(), prStatus);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,7 +92,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public boolean updatePropertyRepairProposedStartDate(PropertyRepair propertyRepair, LocalDate prPropStart) {
         try {
-            propertyRepairRepository.updateRepairProposedStartDate(propertyRepair.getPropertyRepairId(), prPropStart);
+            //propertyRepairRepository.updateRepairProposedStartDate(propertyRepair.getPropertyRepairId(), prPropStart);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -96,7 +112,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public boolean updatePropertyRepairProposedCost(PropertyRepair propertyRepair, double prPropCost) {
         try {
-            propertyRepairRepository.updateRepairProposedCost(propertyRepair.getPropertyRepairId(), prPropCost);
+            //propertyRepairRepository.updateRepairProposedCost(propertyRepair.getPropertyRepairId(), prPropCost);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -157,4 +173,9 @@ public class AdminServiceImpl implements AdminService {
         return true;
     }
 
+    @Override
+    public Owner searchOwnerPerEmail(String ownerEmail) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+  
 }

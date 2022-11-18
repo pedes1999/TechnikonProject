@@ -5,35 +5,43 @@ import gr.ed.TechnikonProject.repository.PropertyRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PropertyRepositoryImpl extends RepositoryImpl<Property> implements PropertyRepository{
+public class PropertyRepositoryImpl implements PropertyRepository{
+
+  
+
+    @Override
+    public int create(Property t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Property read(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Property> read() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean delete(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     @Override
     public void updateAll(int propertyId, Property newProperty) {
-        Property property = read(propertyId);
-        if (property != null) {
-            property.setPropertyE9(newProperty.getPropertyE9());
-            property.setPropertyAddress(newProperty.getPropertyAddress());
-            property.setPropertyConstructionYear(newProperty.getPropertyConstructionYear());
-            property.setPropertyType(newProperty.getPropertyType());
-            property.setPropertyVATOwner(newProperty.getPropertyVATOwner());
-        }
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public List<Property> searchByPropertyId(int propertyE9) {
-        return read()
-                .stream()
-                .filter(property->property.getPropertyE9() == propertyE9)
-                .collect(Collectors.toList());
-               
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public List<Property> searchByVATNumber(String propertyVATOwner) {
-        return read()
-                .stream()
-                .filter(property->property.getPropertyVATOwner().equals(propertyVATOwner))
-                .collect(Collectors.toList());
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

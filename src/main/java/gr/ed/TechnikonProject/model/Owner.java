@@ -1,8 +1,24 @@
 package gr.ed.TechnikonProject.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.List;
+
+@Entity
 public class Owner {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int ownerId;
+
+    @Column(unique = true, length = 10)
     private String ownerVat;
+    
+    
     private String ownerName;
     private String ownerSurname;
     private String ownerAddress;
@@ -10,7 +26,13 @@ public class Owner {
     private String ownerEmail;
     private String ownerUsername;
     private String ownerPwd;
+    @OneToMany(mappedBy = "propertyOwner")
+    private List<Property> properties;
 
+    public Owner(){
+        
+    }
+    
     public Owner(String vat, String name, String surname, String address, String phoneNumber, String email, String username, String password) {
         this.ownerVat = vat;
         this.ownerName = name;
@@ -85,6 +107,5 @@ public class Owner {
     public void setOwnerPwd(String ownerPwd) {
         this.ownerPwd = ownerPwd;
     }
-
 
 }

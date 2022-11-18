@@ -11,6 +11,10 @@ public interface AdminService extends OwnerService {
     //add owner
     //add property
     //add repair
+    
+    //read Owners
+    Owner searchOwnerPerVat(String ownerVatNumber);
+    Owner searchOwnerPerEmail(String ownerEmail);
 
     //update owner
     //update property
