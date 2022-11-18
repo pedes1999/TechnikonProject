@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import java.time.Year;
 import java.util.List;
 
 @Entity
@@ -27,13 +26,13 @@ public class Property {
     private String propertyAddress;
     private int propertyConstructionYear;
     private PropertyType propertyType;
-
-    public int getPropertyE9() {
-        return propertyE9;
+    
+    public int getpropertyIdE9() {
+        return propertyIdE9;
     }
 
-    public void setPropertyE9(int propertyE9) {
-        this.propertyE9 = propertyE9;
+    public void setpropertyIdE9(int propertyIdE9) {
+        this.propertyIdE9 = propertyIdE9;
     }
 
     public String getPropertyAddress() {
@@ -76,5 +75,18 @@ public class Property {
         this.propertyType = propertyType;
     }
 
+    public Owner getPropertyVATOwner() {
+        return propertyVATOwner;
+    }
 
+    public void setPropertyVATOwner(Owner propertyVATOwner) {
+        this.propertyVATOwner = propertyVATOwner;
+    }
+
+    @Override
+    public String toString() {
+        return "Property{" + "propertyIdE9=" + propertyIdE9 + ", propertyAddress=" + propertyAddress + ", propertyConstructionYear=" + propertyConstructionYear + ", propertyType=" + propertyType + ", propertyVATOwner=" + propertyVATOwner + '}';
+    }
+    
+   
 }
