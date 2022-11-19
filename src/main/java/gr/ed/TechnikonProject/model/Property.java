@@ -75,8 +75,8 @@ public class Property {
     }
 
     @Override
-    public String toString() {
-        return "Property{" + "propertyId=" + propertyId + ", propertyOwner=" + propertyOwner + ", propertyRepairs=" + propertyRepairs + ", propertyAddress=" + propertyAddress + ", propertyConstructionYear=" + propertyConstructionYear + ", propertyType=" + propertyType + '}';
+    public final String toString() {
+        return "Property{" + "propertyId=" + propertyId + ", propertyOwner=" + propertyOwner.getOwnerId() + " propertyAddress=" + propertyAddress + ", propertyConstructionYear=" + propertyConstructionYear + ", propertyType=" + propertyType + '}';
     }
 
 }
