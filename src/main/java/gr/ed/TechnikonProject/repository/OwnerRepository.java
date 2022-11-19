@@ -2,13 +2,19 @@ package gr.ed.TechnikonProject.repository;
 
 import gr.ed.TechnikonProject.model.Owner;
 import java.util.List;
+import java.util.Optional;
 
 public interface OwnerRepository extends Repository<Owner> {
 
-    void update(int ownerId, Owner newData);
+    public Optional<Owner> readOwnerVat(String vat);
 
-    List<Owner> readOwnerVat(String vat);
+    public Optional<Owner> readOwnerEmail(String email);
 
-    List<Owner> readOwnerEmail(String email);
+    boolean updateAddress(String vatNumber, String newAddress) throws Exception;
 
+    boolean updateEmail(String vatNumber, String newEmail) throws Exception;
+
+    boolean updatePassword(String vatNumber, String newPassword) throws Exception;
+    
+    
 }
