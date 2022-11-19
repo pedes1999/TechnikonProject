@@ -1,7 +1,5 @@
 package gr.ed.TechnikonProject.service;
 
-import gr.ed.TechnikonProject.enums.RepairStatus;
-import gr.ed.TechnikonProject.enums.RepairType;
 import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.model.PropertyRepair;
@@ -11,19 +9,14 @@ public interface AdminService extends OwnerService {
     //add owner
     //add property
     //add repair
+    boolean addOwner(Owner owner);
     
     //read Owners
     Owner searchOwnerPerVat(String ownerVatNumber);
     Owner searchOwnerPerEmail(String ownerEmail);
-
-    //update owner
-    //update property
-    //update repair
-    boolean updatePropertyRepairType(PropertyRepair propertyRepair, RepairType prType);
-    boolean updatePropertyRepairDesc(PropertyRepair propertyRepair, String prDescription);
-    boolean updatePropertyRepairWorkToBeDone(PropertyRepair propertyRepair, String prWorkToBeDone);
-    boolean updatePropertyRepairStatus(PropertyRepair propertyRepair, RepairStatus prStatus);
-
+    
+    PropertyRepair searchRepairPerId(int propertyRepairId);
+    
     //Proposed
     boolean updatePropertyRepairProposedStartDate(PropertyRepair propertyRepair, LocalDate prPropStart);
     boolean updatePropertyRepairProposedEndDate(PropertyRepair propertyRepair, LocalDate prPropEnd);
