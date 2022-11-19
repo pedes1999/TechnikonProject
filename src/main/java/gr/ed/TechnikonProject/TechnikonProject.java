@@ -1,7 +1,5 @@
 package gr.ed.TechnikonProject;
 
-import gr.ed.TechnikonProject.enums.PropertyType;
-import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.repository.OwnerRepository;
 import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
 import gr.ed.TechnikonProject.repository.PropertyRepository;
@@ -14,7 +12,6 @@ import gr.ed.TechnikonProject.service.serviceImpl.AdminServiceImpl;
 import gr.ed.TechnikonProject.service.serviceImpl.OwnerServiceImpl;
 import gr.ed.TechnikonProject.util.JpaUtil;
 import jakarta.persistence.EntityManager;
-import java.time.LocalDate;
 
 public class TechnikonProject {
 
@@ -29,14 +26,28 @@ public class TechnikonProject {
         
         //BUSINESS FLOW
         
+        
+        // ADD OWNER 
+//
+//        Owner o = new Owner();
+//        o.setOwnerVat("1234567895");
+//        o.setOwnerName("Giorgos");
+//        o.setOwnerSurname("Georgopoulos");
+//        o.setOwnerPhoneNumber("6983234567");
+//        o.setOwnerAddress("Xania");
+//        o.setOwnerEmail("periklis@gmail.com");
+//        o.setOwnerUsername("perry");
+//        o.setOwnerPwd("5431232");
+//        adminService.addOwner(o);
+
         //OWNER ADDS A NEW PROPERTY
+        
 //       Property p = new Property();
 //       p.setPropertyAddress("Cuba");
 //       p.setPropertyConstructionYear(LocalDate.of(2010,10,19));
 //       p.setPropertyType(PropertyType.DETACHED_HOUSE);
-//       p.setPropertyOwner(adminService.searchOwnerPerEmail("adsasss@gmail.com"));
+//       p.setPropertyOwner(adminService.searchOwnerPerEmail("periklis@gmail.com"));
 //       ownerService.addProperty(p);
-
 
         //OWNER ADD A REPAIR TO THE PROPERTY
 //       PropertyRepair pr = new PropertyRepair();
@@ -45,20 +56,21 @@ public class TechnikonProject {
 //       pr.setRepairType(RepairType.PAINTING);
 //       pr.setRepairDescription("Painting the whole house");
 //       pr.setRepairWorkToBeDone("This is a very large house and it needs to be blue");
-//       pr.setRepairProperty(ownerService.searchPropertyByPropertyId(4));
+//       pr.setRepairProperty(ownerService.searchPropertyByPropertyId(1));
 //       ownerService.addPropertyRepair(pr);
 
         //ADMIN PROPOSES DATES AND COST
-//        adminService.updatePropertyRepairProposedStartDate(adminService.searchRepairPerId(7), LocalDate.of(2022, 12, 3));
-//        adminService.updatePropertyRepairProposedEndDate(adminService.searchRepairPerId(7), LocalDate.of(2023, 3, 6));
-//        adminService.updatePropertyRepairProposedCost(adminService.searchRepairPerId(7),5000);
-        
+//        adminService.updatePropertyRepairProposedStartDate(adminService.searchRepairPerId(1), LocalDate.of(2022, 12, 3));
+//        adminService.updatePropertyRepairProposedEndDate(adminService.searchRepairPerId(1), LocalDate.of(2023, 3, 6));
+//        adminService.updatePropertyRepairProposedCost(adminService.searchRepairPerId(1),5000);
+//        
         //CUSTOMER ACCEPTS
-//        ownerService.updateRepairAcceptance(ownerService.searchRepairPerId(7), true);
+//        ownerService.updateRepairAcceptance(ownerService.searchRepairPerId(1), true);
         //ADMIN SETS THE ACTUAL DATES OF THE  REPAIR
-//        adminService.updatePropertyRepairActualStartDate(adminService.searchRepairPerId(7),adminService.searchRepairPerId(7).getRepairProposedStartDate());
-//        adminService.updatePropertyRepairActualEndDate(adminService.searchRepairPerId(7),adminService.searchRepairPerId(7).getRepairProposedEndDate());
-//  
+//        adminService.updatePropertyRepairActualStartDate(adminService.searchRepairPerId(1),adminService.searchRepairPerId(1).getRepairProposedStartDate());
+//        adminService.updatePropertyRepairActualEndDate(adminService.searchRepairPerId(1),adminService.searchRepairPerId(1).getRepairProposedEndDate());
+         //SETS STATUS TO IN_PROGRESS
+
 
 
 
