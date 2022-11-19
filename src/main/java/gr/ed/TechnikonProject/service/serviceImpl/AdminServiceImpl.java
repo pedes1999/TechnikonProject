@@ -10,6 +10,8 @@ import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
 import gr.ed.TechnikonProject.repository.PropertyRepository;
 import gr.ed.TechnikonProject.service.AdminService;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -177,5 +179,63 @@ public class AdminServiceImpl implements AdminService {
     public Owner searchOwnerPerEmail(String ownerEmail) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-  
+
+    @Override
+    public boolean addProperty(Property property) {
+        try {
+            propertyRepository.create(property);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+
+    }
+
+    @Override
+    public boolean addPropertyRepair(PropertyRepair propertyRepair) {
+        try {
+            propertyRepairRepository.create(propertyRepair);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+
+    }
+
+     @Override
+    public Property searchByPropertyId(int propertyId) {
+        Property p = new Property();
+       try {
+           p = propertyRepository.readByPropertyId(propertyId);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return p;
+    
+    }
+
+    @Override
+    public List<Property> searchByVATNumber(Owner propertyVATOwner) {
+        List<Property> propertyList = new ArrayList<>();
+        try {
+            propertyList = propertyRepository.readByVATNumber(propertyVATOwner);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return propertyList;
+
+    }
+
+    @Override
+    public boolean updateRepairAcceptance(int propertyRepairId, boolean repairAcceptance) {
+        try {
+            propertyRepairRepository.updateRepairAcceptance(propertyRepairId, repairAcceptance);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+
+    }
 }
+  
+
