@@ -1,7 +1,6 @@
 package gr.ed.TechnikonProject.repository.repositoryImpl;
 
 import gr.ed.TechnikonProject.enums.PropertyType;
-import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.repository.PropertyRepository;
 import jakarta.persistence.EntityManager;
@@ -18,7 +17,6 @@ public class PropertyRepositoryImpl implements PropertyRepository{
         this.entityManager = entityManager;
     }
   
-
     @Override
     public int create(Property t) {
          try {

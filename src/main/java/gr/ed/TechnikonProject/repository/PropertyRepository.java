@@ -1,7 +1,6 @@
 package gr.ed.TechnikonProject.repository;
 
 import gr.ed.TechnikonProject.enums.PropertyType;
-import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.model.Property;
 import java.time.LocalDate;
 import java.util.List;
