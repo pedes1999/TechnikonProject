@@ -87,10 +87,10 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      */
     @Override
     public List<PropertyRepair> readPerOwnerVAT(String ownerVAT) {
-        String findRepairPerOwnerVATString = "select * from propertyrepair"
-                + "inner join property on propertyrepair.repairProperty_propertyId = property.propertyId"
-                + " inner join owner on owner.owner_ownerId = owner.ownerId"
-                + " where owner.ownerVat = ?";
+        String findRepairPerOwnerVATString = "select * from propertyrepair as pr "
+                + "inner join property as p on pr.repairProperty_propertyId = p.propertyId "
+                + " inner join owner as o on p.propertyOwner_ownerId = o.ownerId "
+                + " where o.ownerVat = ? ";
 
         Query findRepairPerOwnerVATQuery = entityManager.createNativeQuery(findRepairPerOwnerVATString, PropertyRepair.class);
 
@@ -109,11 +109,10 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      */
     @Override
     public List<PropertyRepair> readPerDate(LocalDate date) {
-        String findRepairPerDateString = "select * from propertyrepair where repairActualStartDate = ? or repairActualEndDate= ?";
+        String findRepairPerDateString = "select * from propertyrepair where ? between repairActualStartDate and repairActualEndDate";
         Query findRepairPerDateQuery = entityManager.createNativeQuery(findRepairPerDateString, PropertyRepair.class);
         try {
             findRepairPerDateQuery.setParameter(1, date);
-            findRepairPerDateQuery.setParameter(2, date);
 
         } catch (Exception e) {
             e.printStackTrace();

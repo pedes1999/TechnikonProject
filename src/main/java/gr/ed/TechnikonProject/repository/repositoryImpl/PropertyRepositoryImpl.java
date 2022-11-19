@@ -86,14 +86,14 @@ public class PropertyRepositoryImpl implements PropertyRepository{
     }
     
       @Override
-    public List<Property> readByPropertyE9(int propertyE9) {
+    public List<Property> readByPropertyE9(int propertyId) {
        String findpropertyE9String = "select * from property"
                 + "where propertyE9 = ?";
 
         Query findpropertyE9Query = entityManager.createNativeQuery( findpropertyE9String, Property.class);
 
         try {
-            findpropertyE9Query.setParameter(1, propertyE9);
+            findpropertyE9Query.setParameter(1, propertyId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,8 +103,8 @@ public class PropertyRepositoryImpl implements PropertyRepository{
 
 
     @Override
-    public boolean updatePropertyConstructionYear(int propertyE9, LocalDate propertyConstructionYear) {
-        Property property = read(propertyE9);
+    public boolean updatePropertyConstructionYear(int propertyId, LocalDate propertyConstructionYear) {
+        Property property = read(propertyId);
         try {
             property.setPropertyConstructionYear(propertyConstructionYear);
             entityManager.getTransaction().begin();
@@ -121,8 +121,8 @@ public class PropertyRepositoryImpl implements PropertyRepository{
     
 
     @Override
-    public boolean updatePropertyType(int propertyE9, PropertyType propertyType) {
-       Property property = read(propertyE9);
+    public boolean updatePropertyType(int propertyId, PropertyType propertyType) {
+       Property property = read(propertyId);
         try {
             property.setPropertyType(propertyType);
             entityManager.getTransaction().begin();
@@ -139,8 +139,8 @@ public class PropertyRepositoryImpl implements PropertyRepository{
   
 
     @Override
-    public boolean updatePropertyAddress(int propertyE9, String propertyAddress) {
-       Property property = read(propertyE9);
+    public boolean updatePropertyAddress(int propertyId, String propertyAddress) {
+       Property property = read(propertyId);
         try {
             property.setPropertyAddress(propertyAddress);
             entityManager.getTransaction().begin();

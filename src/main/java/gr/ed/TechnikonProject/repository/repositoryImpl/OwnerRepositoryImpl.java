@@ -43,7 +43,7 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 
     @Override
     public Optional<Owner> readOwnerVat(String vat) {
-        String selectString = "select * from user where vatNumber=?1";
+        String selectString = "select * from owner where ownerVat=?";
         Query sqlQuery = entityManager.createNativeQuery(selectString, Owner.class);
         sqlQuery.setParameter(1, vat);
         try {
@@ -57,7 +57,7 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 
     @Override
     public Optional<Owner> readOwnerEmail(String email) {
-        String selectString = "select * from user where email=?1";
+        String selectString = "select * from owner where ownerEmail=?";
         Query sqlQuery = entityManager.createNativeQuery(selectString, Owner.class);
         sqlQuery.setParameter(1, email);
         try {
