@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -22,17 +23,40 @@ public class Property {
     @OneToMany(mappedBy = "repairProperty")
     private List<PropertyRepair> propertyRepairs;
 
-    private Integer propertyE9;
+    private int propertyE9;
     private String propertyAddress;
-    private int propertyConstructionYear;
+    private LocalDate propertyConstructionYear;
     private PropertyType propertyType;
-    
-    public int getpropertyIdE9() {
-        return propertyIdE9;
+    private String propertyVATOwner;
+
+    public int getPropertyE9() {
+        return propertyE9;
     }
 
-    public void setpropertyIdE9(int propertyIdE9) {
-        this.propertyIdE9 = propertyIdE9;
+    public void setPropertyE9(int propertyE9) {
+        this.propertyE9 = propertyE9;
+    }
+
+    public String getPropertyVATOwner() {
+        return propertyVATOwner;
+    }
+
+    public void setPropertyVATOwner(String propertyVATOwner) {
+        this.propertyVATOwner = propertyVATOwner;
+    }
+    
+    
+    
+    public int getPropertyId() {
+        return propertyId;
+    }
+    
+    public int getpropertyE9() {
+        return propertyE9;
+    }
+
+    public void setpropertyE9(int propertyE9) {
+        this.propertyE9 = propertyE9;
     }
 
     public String getPropertyAddress() {
@@ -43,9 +67,11 @@ public class Property {
         this.propertyAddress = propertyAddress;
     }
 
-    public void setPropertyId(int propertyId) {
-        this.propertyId = propertyId;
+    public Owner getPropertyOwner() {
+        return propertyOwner;
     }
+
+   
 
     public void setPropertyOwner(Owner propertyOwner) {
         this.propertyOwner = propertyOwner;
@@ -55,15 +81,13 @@ public class Property {
         this.propertyRepairs = propertyRepairs;
     }
 
-    public void setPropertyE9(Integer propertyE9) {
-        this.propertyE9 = propertyE9;
-    }
+   
 
-    public int getPropertyConstructionYear() {
+    public LocalDate getPropertyConstructionYear() {
         return propertyConstructionYear;
     }
 
-    public void setPropertyConstructionYear(int propertyConstructionYear) {
+    public void setPropertyConstructionYear(LocalDate propertyConstructionYear) {
         this.propertyConstructionYear = propertyConstructionYear;
     }
 
@@ -75,17 +99,13 @@ public class Property {
         this.propertyType = propertyType;
     }
 
-    public Owner getPropertyVATOwner() {
-        return propertyVATOwner;
-    }
 
-    public void setPropertyVATOwner(Owner propertyVATOwner) {
-        this.propertyVATOwner = propertyVATOwner;
-    }
+
+ 
 
     @Override
     public String toString() {
-        return "Property{" + "propertyIdE9=" + propertyIdE9 + ", propertyAddress=" + propertyAddress + ", propertyConstructionYear=" + propertyConstructionYear + ", propertyType=" + propertyType + ", propertyVATOwner=" + propertyVATOwner + '}';
+        return "Property{" + "propertyE9=" + propertyE9 + ", propertyAddress=" + propertyAddress + ", propertyConstructionYear=" + propertyConstructionYear + ", propertyType=" + propertyType  + '}';
     }
     
    

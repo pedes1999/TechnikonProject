@@ -1,3 +1,4 @@
+
 package gr.ed.TechnikonProject.repository.repositoryImpl;
 
 import gr.ed.TechnikonProject.model.PropertyRepair;
@@ -88,9 +89,9 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
     @Override
     public List<PropertyRepair> readPerOwnerVAT(String ownerVAT) {
         String findRepairPerOwnerVATString = "select * from propertyrepair"
-                + "inner join property on propertyrepair.repairProperty_propertyId = propery.propertyId"
+                + "inner join property on propertyrepair.repairProperty_propertyId = property.propertyId"
                 + " inner join owner on owner.owner_ownerId = owner.ownerId"
-                + "where owner.ownerVat = ?";
+                + " where owner.ownerVat = ?";
 
         Query findRepairPerOwnerVATQuery = entityManager.createNativeQuery(findRepairPerOwnerVATString, PropertyRepair.class);
 
