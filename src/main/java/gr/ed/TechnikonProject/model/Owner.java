@@ -17,8 +17,6 @@ public class Owner {
 
     @Column(unique = true, length = 10)
     private String ownerVat;
-    
-    
     private String ownerName;
     private String ownerSurname;
     private String ownerAddress;
@@ -26,22 +24,33 @@ public class Owner {
     private String ownerEmail;
     private String ownerUsername;
     private String ownerPwd;
+
     @OneToMany(mappedBy = "propertyOwner")
     private List<Property> properties;
 
-    public Owner(){
-        
+    public Owner() {
+
     }
-    
-    public Owner(String vat, String name, String surname, String address, String phoneNumber, String email, String username, String password) {
-        this.ownerVat = vat;
-        this.ownerName = name;
-        this.ownerSurname = surname;
-        this.ownerAddress = address;
-        this.ownerPhoneNumber = phoneNumber;
-        this.ownerEmail = email;
-        this.ownerUsername = username;
-        this.ownerPwd = password;
+
+    public Owner(int ownerId, String ownerVat, String ownerName, String ownerSurname, String ownerAddress, String ownerPhoneNumber, String ownerEmail, String ownerUsername, String ownerPwd, List<Property> properties) {
+        this.ownerId = ownerId;
+        this.ownerVat = ownerVat;
+        this.ownerName = ownerName;
+        this.ownerSurname = ownerSurname;
+        this.ownerAddress = ownerAddress;
+        this.ownerPhoneNumber = ownerPhoneNumber;
+        this.ownerEmail = ownerEmail;
+        this.ownerUsername = ownerUsername;
+        this.ownerPwd = ownerPwd;
+        this.properties = properties;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getOwnerVat() {
@@ -108,9 +117,14 @@ public class Owner {
         this.ownerPwd = ownerPwd;
     }
 
-    @Override
-    public String toString() {
-        return "Owner{" + "ownerId=" + ownerId + ", ownerVat=" + ownerVat + ", ownerName=" + ownerName + ", ownerSurname=" + ownerSurname + ", ownerAddress=" + ownerAddress + ", ownerPhoneNumber=" + ownerPhoneNumber + ", ownerEmail=" + ownerEmail + ", ownerUsername=" + ownerUsername + ", ownerPwd=" + ownerPwd + ", properties=" + properties + '}';
+
+    public List<Property> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(List<Property> properties) {
+        this.properties = properties;
+
     }
 
 }
