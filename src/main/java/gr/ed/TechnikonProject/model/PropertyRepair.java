@@ -47,6 +47,12 @@ public class PropertyRepair {
     public PropertyRepair() {
     }
 
+    public void setPropertyRepairId(int propertyRepairId) {
+        this.propertyRepairId = propertyRepairId;
+    }
+    
+    
+    
     public int getPropertyRepairId() {
         return propertyRepairId;
     }

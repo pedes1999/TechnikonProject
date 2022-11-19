@@ -1,4 +1,3 @@
-
 package gr.ed.TechnikonProject.repository.repositoryImpl;
 
 import gr.ed.TechnikonProject.model.PropertyRepair;
@@ -49,7 +48,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
         }
 
     }
-    
+
     /**
      *
      * @return all repairs in the database
