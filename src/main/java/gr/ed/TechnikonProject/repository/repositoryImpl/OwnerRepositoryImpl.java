@@ -3,18 +3,21 @@ package gr.ed.TechnikonProject.repository.repositoryImpl;
 import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.repository.OwnerRepository;
 import jakarta.persistence.EntityManager;
+
 import jakarta.persistence.Query;
+
 import java.util.List;
 import java.util.Optional;
 
-public class OwnerRepositoryImpl<T, K> implements OwnerRepository {
 
-    protected EntityManager entityManager;
+public class OwnerRepositoryImpl implements OwnerRepository {
+       protected EntityManager entityManager;
+
 
     public OwnerRepositoryImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-
+    
     @Override
     public int create(Owner t) {
         try {

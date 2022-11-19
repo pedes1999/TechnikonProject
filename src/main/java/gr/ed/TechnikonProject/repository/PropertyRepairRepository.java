@@ -1,8 +1,5 @@
-
 package gr.ed.TechnikonProject.repository;
 
-import gr.ed.TechnikonProject.enums.RepairStatus;
-import gr.ed.TechnikonProject.enums.RepairType;
 import gr.ed.TechnikonProject.model.PropertyRepair;
 import java.time.LocalDate;
 import java.util.List;
@@ -40,11 +37,10 @@ public interface PropertyRepairRepository extends Repository<PropertyRepair> {
     boolean updateRepairActualStartDate(int propertyRepairId, LocalDate dateTime) throws Exception;
 
     boolean updateRepairActualEndDate(int propertyRepairId, LocalDate dateTime) throws Exception;
-    
+
     boolean updateRepairProposedCost(int propertyRepairId, double cost) throws Exception;
-    
+
     //repair misc handling
     boolean updateRepair(int propertyRepairId, PropertyRepair newPropertyRepair);
-    
-   
+
 }
