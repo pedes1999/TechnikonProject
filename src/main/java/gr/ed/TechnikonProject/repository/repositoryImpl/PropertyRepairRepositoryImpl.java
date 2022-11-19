@@ -236,6 +236,30 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
 
         return true;
     }
+    
+    /**
+     *
+     * @param propertyRepairId
+     * @param repairAcceptance
+     * @return if acceptance of the repair has been updated
+     * @throws Exception
+     */
+    @Override
+    public boolean updateRepairAcceptance(int propertyRepairId, boolean repairAcceptance) throws Exception {
+        PropertyRepair propertyRepair = read(propertyRepairId);
+        try {
+            propertyRepair.setRepairAcceptance(repairAcceptance);
+            entityManager.getTransaction().begin();
+            entityManager.merge(propertyRepair);
+            entityManager.getTransaction().commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
 
     /**
      *

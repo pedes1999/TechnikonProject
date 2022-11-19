@@ -39,6 +39,8 @@ public interface PropertyRepairRepository extends Repository<PropertyRepair> {
     boolean updateRepairActualEndDate(int propertyRepairId, LocalDate dateTime) throws Exception;
 
     boolean updateRepairProposedCost(int propertyRepairId, double cost) throws Exception;
+    
+    boolean updateRepairAcceptance(int propertyRepairId, boolean repairAcceptance) throws Exception;
 
     //repair misc handling
     boolean updateRepair(int propertyRepairId, PropertyRepair newPropertyRepair);
