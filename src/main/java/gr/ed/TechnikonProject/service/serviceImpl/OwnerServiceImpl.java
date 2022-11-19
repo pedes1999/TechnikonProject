@@ -1,5 +1,6 @@
 package gr.ed.TechnikonProject.service.serviceImpl;
 
+import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.model.PropertyRepair;
 import gr.ed.TechnikonProject.repository.OwnerRepository;
@@ -44,20 +45,20 @@ public class OwnerServiceImpl implements OwnerService {
 
     }
 
-    @Override
-    public List<Property> searchByPropertyE9(int propertyE9) {
-        List<Property> propertyList = new ArrayList<>();
-        try {
-            propertyList = propertyRepository.readByPropertyE9(propertyE9);
-        } catch (Exception e) {
+     @Override
+    public Property searchByPropertyE9(int propertyE9) {
+        Property p = new Property();
+       try {
+           p = propertyRepository.readByPropertyE9(propertyE9);
+        } catch(Exception e) {
             e.printStackTrace();
         }
-        return propertyList;
-
+        return p;
+    
     }
 
     @Override
-    public List<Property> searchByVATNumber(String propertyVATOwner) {
+    public List<Property> searchByVATNumber(Owner propertyVATOwner) {
         List<Property> propertyList = new ArrayList<>();
         try {
             propertyList = propertyRepository.readByVATNumber(propertyVATOwner);

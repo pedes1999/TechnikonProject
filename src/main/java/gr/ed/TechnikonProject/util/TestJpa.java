@@ -13,6 +13,7 @@ import gr.ed.TechnikonProject.repository.repositoryImpl.PropertyRepositoryImpl;
 import gr.ed.TechnikonProject.service.OwnerService;
 import gr.ed.TechnikonProject.service.serviceImpl.OwnerServiceImpl;
 import jakarta.persistence.EntityManager;
+import java.time.LocalDate;
 
 
 public class TestJpa {
@@ -38,13 +39,20 @@ public class TestJpa {
         System.out.println(prr.read());
         // p.setPropertyOwner(o);
         // p.setPropertyOwner(o);
-        //p.setPropertyAddress("keas");
-        // p.setPropertyConstructionYear(LocalDate.of(2010, 1, 20)); 
+        o.setOwnerVat("143234");
+        ow.create(o);
+        System.out.println(o);
+        System.out.println(o.getOwnerId());
+        p.setPropertyAddress("keas");
+        p.setPropertyE9(1234567890);
+     p.setPropertyConstructionYear(LocalDate.of(2010, 1, 20)); 
         //p.setPropertyType(PropertyType.MAISONETTE);
         //p.setpropertyE9(1234567892);
-        //p.setPropertyOwner(o);
-        //os.addProperty(p);
-        
+        p.setPropertyOwner(o);
+        os.addProperty(p);
+        System.out.println("--------------------------");
+        System.out.println(pr.readByPropertyE9(p.getPropertyE9()));
+        System.out.println(os.searchByPropertyE9(p.getPropertyE9()));
         //System.out.println(pr.de);
         // System.out.println(pr.read(1));
         //System.out.println(pr.read(3));

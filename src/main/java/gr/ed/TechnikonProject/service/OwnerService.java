@@ -1,5 +1,6 @@
 package gr.ed.TechnikonProject.service;
 
+import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.model.PropertyRepair;
 import java.util.List;
@@ -13,9 +14,9 @@ public interface OwnerService {
     boolean addPropertyRepair(final PropertyRepair propertyRepair);
 
     //read 
-    List<Property> searchByPropertyE9(int propertyE9);
+    Property searchByPropertyE9(int propertyE9);
 
-    List<Property> searchByVATNumber(String propertyVATOwner);
+    List<Property> searchByVATNumber(Owner propertyVATOwner);
 
     //accept Offer
     boolean updateRepairAcceptance(int propertyRepairId, boolean repairAcceptance);

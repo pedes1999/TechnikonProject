@@ -1,6 +1,7 @@
 package gr.ed.TechnikonProject.repository.repositoryImpl;
 
 import gr.ed.TechnikonProject.enums.PropertyType;
+import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.repository.PropertyRepository;
 import jakarta.persistence.EntityManager;
@@ -86,8 +87,8 @@ public class PropertyRepositoryImpl implements PropertyRepository {
      * @return the list of properties with the same VAT number 
      */
     @Override
-    public List<Property> readByVATNumber(String PropertyVATOwner) {
-
+    public List<Property> readByVATNumber(Owner PropertyVATOwner) {
+        String ow = PropertyVATOwner.getOwnerVat();
         String findpropertyVATOwnerString = "select * from property"
                 + " inner join owner on property.propertyOwner_ownerId = owner.ownerId"
                 + " where owner.ownerVat = ?";
@@ -95,7 +96,7 @@ public class PropertyRepositoryImpl implements PropertyRepository {
         Query findpropertyVATOwnerQuery = entityManager.createNativeQuery(findpropertyVATOwnerString, Property.class);
 
         try {
-            findpropertyVATOwnerQuery.setParameter(1, PropertyVATOwner);
+            findpropertyVATOwnerQuery.setParameter(1, ow);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -106,29 +107,30 @@ public class PropertyRepositoryImpl implements PropertyRepository {
     /**
      * 
      * @param propertyE9
-     * @return 
+     * @return the property with E9 the given one
      */
     @Override
-    public List<Property> readByPropertyE9(int propertyE9) {
+    public Property readByPropertyE9(int propertyE9) {
         String findpropertyE9String = "select * from property"
                 + " where propertyE9 =?";
 
         Query findpropertyE9Query = entityManager.createNativeQuery(findpropertyE9String, Property.class);
-
+       
         try {
-            findpropertyE9Query.setParameter(1, propertyE9);
+             findpropertyE9Query.setParameter(1, propertyE9);
+             
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return findpropertyE9Query.getResultList();
-
+        
+        return (Property) findpropertyE9Query.getSingleResult();
     }
     
     /**
      * 
-     * @param id
+     * @param id of Property
      * @param propertyConstructionYear
-     * @return 
+     * @return true if the construction year is updated correctly
      */
     @Override
     public boolean updatePropertyConstructionYear(int id, LocalDate propertyConstructionYear) {
@@ -150,9 +152,9 @@ public class PropertyRepositoryImpl implements PropertyRepository {
 
     /**
      * 
-     * @param id
+     * @param id of the Property
      * @param propertyType
-     * @return 
+     * @return  true if the property type is updated correctly
      */
     @Override
     public boolean updatePropertyType(int id, PropertyType propertyType) {
@@ -173,9 +175,9 @@ public class PropertyRepositoryImpl implements PropertyRepository {
     
     /**
      * 
-     * @param id
+     * @param id of Property
      * @param propertyAddress
-     * @return 
+     * @return  true if the property's address is updated correctly
      */
     @Override
     public boolean updatePropertyAddress(int id, String propertyAddress) {

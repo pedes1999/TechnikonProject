@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface PropertyRepository extends Repository<Property> {
 
-    List<Property> readByPropertyE9(int propertyE9);
+    Property readByPropertyE9(int propertyE9);
 
-    List<Property> readByVATNumber(String propertyVATOwner);
+    List<Property> readByVATNumber(Owner propertyVATOwner);
 
     boolean updatePropertyAddress(int propertyE9, String propertyAddress);
 

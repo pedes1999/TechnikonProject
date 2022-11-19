@@ -62,19 +62,19 @@ public class AdminServiceImpl implements AdminService {
         return null;
     }
      @Override
-    public List<Property> searchByPropertyE9(int propertyE9) {
-        List<Property> propertyList = new ArrayList<>();
+    public Property searchByPropertyE9(int propertyE9) {
+        Property p = new Property();
        try {
-           propertyList = propertyRepository.readByPropertyE9(propertyE9);
+          p = propertyRepository.readByPropertyE9(propertyE9);
         } catch(Exception e) {
             e.printStackTrace();
         }
-        return propertyList;
+        return p;
     
     }
 
     @Override
-    public List<Property> searchByVATNumber(String propertyVATOwner) {
+    public List<Property> searchByVATNumber(Owner propertyVATOwner) {
        List<Property> propertyList = new ArrayList<>();
        try {
            propertyList = propertyRepository.readByVATNumber(propertyVATOwner);

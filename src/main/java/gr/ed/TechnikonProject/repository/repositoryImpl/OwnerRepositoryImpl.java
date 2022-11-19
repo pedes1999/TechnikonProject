@@ -30,7 +30,15 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 
     @Override
     public int create(Owner t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(t);
+            entityManager.getTransaction().commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return t.getOwnerId();
     }
 
     @Override
