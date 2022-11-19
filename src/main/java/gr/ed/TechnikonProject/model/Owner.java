@@ -108,4 +108,9 @@ public class Owner {
         this.ownerPwd = ownerPwd;
     }
 
+    @Override
+    public String toString() {
+        return "Owner{" + "ownerId=" + ownerId + ", ownerVat=" + ownerVat + ", ownerName=" + ownerName + ", ownerSurname=" + ownerSurname + ", ownerAddress=" + ownerAddress + ", ownerPhoneNumber=" + ownerPhoneNumber + ", ownerEmail=" + ownerEmail + ", ownerUsername=" + ownerUsername + ", ownerPwd=" + ownerPwd + ", properties=" + properties + '}';
+    }
+
 }
