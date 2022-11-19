@@ -1,4 +1,3 @@
-
 package gr.ed.TechnikonProject.repository.repositoryImpl;
 
 import gr.ed.TechnikonProject.model.PropertyRepair;
@@ -49,7 +48,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
         }
 
     }
-    
+
     /**
      *
      * @return all repairs in the database
@@ -251,6 +250,30 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
         PropertyRepair propertyRepair = read(propertyRepairId);
         try {
             propertyRepair.setRepairProposedCost(cost);
+            entityManager.getTransaction().begin();
+            entityManager.merge(propertyRepair);
+            entityManager.getTransaction().commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     *
+     * @param propertyRepairId
+     * @param repairAcceptance
+     * @return if acceptance of the repair has been updated
+     * @throws Exception
+     */
+    @Override
+    public boolean updateRepairAcceptance(int propertyRepairId, boolean repairAcceptance) throws Exception {
+        PropertyRepair propertyRepair = read(propertyRepairId);
+        try {
+            propertyRepair.setRepairAcceptance(repairAcceptance);
             entityManager.getTransaction().begin();
             entityManager.merge(propertyRepair);
             entityManager.getTransaction().commit();

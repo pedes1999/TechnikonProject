@@ -10,6 +10,8 @@ import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
 import gr.ed.TechnikonProject.repository.PropertyRepository;
 import gr.ed.TechnikonProject.service.AdminService;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +28,27 @@ public class AdminServiceImpl implements AdminService {
         this.propertyRepairRepository = propertRepairRepository;
     }
     //ADDS
+     @Override
+    public boolean addProperty(Property property) {
+        try {
+            propertyRepository.create(property);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return true;
     
+    }
+
+    @Override
+    public boolean addPropertyRepair(PropertyRepair propertyRepair) {
+       try {
+            propertyRepairRepository.create(propertyRepair);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    
+    }
     //Reads for owners
       @Override
     public Owner searchOwnerPerVat(String ownerVatNumber) {
@@ -38,6 +60,29 @@ public class AdminServiceImpl implements AdminService {
             e.printStackTrace();
         }
         return null;
+    }
+     @Override
+    public List<Property> searchByPropertyE9(int propertyE9) {
+        List<Property> propertyList = new ArrayList<>();
+       try {
+           propertyList = propertyRepository.readByPropertyE9(propertyE9);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return propertyList;
+    
+    }
+
+    @Override
+    public List<Property> searchByVATNumber(String propertyVATOwner) {
+       List<Property> propertyList = new ArrayList<>();
+       try {
+           propertyList = propertyRepository.readByVATNumber(propertyVATOwner);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return propertyList;
+    
     }
 
 
@@ -139,6 +184,17 @@ public class AdminServiceImpl implements AdminService {
         return true;
     }
     
+     @Override
+    public boolean updateRepairAcceptance(int propertyRepairId, boolean repairAcceptance) {
+       try {
+            propertyRepairRepository.updateRepairAcceptance(propertyRepairId, repairAcceptance);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    
+    }
+    
     //DELETES
 
     @Override
@@ -173,9 +229,20 @@ public class AdminServiceImpl implements AdminService {
         return true;
     }
 
+     
+
+   
+   
+
     @Override
     public Owner searchOwnerPerEmail(String ownerEmail) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       try {
+           ownerRepository.readOwnerEmail(ownerEmail);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    
     }
   
 }

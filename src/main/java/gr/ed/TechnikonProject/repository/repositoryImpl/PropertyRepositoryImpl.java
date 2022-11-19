@@ -1,7 +1,6 @@
 package gr.ed.TechnikonProject.repository.repositoryImpl;
 
 import gr.ed.TechnikonProject.enums.PropertyType;
-import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.repository.PropertyRepository;
 import jakarta.persistence.EntityManager;
@@ -9,23 +8,25 @@ import jakarta.persistence.Query;
 import java.time.LocalDate;
 import java.util.List;
 
-
-public class PropertyRepositoryImpl implements PropertyRepository{
+public class PropertyRepositoryImpl implements PropertyRepository {
 
     protected EntityManager entityManager;
 
     public PropertyRepositoryImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-  
-
+    
+    /**
+     * Creates property
+     * @param t
+     * @return the id of the property that been created
+     */
     @Override
     public int create(Property t) {
-         try {
+        try {
             entityManager.getTransaction().begin();
             entityManager.persist(t);
             entityManager.getTransaction().commit();
-            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,21 +34,35 @@ public class PropertyRepositoryImpl implements PropertyRepository{
         return t.getPropertyId();
     }
 
+    /**
+     * 
+     * @param id
+     * @return the property which has id same with the given one
+     */
     @Override
     public Property read(int id) {
-         Property p = entityManager.find(Property.class, id);
+        Property p = entityManager.find(Property.class, id);
         if (p != null) {
             return p;
         } else {
             return null;
         }
     }
-    
 
+    /**
+     * 
+     * @return the list of the properties 
+     */
     @Override
     public List<Property> read() {
         return entityManager.createQuery("from Property").getResultList();
     }
+    
+    /**
+     * Deletes a property
+     * @param id
+     * @return true if the property is deleted correctly
+     */
     @Override
     public boolean delete(int id) {
         Property p = read(id);
@@ -64,35 +79,41 @@ public class PropertyRepositoryImpl implements PropertyRepository{
         }
         return true;
     }
-
-   
-
+    
+    /**
+     * 
+     * @param PropertyVATOwner The VAT number of the owner
+     * @return the list of properties with the same VAT number 
+     */
     @Override
-
     public List<Property> readByVATNumber(String PropertyVATOwner) {
-       
+
         String findpropertyVATOwnerString = "select * from property"
-               +" inner join owner on property.propertyOwner_ownerId = owner.ownerId"
+                + " inner join owner on property.propertyOwner_ownerId = owner.ownerId"
                 + " where owner.ownerVat = ?";
-               
 
         Query findpropertyVATOwnerQuery = entityManager.createNativeQuery(findpropertyVATOwnerString, Property.class);
-        
+
         try {
             findpropertyVATOwnerQuery.setParameter(1, PropertyVATOwner);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return findpropertyVATOwnerQuery.getResultList();
-    
-    }
-    
-      @Override
-    public List<Property> readByPropertyE9(int propertyE9) {
-       String findpropertyE9String = "select * from property"
-                + "where propertyE9 = ?";
 
-        Query findpropertyE9Query = entityManager.createNativeQuery( findpropertyE9String, Property.class);
+    }
+
+    /**
+     * 
+     * @param propertyE9
+     * @return 
+     */
+    @Override
+    public List<Property> readByPropertyE9(int propertyE9) {
+        String findpropertyE9String = "select * from property"
+                + " where propertyE9 =?";
+
+        Query findpropertyE9Query = entityManager.createNativeQuery(findpropertyE9String, Property.class);
 
         try {
             findpropertyE9Query.setParameter(1, propertyE9);
@@ -100,13 +121,19 @@ public class PropertyRepositoryImpl implements PropertyRepository{
             e.printStackTrace();
         }
         return findpropertyE9Query.getResultList();
-    
+
     }
-
-
+    
+    /**
+     * 
+     * @param id
+     * @param propertyConstructionYear
+     * @return 
+     */
     @Override
-    public boolean updatePropertyConstructionYear(int propertyE9, LocalDate propertyConstructionYear) {
-        Property property = read(propertyE9);
+    public boolean updatePropertyConstructionYear(int id, LocalDate propertyConstructionYear) {
+        Property property = read(id);
+
         try {
             property.setPropertyConstructionYear(propertyConstructionYear);
             entityManager.getTransaction().begin();
@@ -120,11 +147,16 @@ public class PropertyRepositoryImpl implements PropertyRepository{
 
         return true;
     }
-    
 
+    /**
+     * 
+     * @param id
+     * @param propertyType
+     * @return 
+     */
     @Override
-    public boolean updatePropertyType(int propertyE9, PropertyType propertyType) {
-       Property property = read(propertyE9);
+    public boolean updatePropertyType(int id, PropertyType propertyType) {
+        Property property = read(id);
         try {
             property.setPropertyType(propertyType);
             entityManager.getTransaction().begin();
@@ -138,11 +170,16 @@ public class PropertyRepositoryImpl implements PropertyRepository{
 
         return true;
     }
-  
-
+    
+    /**
+     * 
+     * @param id
+     * @param propertyAddress
+     * @return 
+     */
     @Override
-    public boolean updatePropertyAddress(int propertyE9, String propertyAddress) {
-       Property property = read(propertyE9);
+    public boolean updatePropertyAddress(int id, String propertyAddress) {
+        Property property = read(id);
         try {
             property.setPropertyAddress(propertyAddress);
             entityManager.getTransaction().begin();
@@ -156,6 +193,5 @@ public class PropertyRepositoryImpl implements PropertyRepository{
 
         return true;
     }
-    
-    
+
 }

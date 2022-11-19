@@ -2,9 +2,16 @@ package gr.ed.TechnikonProject.repository.repositoryImpl;
 
 import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.repository.OwnerRepository;
+import jakarta.persistence.EntityManager;
 import java.util.List;
 
 public class OwnerRepositoryImpl implements OwnerRepository {
+    protected EntityManager entityManager;
+
+    public OwnerRepositoryImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+  
 
     @Override
     public void update(int ownerId, Owner newData) {
