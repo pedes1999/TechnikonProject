@@ -67,10 +67,10 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public List<Property> searchPropertyByVATNumber(Owner propertyVATOwner) {
+    public List<Property> searchPropertyByVATNumber(Owner propertyOwner) {
         List<Property> propertyList = new ArrayList<>();
         try {
-            propertyList = propertyRepository.readByVATNumber(propertyVATOwner);
+            propertyList = propertyRepository.readByVATNumber(propertyOwner);
         } catch (Exception e) {
             Logger.getLogger(AdminServiceImpl.class.getName())
                     .log(Level.SEVERE, null, e);
@@ -187,5 +187,25 @@ boolean propertyTypeUpdated = true;
                     .log(Level.SEVERE, null, e);
         }
         return p;
+    }
+
+    @Override
+    public List<PropertyRepair> getAllRepairs(Owner owner) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean isEmailValid(String email) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean isIdValid() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean isPwdValid() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

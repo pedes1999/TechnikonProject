@@ -1,5 +1,6 @@
 package gr.ed.TechnikonProject.repository.repositoryImpl;
 
+import gr.ed.TechnikonProject.enums.RepairStatus;
 import gr.ed.TechnikonProject.model.PropertyRepair;
 import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
 import jakarta.persistence.EntityManager;
@@ -314,4 +315,10 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
 
     }
 
+    @Override
+    public boolean updateRepairStatus(int propertyRepairId, RepairStatus repairStatus) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    
 }

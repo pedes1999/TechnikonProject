@@ -1,5 +1,8 @@
 package gr.ed.TechnikonProject;
 
+import gr.ed.TechnikonProject.enums.RepairStatus;
+import gr.ed.TechnikonProject.enums.RepairType;
+import gr.ed.TechnikonProject.model.PropertyRepair;
 import gr.ed.TechnikonProject.repository.OwnerRepository;
 import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
 import gr.ed.TechnikonProject.repository.PropertyRepository;
@@ -12,6 +15,7 @@ import gr.ed.TechnikonProject.service.serviceImpl.AdminServiceImpl;
 import gr.ed.TechnikonProject.service.serviceImpl.OwnerServiceImpl;
 import gr.ed.TechnikonProject.util.JpaUtil;
 import jakarta.persistence.EntityManager;
+import java.time.LocalDate;
 
 public class TechnikonProject {
 
@@ -53,23 +57,21 @@ public class TechnikonProject {
 //       PropertyRepair pr = new PropertyRepair();
 //       pr.setRepairSubmissionDate(LocalDate.now());
 //       pr.setRepairStatus(RepairStatus.PENDING);
-//       pr.setRepairType(RepairType.PAINTING);
-//       pr.setRepairDescription("Painting the whole house");
-//       pr.setRepairWorkToBeDone("This is a very large house and it needs to be blue");
+//       pr.setRepairType(RepairType.PLUMBING);
+//       pr.setRepairDescription("Plumbing the whole house");
+//       pr.setRepairWorkToBeDone("This is a very large house and it needs to be plumbed");
 //       pr.setRepairProperty(ownerService.searchPropertyByPropertyId(1));
 //       ownerService.addPropertyRepair(pr);
 
         //ADMIN PROPOSES DATES AND COST
-//        adminService.updatePropertyRepairProposedStartDate(adminService.searchRepairPerId(1), LocalDate.of(2022, 12, 3));
-//        adminService.updatePropertyRepairProposedEndDate(adminService.searchRepairPerId(1), LocalDate.of(2023, 3, 6));
-//        adminService.updatePropertyRepairProposedCost(adminService.searchRepairPerId(1),5000);
+//        adminService.updatePropertyRepairProposedStartDate(adminService.searchRepairPerId(2), LocalDate.of(2022, 12, 3));
+//        adminService.updatePropertyRepairProposedEndDate(adminService.searchRepairPerId(2), LocalDate.of(2023, 3, 6));
+//        adminService.updatePropertyRepairProposedCost(adminService.searchRepairPerId(2),5000);
 //        
         //CUSTOMER ACCEPTS
-//        ownerService.updateRepairAcceptance(ownerService.searchRepairPerId(1), true);
+ //      ownerService.updateRepairAcceptance(ownerService.searchRepairPerId(2), true);
         //ADMIN SETS THE ACTUAL DATES OF THE  REPAIR
-//        adminService.updatePropertyRepairActualStartDate(adminService.searchRepairPerId(1),adminService.searchRepairPerId(1).getRepairProposedStartDate());
-//        adminService.updatePropertyRepairActualEndDate(adminService.searchRepairPerId(1),adminService.searchRepairPerId(1).getRepairProposedEndDate());
-         //SETS STATUS TO IN_PROGRESS
+       // adminService.updateRepairIfAccepted(adminService.searchRepairPerId(2));
 
 
 
