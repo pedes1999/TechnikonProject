@@ -1,7 +1,6 @@
 package gr.ed.TechnikonProject.service.serviceImpl;
 
 import gr.ed.TechnikonProject.enums.RepairStatus;
-import gr.ed.TechnikonProject.enums.RepairType;
 import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.model.PropertyRepair;
@@ -16,226 +15,218 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
 
-    private final OwnerRepository ownerRepository;
-    private final PropertyRepository propertyRepository;
-    private final PropertyRepairRepository propertyRepairRepository;
-
-    public AdminServiceImpl(OwnerRepository ownerRepository, PropertyRepository propertyRepository, PropertyRepairRepository propertRepairRepository) {
-        this.ownerRepository = ownerRepository;
-        this.propertyRepository = propertyRepository;
-        this.propertyRepairRepository = propertRepairRepository;
+    public AdminServiceImpl(OwnerRepository ownerRepository, PropertyRepository propertyRepository, PropertyRepairRepository propertyRepairRepository) {
+        super(ownerRepository, propertyRepository, propertyRepairRepository);
     }
+
     //ADDS
-    
+    @Override
+    public boolean addOwner(Owner owner) {
+        try {
+            ownerRepository.create(owner);
+        } catch (Exception e) {
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.WARNING, null, e);
+            return false;
+        }
+        return true;
+    }
+
     //Reads for owners
-      @Override
+    @Override
     public Owner searchOwnerPerVat(String ownerVatNumber) {
         Optional<Owner> owner = null;
-        
+
         try {
-            //owner = ownerRepository.read(ownerVatNumber);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-    
-    //UPDATES FOR OWNER
-       
-    //UPDATES FOR PROPERTY
-    
-    // UPDATES FOR REPAIRS
-    @Override
-    public boolean updatePropertyRepairType(PropertyRepair propertyRepair, RepairType prType) {
-        try {
-            //propertyRepairRepository.updateRepairType(propertyRepair.getPropertyRepairId(), prType);
-
+            owner = ownerRepository.readOwnerVat(ownerVatNumber);
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.WARNING, null, e);
         }
-        System.out.println("Successfully updated!!");
-        return true;
+
+        if (!owner.isPresent()) {
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.WARNING, "There are no owners with the given Vat Number");
+        }
+
+        return owner.get();
     }
 
     @Override
-    public boolean updatePropertyRepairDesc(PropertyRepair propertyRepair, String prDescription) {
+    public Owner searchOwnerPerEmail(String ownerEmail) {
+        Optional<Owner> owner = null;
         try {
-            //propertyRepairRepository.updateRepairDesc(propertyRepair.getPropertyRepairId(), prDescription);
+            owner = ownerRepository.readOwnerEmail(ownerEmail);
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.WARNING, null, e);
         }
-        return true;
+
+        if (!owner.isPresent()) {
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.WARNING, "There are no owners with the given Email!");
+        }
+
+        return owner.get();
     }
 
-    @Override
-    public boolean updatePropertyRepairWorkToBeDone(PropertyRepair propertyRepair, String prWorkToBeDone) {
-        try {
-            //propertyRepairRepository.updateRepairWorkToBeDone(propertyRepair.getPropertyRepairId(), prWorkToBeDone);
-        } catch (Exception ex) {
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean updatePropertyRepairStatus(PropertyRepair propertyRepair, RepairStatus prStatus) {
-        try {
-            //propertyRepairRepository.updateRepairStatus(propertyRepair.getPropertyRepairId(), prStatus);
-        } catch (Exception ex) {
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return true;
-    }
-
+    //Updates for Repair
     @Override
     public boolean updatePropertyRepairProposedStartDate(PropertyRepair propertyRepair, LocalDate prPropStart) {
+        boolean propStartDateUpdated = true;
         try {
-            //propertyRepairRepository.updateRepairProposedStartDate(propertyRepair.getPropertyRepairId(), prPropStart);
+            propertyRepairRepository.updateRepairProposedStartDate(propertyRepair.getPropertyRepairId(), prPropStart);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return true;
+
+        if (!propStartDateUpdated) {
+
+        }
+        return propStartDateUpdated;
     }
 
     @Override
     public boolean updatePropertyRepairProposedEndDate(PropertyRepair propertyRepair, LocalDate prPropEnd) {
+        boolean propEndDateUpdated = true;
         try {
-            propertyRepairRepository.updateRepairProposedStartDate(propertyRepair.getPropertyRepairId(), prPropEnd);
+            propertyRepairRepository.updateRepairProposedEndDate(propertyRepair.getPropertyRepairId(), prPropEnd);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return true;
+
+        if (!propEndDateUpdated) {
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, "Proposed Start Date Was not updated!");
+        }
+        return propEndDateUpdated;
     }
 
     @Override
     public boolean updatePropertyRepairProposedCost(PropertyRepair propertyRepair, double prPropCost) {
+        boolean propCostUpdated = true;
         try {
-            //propertyRepairRepository.updateRepairProposedCost(propertyRepair.getPropertyRepairId(), prPropCost);
+            propertyRepairRepository.updateRepairProposedCost(propertyRepair.getPropertyRepairId(), prPropCost);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return true;
+        if (!propCostUpdated) {
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, "Proposed Cost was not updated!");
+        }
+        return propCostUpdated;
     }
 
     @Override
     public boolean updatePropertyRepairActualStartDate(PropertyRepair propertyRepair, LocalDate prActualStart) {
+        boolean propActualStartUpdated = true;
         try {
             propertyRepairRepository.updateRepairActualStartDate(propertyRepair.getPropertyRepairId(), prActualStart);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return true;
+        if (!propActualStartUpdated) {
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, "Actual Start Date was not Updated!");
+        }
+        return propActualStartUpdated;
     }
 
     @Override
     public boolean updatePropertyRepairActualEndDate(PropertyRepair propertyRepair, LocalDate prActualEnd) {
+        boolean propActualEndUpdated = true;
         try {
             propertyRepairRepository.updateRepairActualEndDate(propertyRepair.getPropertyRepairId(), prActualEnd);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return true;
+        return propActualEndUpdated;
     }
-    
-    //DELETES
 
+    //DELETES
     @Override
     public boolean deletePropertyRepair(PropertyRepair propertyRepair) {
+        boolean propertyRepairDeleted = true;
         try {
-        propertyRepairRepository.delete(propertyRepair.getPropertyRepairId());
-        } catch(Exception e) {
-            e.printStackTrace();
+            propertyRepairDeleted = propertyRepairRepository.delete(propertyRepair.getPropertyRepairId());
+        } catch (Exception e) {
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.WARNING, null, e);
         }
-        return true;
+        if (!propertyRepairDeleted) {
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.WARNING, "Somthing went Wrong with Repair Deletion!");
+        }
+        return propertyRepairDeleted;
     }
 
     @Override
     public boolean deleteProperty(Property property) {
+        boolean propertyDeleted = true;
         try {
-            //add ID to Property
-        //propertyRepository.delete(property.getPropertyId());
-        } catch(Exception e) {
-            e.printStackTrace();
+            propertyDeleted = propertyRepository.delete(property.getPropertyId());
+        } catch (Exception e) {
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.WARNING, null, e);
         }
-        return true;
+        if (!propertyDeleted) {
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.WARNING, "Somthing went Wrong with Property Deletion!");
+        }
+        return propertyDeleted;
     }
 
     @Override
     public boolean deleteOwner(Owner owner) {
+        boolean ownerDeleted = true;
         try {
-            //add owner ID
-        //ownerRepository.delete(owner.getOwnerId());
-        } catch(Exception e) {
-            e.printStackTrace();
+            ownerDeleted = ownerRepository.delete(owner.getOwnerId());
+        } catch (Exception e) {
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.WARNING, "Somthing went Wrong with Owner Deletion!");
+        }
+        return ownerDeleted;
+    }
+
+    @Override
+    public boolean updateRepairIfAccepted(PropertyRepair propertyRepair) {
+        if (propertyRepair.getRepairAcceptance()) {
+            try {
+                updatePropertyRepairActualStartDate(propertyRepair, propertyRepair.getRepairProposedStartDate());
+                updatePropertyRepairActualEndDate(propertyRepair, propertyRepair.getRepairProposedEndDate());
+                propertyRepair.setRepairStatus(RepairStatus.IN_PROGRESS);
+            } catch (Exception e) {
+                Logger.getLogger(AdminServiceImpl.class.getName())
+                        .log(Level.WARNING, "Somthing went Wrong with Repair Updates!");
+                return false;
+            }
+
         }
         return true;
     }
 
     @Override
-    public Owner searchOwnerPerEmail(String ownerEmail) {
+    public boolean isEmailValid(String email) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean addProperty(Property property) {
-        try {
-            propertyRepository.create(property);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return true;
-
+    public boolean isIdValid() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean addPropertyRepair(PropertyRepair propertyRepair) {
-        try {
-            propertyRepairRepository.create(propertyRepair);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return true;
-
-    }
-
-     @Override
-    public Property searchByPropertyId(int propertyId) {
-        Property p = new Property();
-       try {
-           p = propertyRepository.readByPropertyId(propertyId);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        return p;
-    
+    public boolean isPwdValid() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public List<Property> searchByVATNumber(Owner propertyVATOwner) {
-        List<Property> propertyList = new ArrayList<>();
-        try {
-            propertyList = propertyRepository.readByVATNumber(propertyVATOwner);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return propertyList;
-
+    public List<PropertyRepair> getAllPropertyRepairs() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean updateRepairAcceptance(int propertyRepairId, boolean repairAcceptance) {
-        try {
-            propertyRepairRepository.updateRepairAcceptance(propertyRepairId, repairAcceptance);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return true;
-
+    public boolean updateRepairIfDeclined(PropertyRepair propertyRepair) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
 }
-  
-
