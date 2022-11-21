@@ -10,14 +10,14 @@ public interface OwnerService {
     //add Repair(create)
     //add Property
     boolean addProperty(final Property property);
-
     boolean addPropertyRepair(final PropertyRepair propertyRepair);
 
     //read 
     Property searchByPropertyId(int propertyId);
-
     List<Property> searchByVATNumber(Owner propertyVATOwner);
 
+    
+    
     //accept Offer
     boolean updateRepairAcceptance(int propertyRepairId, boolean repairAcceptance);
 }
