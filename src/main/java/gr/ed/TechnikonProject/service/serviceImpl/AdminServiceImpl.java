@@ -9,7 +9,6 @@ import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
 import gr.ed.TechnikonProject.repository.PropertyRepository;
 import gr.ed.TechnikonProject.service.AdminService;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
