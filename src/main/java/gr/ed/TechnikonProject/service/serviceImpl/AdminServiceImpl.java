@@ -14,6 +14,13 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Implementation of the AdminService interface. 
+ * Same logic here as UserServiceImpl. 
+ * We check validity and then we parse the actual search to
+ * the appropriate repository.
+ * 
+ */
 public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
 
     public AdminServiceImpl(OwnerRepository ownerRepository, PropertyRepository propertyRepository, PropertyRepairRepository propertyRepairRepository) {
