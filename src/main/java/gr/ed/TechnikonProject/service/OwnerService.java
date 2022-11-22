@@ -22,9 +22,7 @@ public interface OwnerService {
 
     //Repair Searches
     
-    Property searchPropertyByPropertyId(int propertyId);
-
-    List<Property> searchPropertyByVATNumber(Owner propertyVATOwner);
+   
 
     
     List<PropertyRepair> searchRepairsByDate(final LocalDate date);
@@ -57,11 +55,11 @@ public interface OwnerService {
     //validation
     boolean isEmailValid(String email);
 
-    boolean isIdValid();
+    boolean isIdValid(int id);
 
-    boolean isPwdValid();
+    boolean isPwdValid(String password);
 
 
     //accept Offer
-    boolean updateRepairAcceptance(final PropertyRepair propertyRepair, boolean repairAcceptance);
+    
 }

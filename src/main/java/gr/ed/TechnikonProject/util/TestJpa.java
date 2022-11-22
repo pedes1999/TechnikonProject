@@ -6,6 +6,8 @@ import gr.ed.TechnikonProject.repository.PropertyRepository;
 import gr.ed.TechnikonProject.repository.repositoryImpl.OwnerRepositoryImpl;
 import gr.ed.TechnikonProject.repository.repositoryImpl.PropertyRepairRepositoryImpl;
 import gr.ed.TechnikonProject.repository.repositoryImpl.PropertyRepositoryImpl;
+import gr.ed.TechnikonProject.service.AdminService;
+import gr.ed.TechnikonProject.service.serviceImpl.AdminServiceImpl;
 import jakarta.persistence.EntityManager;
 
 public class TestJpa {
@@ -17,10 +19,14 @@ public class TestJpa {
         OwnerRepository ownerRepo = new OwnerRepositoryImpl(entityManager);
         DataImport dI = new DataImport(repairRepo, propertyRepo, ownerRepo);
         //UCOMMENT EDW MAGKES TIS 3 ENTOLES
-        dI.insertOwners();
-        dI.insertProperties();
-       dI.insertPropertyRepairs();
-
+        //dI.insertOwners();
+       // dI.insertProperties();
+      // dI.insertPropertyRepairs();
+      
+       AdminService admin = new AdminServiceImpl(ownerRepo,propertyRepo,repairRepo);
+       admin.isEmailValid("sokratis@mail.com");
+       admin.isIdValid(123);
+       admin.isPwdValid("Gg123456");
         //REPAIRS
         //System.out.println(repairRepo.readPerOwnerVAT("1234567893"));
         //System.out.println(repairRepo.readPerDate(LocalDate.of(2022,08,22)));
