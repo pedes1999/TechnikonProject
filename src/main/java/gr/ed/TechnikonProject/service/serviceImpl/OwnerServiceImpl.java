@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class OwnerServiceImpl implements OwnerService {
 
     protected final OwnerRepository ownerRepository;
@@ -43,7 +42,7 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public boolean addPropertyRepair(PropertyRepair propertyRepair) {
         try {
-           propertyRepairRepository.create(propertyRepair);
+            propertyRepairRepository.create(propertyRepair);
         } catch (Exception e) {
             Logger.getLogger(AdminServiceImpl.class.getName())
                     .log(Level.SEVERE, null, e);
@@ -53,31 +52,18 @@ public class OwnerServiceImpl implements OwnerService {
 
     }
 
-     @Override
-    public Property searchPropertyByPropertyId(int propertyId) {
-        Property p = new Property();
-       try {
-           p = propertyRepository.readByPropertyId(propertyId);
-        } catch(Exception e) {
-            Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.SEVERE, null, e);
-        }
-        return p;
-    
-    }
-
     @Override
-    public List<Property> searchPropertyByVATNumber(Owner propertyOwner) {
+    public List<Property> getAllOwnerProperties(String ownerVat) {
         List<Property> propertyList = new ArrayList<>();
         try {
-            propertyList = propertyRepository.readByVATNumber(propertyOwner);
+            propertyList = propertyRepository.readByVATNumber(ownerVat);
         } catch (Exception e) {
             Logger.getLogger(AdminServiceImpl.class.getName())
                     .log(Level.SEVERE, null, e);
         }
-        if(propertyList.isEmpty()) {
+        if (propertyList.isEmpty()) {
             Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.WARNING,"There are no Properties with the given Vat Number");
+                    .log(Level.WARNING, "There are no Properties with the given Vat Number");
         }
         return propertyList;
 
@@ -92,7 +78,7 @@ public class OwnerServiceImpl implements OwnerService {
             Logger.getLogger(AdminServiceImpl.class.getName())
                     .log(Level.SEVERE, null, e);
         }
-        
+
         if (!acceptanceUpdated) {
             Logger.getLogger(AdminServiceImpl.class.getName())
                     .log(Level.WARNING, "Repair acceptance was not Updated");
@@ -104,46 +90,44 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public List<PropertyRepair> searchRepairsByDate(LocalDate date) {
         List<PropertyRepair> propertyRepairListDate = new ArrayList<>();
-        try{
-         propertyRepairListDate = propertyRepairRepository.readPerDate(date);
-        }catch(Exception e) {
-            Logger.getLogger(OwnerServiceImpl.class.getName()).log(Level.WARNING , e.getMessage(),e);
+        try {
+            propertyRepairListDate = propertyRepairRepository.readPerDate(date);
+        } catch (Exception e) {
+            Logger.getLogger(OwnerServiceImpl.class.getName()).log(Level.WARNING, e.getMessage(), e);
         }
-        
-        
+
         if (propertyRepairListDate.isEmpty()) {
-            Logger.getLogger( AdminServiceImpl.class.getName())
-				.log( Level.INFO, null, "There are no Repairs for the Given Date");		
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.INFO, null, "There are no Repairs for the Given Date");
         }
-        return  propertyRepairListDate;
+        return propertyRepairListDate;
     }
 
     @Override
     public List<PropertyRepair> searchRepairsByDate(LocalDate startDate, LocalDate endDate) {
-         List<PropertyRepair> propertyRepairListRangeDates = new ArrayList<>();
-                 try{
-         propertyRepairListRangeDates = propertyRepairRepository.readPerRangeOfDates(startDate,endDate);
-        }catch(Exception e) {
-            Logger.getLogger(OwnerServiceImpl.class.getName()).log(Level.WARNING , e.getMessage(),e);
+        List<PropertyRepair> propertyRepairListRangeDates = new ArrayList<>();
+        try {
+            propertyRepairListRangeDates = propertyRepairRepository.readPerRangeOfDates(startDate, endDate);
+        } catch (Exception e) {
+            Logger.getLogger(OwnerServiceImpl.class.getName()).log(Level.WARNING, e.getMessage(), e);
         }
-        
-        
+
         if (propertyRepairListRangeDates.isEmpty()) {
-            Logger.getLogger( AdminServiceImpl.class.getName())
-				.log( Level.INFO, null, "There are no Repairs for the Given Date");		
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.INFO, null, "There are no Repairs for the Given Date");
         }
-        return  propertyRepairListRangeDates;
+        return propertyRepairListRangeDates;
     }
 
     @Override
     public boolean updatePropertyAddress(final Property property, String propertyAddress) {
-         boolean propertyAddressUpdated = true;
+        boolean propertyAddressUpdated = true;
         try {
-            propertyAddressUpdated = propertyRepository.updatePropertyAddress(property.getPropertyId(),propertyAddress);
+            propertyAddressUpdated = propertyRepository.updatePropertyAddress(property.getPropertyId(), propertyAddress);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(!propertyAddressUpdated){
+        if (!propertyAddressUpdated) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.WARNING, "The property Address was not updated");
         }
         return propertyAddressUpdated;
@@ -153,11 +137,11 @@ public class OwnerServiceImpl implements OwnerService {
     public boolean updatePropertyConstructionYear(final Property property, LocalDate propertyConstructionYear) {
         boolean propertyConstYearUpdated = true;
         try {
-            propertyConstYearUpdated = propertyRepository.updatePropertyConstructionYear(property.getPropertyId(),propertyConstructionYear);
+            propertyConstYearUpdated = propertyRepository.updatePropertyConstructionYear(property.getPropertyId(), propertyConstructionYear);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(!propertyConstYearUpdated){
+        if (!propertyConstYearUpdated) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.WARNING, "The property Construction Year was not updated!");
         }
         return propertyConstYearUpdated;
@@ -165,33 +149,30 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public boolean updatePropertyType(final Property property, PropertyType propertyType) {
-boolean propertyTypeUpdated = true;
+        boolean propertyTypeUpdated = true;
         try {
-            propertyTypeUpdated = propertyRepository.updatePropertyType(property.getPropertyId(),propertyType);
+            propertyTypeUpdated = propertyRepository.updatePropertyType(property.getPropertyId(), propertyType);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(!propertyTypeUpdated){
+        if (!propertyTypeUpdated) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.WARNING, "The property Construction Year was not updated!");
         }
-        return propertyTypeUpdated;    
-    }
-    
-    @Override
-    public PropertyRepair searchRepairPerId(int propertyRepairId) {
-        PropertyRepair p = new PropertyRepair();
-       try {
-           p = propertyRepairRepository.read(propertyRepairId);
-        } catch(Exception e) {
-            Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.SEVERE, null, e);
-        }
-        return p;
+        return propertyTypeUpdated;
     }
 
     @Override
-    public List<PropertyRepair> getAllRepairs(Owner owner) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<PropertyRepair> getAllOwnerRepairs(String ownerVat) {
+        List<PropertyRepair> ownerRepairs = new ArrayList<>();
+        try {
+            ownerRepairs = propertyRepairRepository.readPerOwnerVAT(ownerVat);
+        } catch(Exception e) { 
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        if(ownerRepairs.isEmpty()){
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.INFO, "There are no repairs active for this user");
+        }
+        return ownerRepairs;
     }
 
     @Override

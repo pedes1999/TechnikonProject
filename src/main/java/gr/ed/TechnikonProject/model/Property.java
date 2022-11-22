@@ -54,6 +54,11 @@ public class Property {
         this.propertyOwner = propertyOwner;
     }
 
+    public List<PropertyRepair> getPropertyRepairs() {
+        return propertyRepairs;
+    }
+
+    
     public void setPropertyRepairs(List<PropertyRepair> propertyRepairs) {
         this.propertyRepairs = propertyRepairs;
     }
@@ -76,7 +81,7 @@ public class Property {
 
     @Override
     public final String toString() {
-        return "Property{" + "propertyId=" + propertyId + ", propertyOwner=" + propertyOwner.getOwnerId() + " propertyAddress=" + propertyAddress + ", propertyConstructionYear=" + propertyConstructionYear + ", propertyType=" + propertyType + ", property Repairs= " + propertyRepairs+'}';
+        return "Property{" + "propertyId=" + propertyId + ", propertyOwner=" + propertyOwner.getOwnerId() + " propertyAddress=" + propertyAddress + ", propertyConstructionYear=" + propertyConstructionYear + ", propertyType=" + propertyType + '}';
     }
 
 }

@@ -317,7 +317,19 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
 
     @Override
     public boolean updateRepairStatus(int propertyRepairId, RepairStatus repairStatus) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PropertyRepair propertyRepair = read(propertyRepairId);
+        try {
+            propertyRepair.setRepairStatus(repairStatus);
+            entityManager.getTransaction().begin();
+            entityManager.merge(propertyRepair);
+            entityManager.getTransaction().commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 
     
