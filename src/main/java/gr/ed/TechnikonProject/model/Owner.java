@@ -17,12 +17,20 @@ public class Owner {
 
     @Column(unique = true, length = 10)
     private String ownerVat;
+    
     private String ownerName;
     private String ownerSurname;
     private String ownerAddress;
+    
+    @Column(unique = true, length = 10)
     private String ownerPhoneNumber;
+    
+    @Column(unique = true)
     private String ownerEmail;
+    
+    @Column(unique = true)
     private String ownerUsername;
+    
     private String ownerPwd;
 
     @OneToMany(mappedBy = "propertyOwner")
@@ -129,7 +137,10 @@ public class Owner {
 
     @Override
     public  final String toString() {
-        return "Owner{" + "ownerId=" + ownerId + ", ownerVat=" + ownerVat + ", ownerName=" + ownerName + ", ownerSurname=" + ownerSurname + ", ownerAddress=" + ownerAddress + ", ownerPhoneNumber=" + ownerPhoneNumber + ", ownerEmail=" + ownerEmail + ", ownerUsername=" + ownerUsername + ", ownerPwd=" + ownerPwd + ", properties=" + properties + '}';
+        return "Owner{" + "ownerId=" + ownerId + ", ownerVat=" + ownerVat + ", ownerName=" 
+                + ownerName + ", ownerSurname=" + ownerSurname + ", ownerAddress=" + ownerAddress 
+                + ", ownerPhoneNumber=" + ownerPhoneNumber + ", ownerEmail=" + ownerEmail 
+                + ", ownerUsername=" + ownerUsername + ", ownerPwd=" + ownerPwd + ", properties=" + properties + '}';
     }
  
     
