@@ -1,7 +1,5 @@
 package gr.ed.TechnikonProject.service;
 
-import gr.ed.TechnikonProject.enums.RepairStatus;
-import gr.ed.TechnikonProject.enums.RepairType;
 import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.model.PropertyRepair;
@@ -20,10 +18,10 @@ public interface AdminService extends OwnerService {
 
     Owner searchOwnerPerEmail(String ownerEmail);
 
-
     //admin report
     List<PropertyRepair> getAllPropertyRepairs();
 
+    PropertyRepair searchRepairPerId(int propertyRepairId);
     //Proposed
     boolean updatePropertyRepairProposedStartDate(PropertyRepair propertyRepair, LocalDate prPropStart);
 
