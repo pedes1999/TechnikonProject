@@ -52,11 +52,23 @@ public class OwnerServiceImpl implements OwnerService {
 
     }
 
+
     @Override
     public List<Property> getAllOwnerProperties(String ownerVat) {
         List<Property> propertyList = new ArrayList<>();
         try {
             propertyList = propertyRepository.readByVATNumber(ownerVat);
+
+
+
+    @Override
+
+    public List<Property> searchPropertyByVATNumber(Owner propertyOwner) {
+
+
+        List<Property> propertyList = new ArrayList<>();
+        try {
+            propertyList = propertyRepository.readByVATNumber(propertyOwner);
         } catch (Exception e) {
             Logger.getLogger(AdminServiceImpl.class.getName())
                     .log(Level.SEVERE, null, e);
@@ -122,6 +134,7 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public boolean updatePropertyAddress(final Property property, String propertyAddress) {
         boolean propertyAddressUpdated = true;
+
         try {
             propertyAddressUpdated = propertyRepository.updatePropertyAddress(property.getPropertyId(), propertyAddress);
         } catch (Exception ex) {
@@ -142,6 +155,7 @@ public class OwnerServiceImpl implements OwnerService {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (!propertyConstYearUpdated) {
+
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.WARNING, "The property Construction Year was not updated!");
         }
         return propertyConstYearUpdated;
@@ -150,6 +164,7 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public boolean updatePropertyType(final Property property, PropertyType propertyType) {
         boolean propertyTypeUpdated = true;
+
         try {
             propertyTypeUpdated = propertyRepository.updatePropertyType(property.getPropertyId(), propertyType);
         } catch (Exception ex) {
@@ -189,4 +204,66 @@ public class OwnerServiceImpl implements OwnerService {
     public boolean isPwdValid() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    @Override
+    public List<PropertyRepair> getAllRepairs(Owner owner) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean isEmailValid(String email) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean isIdValid() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean isPwdValid() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean updateOwnerAddress(Owner owner, String ownerAddress) {
+        boolean ownerAddressUpdated = true;
+        try {
+        } catch (Exception ex) {
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (!ownerAddressUpdated) {
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.WARNING, "The owner Address was not updated");
+        }
+        return ownerAddressUpdated;  
+    }
+
+    @Override
+    public boolean updateOwnerEmail(Owner owner, String ownerEmail) {
+        boolean ownerEmailUpdated = true;
+        try {
+            ownerEmailUpdated = ownerRepository.updateEmail(owner.getOwnerVat(), ownerEmail);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (!ownerEmailUpdated) {
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.WARNING, "The owner Email was not updated");
+        }
+        return ownerEmailUpdated;    
+    }
+
+    @Override
+    public boolean updateOwnerPwd(Owner owner, String ownerPwd) {
+        boolean ownerPwdUpdated = true;
+        try {
+            ownerPwdUpdated = ownerRepository.updatePassword(owner.getOwnerVat(), ownerPwd);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (!ownerPwdUpdated) {
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.WARNING, "The owner Password was not updated");
+        }
+        return ownerPwdUpdated;  
+    }
 }
+}
+
