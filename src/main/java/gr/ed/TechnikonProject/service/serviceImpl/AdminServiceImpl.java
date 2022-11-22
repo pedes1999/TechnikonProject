@@ -32,8 +32,7 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
     //ADDS
     @Override
     public boolean addOwner(Owner owner) {
-
-         try {
+        try {
             ownerRepository.create(owner);
         } catch (Exception e) {
             Logger.getLogger(AdminServiceImpl.class.getName())
@@ -82,19 +81,59 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
         return owner.get();
     }
 
+    
+    
+    @Override
+    public Owner searchOwnerByOwnerId(int ownerId) {
+        Owner owner = new Owner();
+        try {
+            owner = ownerRepository.read(ownerId);
+        } catch (Exception e) {
+             Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.SEVERE, null, e);
+        }
+        return owner;
+    }
+
+    
+   
+     @Override
+    public Property searchPropertyByPropertyId(int propertyId) {
+        Property p = new Property();
+       try {
+           p = propertyRepository.read(propertyId);
+        } catch(Exception e) {
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.SEVERE, null, e);
+        }
+        return p;
+    
+    }
+    
+      @Override
+    public PropertyRepair searchRepairByRepairId(int propertyRepairId) {
+        PropertyRepair p = new PropertyRepair();
+       try {
+           p = propertyRepairRepository.read(propertyRepairId);
+        } catch(Exception e) {
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.SEVERE, null, e);
+        }
+        return p;
+    }
 
     //Updates for Repair
     @Override
     public boolean updatePropertyRepairProposedStartDate(PropertyRepair propertyRepair, LocalDate prPropStart) {
         boolean propStartDateUpdated = true;
         try {
-            propertyRepairRepository.updateRepairProposedStartDate(propertyRepair.getPropertyRepairId(), prPropStart);
+            propStartDateUpdated = propertyRepairRepository.updateRepairProposedStartDate(propertyRepair.getPropertyRepairId(), prPropStart);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (!propStartDateUpdated) {
-
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.WARNING, "Proposed Start Date not Updated!");
         }
         return propStartDateUpdated;
     }
@@ -103,29 +142,26 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
     public boolean updatePropertyRepairProposedEndDate(PropertyRepair propertyRepair, LocalDate prPropEnd) {
         boolean propEndDateUpdated = true;
         try {
-            propertyRepairRepository.updateRepairProposedEndDate(propertyRepair.getPropertyRepairId(), prPropEnd);
+            propEndDateUpdated = propertyRepairRepository.updateRepairProposedEndDate(propertyRepair.getPropertyRepairId(), prPropEnd);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
         if (!propEndDateUpdated) {
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, "Proposed Start Date Was not updated
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, "Proposed End Date Was not updated!");
+        }
+
         return propEndDateUpdated;
     }
 
     @Override
     public boolean updatePropertyRepairProposedCost(PropertyRepair propertyRepair, double prPropCost) {
-
         boolean propCostUpdated = true;
-
         try {
-            propertyRepairRepository.updateRepairProposedCost(propertyRepair.getPropertyRepairId(), prPropCost);
+            propCostUpdated = propertyRepairRepository.updateRepairProposedCost(propertyRepair.getPropertyRepairId(), prPropCost);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (!propCostUpdated) {
-
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, "Proposed Cost was not updated!");
         }
         return propCostUpdated;
@@ -135,11 +171,10 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
     public boolean updatePropertyRepairActualStartDate(PropertyRepair propertyRepair, LocalDate prActualStart) {
         boolean propActualStartUpdated = true;
         try {
-            propertyRepairRepository.updateRepairActualStartDate(propertyRepair.getPropertyRepairId(), prActualStart);
+            propActualStartUpdated = propertyRepairRepository.updateRepairActualStartDate(propertyRepair.getPropertyRepairId(), prActualStart);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         if (!propActualStartUpdated) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, "Actual Start Date was not Updated!");
         }
@@ -154,7 +189,24 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if (!propActualEndUpdated) {
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, "Actual End Date was not Updated!");
+        }
         return propActualEndUpdated;
+    }
+
+    @Override
+    public boolean updatePropertyRepairStatus(PropertyRepair propertyRepair, RepairStatus repairStatus) {
+        boolean repairStatusUpdated = true;
+        try {
+            repairStatusUpdated = propertyRepairRepository.updateRepairStatus(propertyRepair.getPropertyRepairId(), repairStatus);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (!repairStatusUpdated) {
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.WARNING, "Repair Status was not Updated!");
+        }
+        return repairStatusUpdated;
     }
 
     //DELETES
@@ -203,8 +255,11 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean updateRepairIfAccepted(PropertyRepair propertyRepair) {
-        if (propertyRepair.getRepairAcceptance()) {
+    public boolean updateRepairBasedOnAcceptance(PropertyRepair propertyRepair) {
+        if (propertyRepair.getRepairAcceptance() == null) {
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.INFO, "User has not yet accepted or declined the offer!");
+        } else if (propertyRepair.getRepairAcceptance()) {
             try {
                 updatePropertyRepairActualStartDate(propertyRepair, propertyRepair.getRepairProposedStartDate());
                 updatePropertyRepairActualEndDate(propertyRepair, propertyRepair.getRepairProposedEndDate());
@@ -214,6 +269,39 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
                         .log(Level.WARNING, "Somthing went Wrong with Repair Updates!");
                 return false;
             }
+
+        } else if (!propertyRepair.getRepairAcceptance()) {
+            try {
+                updatePropertyRepairStatus(propertyRepair, RepairStatus.DECLINED);
+                updatePropertyRepairActualStartDate(propertyRepair, null);
+                updatePropertyRepairActualEndDate(propertyRepair, null);
+            } catch (Exception e) {
+                Logger.getLogger(AdminServiceImpl.class.getName())
+                        .log(Level.WARNING, "Somthing went Wrong with Repair Updates!");
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    @Override
+    public List<PropertyRepair> getAllPropertyRepairs() {
+        List<PropertyRepair> returnedList = new ArrayList<>();
+        try {
+           returnedList = propertyRepairRepository.read();
+        } catch(Exception e) {
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.WARNING, null, e);
+        }
+        if(returnedList.isEmpty()){
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.INFO,"There are noRepairs at the Moment" );
+        }
+        
+        return returnedList;
+    }
+
 
         }
         return true;
@@ -236,6 +324,17 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
 
     @Override
     public List<PropertyRepair> getAllPropertyRepairs() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+List<PropertyRepair> returnedList = new ArrayList<>();
+        try {
+           returnedList = propertyRepairRepository.read();
+        } catch(Exception e) {
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.WARNING, null, e);
+        }
+        if(returnedList.isEmpty()){
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.INFO,"There are noRepairs at the Moment" );
+        }
+        
+        return returnedList;    }
 }

@@ -16,9 +16,10 @@ public class PropertyRepositoryImpl implements PropertyRepository {
     public PropertyRepositoryImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-    
+
     /**
      * Creates property
+     *
      * @param t
      * @return the id of the property that been created
      */
@@ -36,7 +37,7 @@ public class PropertyRepositoryImpl implements PropertyRepository {
     }
 
     /**
-     * 
+     *
      * @param id
      * @return the property which has id same with the given one
      */
@@ -51,16 +52,17 @@ public class PropertyRepositoryImpl implements PropertyRepository {
     }
 
     /**
-     * 
-     * @return the list of the properties 
+     *
+     * @return the list of the properties
      */
     @Override
     public List<Property> read() {
         return entityManager.createQuery("from Property").getResultList();
     }
-    
+
     /**
      * Deletes a property
+     *
      * @param id
      * @return true if the property is deleted correctly
      */
@@ -80,15 +82,15 @@ public class PropertyRepositoryImpl implements PropertyRepository {
         }
         return true;
     }
-    
+
     /**
-     * 
+     *
      * @param PropertyVATOwner The VAT number of the owner
-     * @return the list of properties with the same VAT number 
+     * @return the list of properties with the same VAT number
      */
     @Override
-    public List<Property> readByVATNumber(Owner PropertyVATOwner) {
-        String ow = PropertyVATOwner.getOwnerVat();
+    public List<Property> readByVATNumber(String ownerVat) {
+        //String ow = PropertyVATOwner.getOwnerVat();
         String findpropertyVATOwnerString = "select * from property"
                 + " inner join owner on property.propertyOwner_ownerId = owner.ownerId"
                 + " where owner.ownerVat = ?";
@@ -96,7 +98,7 @@ public class PropertyRepositoryImpl implements PropertyRepository {
         Query findpropertyVATOwnerQuery = entityManager.createNativeQuery(findpropertyVATOwnerString, Property.class);
 
         try {
-            findpropertyVATOwnerQuery.setParameter(1, ow);
+            findpropertyVATOwnerQuery.setParameter(1, ownerVat);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,29 +107,7 @@ public class PropertyRepositoryImpl implements PropertyRepository {
     }
 
     /**
-     * 
-     * @param propertyE9
-     * @return the property with E9 the given one
-     */
-    @Override
-    public Property readByPropertyId(int propertyId) {
-        String findpropertyIdString = "select * from property"
-                + " where propertyId =?";
-
-        Query findpropertyIdQuery = entityManager.createNativeQuery(findpropertyIdString, Property.class);
-       
-        try {
-             findpropertyIdQuery.setParameter(1, propertyId);
-             
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return (Property) findpropertyIdQuery.getSingleResult();
-    }
-    
-    /**
-     * 
+     *
      * @param id of Property
      * @param propertyConstructionYear
      * @return true if the construction year is updated correctly
@@ -151,10 +131,10 @@ public class PropertyRepositoryImpl implements PropertyRepository {
     }
 
     /**
-     * 
+     *
      * @param id of the Property
      * @param propertyType
-     * @return  true if the property type is updated correctly
+     * @return true if the property type is updated correctly
      */
     @Override
     public boolean updatePropertyType(int id, PropertyType propertyType) {
@@ -172,12 +152,12 @@ public class PropertyRepositoryImpl implements PropertyRepository {
 
         return true;
     }
-    
+
     /**
-     * 
+     *
      * @param id of Property
      * @param propertyAddress
-     * @return  true if the property's address is updated correctly
+     * @return true if the property's address is updated correctly
      */
     @Override
     public boolean updatePropertyAddress(int id, String propertyAddress) {
@@ -196,5 +176,4 @@ public class PropertyRepositoryImpl implements PropertyRepository {
         return true;
     }
 
-    
 }
