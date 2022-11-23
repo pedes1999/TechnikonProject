@@ -24,7 +24,7 @@ public class Property {
     @ManyToOne
     private Owner propertyOwner;
 
-    @OneToMany(mappedBy = "repairProperty")
+    @OneToMany(mappedBy = "repairProperty",orphanRemoval=true)
     private List<PropertyRepair> propertyRepairs;
 
     private String propertyAddress;

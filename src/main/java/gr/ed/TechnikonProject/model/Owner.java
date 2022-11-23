@@ -14,18 +14,26 @@ public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ownerId;
-
-    @Column(unique = true, length = 10)
+    
+    
+    @Column(nullable=false , unique = true, length = 10)
     private String ownerVat;
+    @Column(length = 25)
     private String ownerName;
+    @Column(length = 25)
     private String ownerSurname;
+    @Column(length = 25)
     private String ownerAddress;
+    @Column(unique = true ,length = 10)
     private String ownerPhoneNumber;
+    @Column(unique = true ,length = 25)
     private String ownerEmail;
+    @Column(unique=true,length = 20)
     private String ownerUsername;
+    @Column(length = 20)
     private String ownerPwd;
 
-    @OneToMany(mappedBy = "propertyOwner")
+    @OneToMany(mappedBy = "propertyOwner",orphanRemoval=true)
     private List<Property> properties;
 
     public Owner() {

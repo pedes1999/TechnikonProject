@@ -36,27 +36,43 @@ public class TechnikonProject {
         
         
         // ADD OWNER 
-
+//
 //        Owner o = new Owner();
-//        o.setOwnerVat("1234567895");
+//        o.setOwnerVat("1234567898");
 //        o.setOwnerName("Giorgos");
 //        o.setOwnerSurname("Georgopoulos");
 //        o.setOwnerPhoneNumber("6983234567");
 //        o.setOwnerAddress("Xania");
-//        o.setOwnerEmail("periklis@gmail.com");
-//        o.setOwnerUsername("perry");
+//        o.setOwnerEmail("giorgos@gmail.com");
+//        o.setOwnerUsername("george");
 //        o.setOwnerPwd("5431232");
 //        adminService.addOwner(o);
 
-        //OWNER ADDS A NEW PROPERTY
-        
+        //OWNER TWO NEW PROPERTIES
+//        
 //       Property p = new Property();
 //       p.setPropertyAddress("Cuba");
 //       p.setPropertyConstructionYear(LocalDate.of(2010,10,19));
 //       p.setPropertyType(PropertyType.DETACHED_HOUSE);
-//       p.setPropertyOwner(adminService.searchOwnerPerEmail("periklis@gmail.com"));
+//       p.setPropertyOwner(adminService.searchOwnerPerEmail("giorgos@gmail.com"));
 //       ownerService.addProperty(p);
+//       
+//       
+//       
+//       Property p2 = new Property();
+//       p2.setPropertyAddress("Giannena");
+//       p2.setPropertyConstructionYear(LocalDate.of(2019,10,4));
+//       p2.setPropertyType(PropertyType.APPARTMENT);
+//       p2.setPropertyOwner(adminService.searchOwnerPerEmail("giorgos@gmail.com"));
+//       ownerService.addProperty(p2);
 
+
+      //ownerService.updatePropertyAddress(adminService.getAllOwnerProperties("1234567898").get(1), "Larissa");
+      //ownerService.updatePropertyConstructionYear(ownerService.getAllOwnerProperties("1234567898").get(1), LocalDate.now());
+//      ownerService.updatePropertyType(ownerService.getAllOwnerProperties("1234567898").get(1), PropertyType.MAISONETTE);
+       // adminService.deleteOwner(adminService.searchOwnerByOwnerId(3));
+       // adminService.deleteProperty(adminService.searchPropertyByPropertyId(5));
+      
         //OWNER ADD A REPAIR TO THE PROPERTY
 //       PropertyRepair pr = new PropertyRepair();
 //       pr.setRepairSubmissionDate(LocalDate.now());
@@ -64,13 +80,13 @@ public class TechnikonProject {
 //       pr.setRepairType(RepairType.PLUMBING);
 //       pr.setRepairDescription("Plumbing the whole house");
 //       pr.setRepairWorkToBeDone("This is a very large house and it needs to be plumbed");
-//       pr.setRepairProperty(adminService.searchPropertyByPropertyId(3));
+//       pr.setRepairProperty(ownerService.getAllOwnerProperties("1234567898").get(0));
 //       ownerService.addPropertyRepair(pr);
 
         //ADMIN PROPOSES DATES AND COST
 //        adminService.updatePropertyRepairProposedStartDate(adminService.searchRepairByRepairId(7), LocalDate.of(2022, 12, 3));
 //        adminService.updatePropertyRepairProposedEndDate(adminService.searchRepairByRepairId(7), LocalDate.of(2023, 3, 6));
-//        adminService.updatePropertyRepairProposedCost(adminService.searchRepairByRepairId(7),15000);
+//        adminService.updatePropertyRepairProposedCost(adminService.searchRepairByRepairId(7),100);
 //        
         //CUSTOMER ACCEPTS
      //ownerService.updateRepairAcceptance(adminService.searchRepairByRepairId(7), false);

@@ -18,8 +18,8 @@ public class TestJpa {
         DataImport dI = new DataImport(repairRepo, propertyRepo, ownerRepo);
         //UCOMMENT EDW MAGKES TIS 3 ENTOLES
         dI.insertOwners();
-        dI.insertProperties();
-       dI.insertPropertyRepairs();
+       dI.insertProperties();
+      dI.insertPropertyRepairs();
 
         //REPAIRS
         //System.out.println(repairRepo.readPerOwnerVAT("1234567893"));
