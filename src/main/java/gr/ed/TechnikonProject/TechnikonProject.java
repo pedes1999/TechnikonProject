@@ -1,5 +1,12 @@
 package gr.ed.TechnikonProject;
 
+
+import gr.ed.TechnikonProject.enums.PropertyType;
+import gr.ed.TechnikonProject.enums.RepairStatus;
+import gr.ed.TechnikonProject.enums.RepairType;
+import gr.ed.TechnikonProject.model.Owner;
+import gr.ed.TechnikonProject.model.Property;
+import gr.ed.TechnikonProject.model.PropertyRepair;
 import gr.ed.TechnikonProject.repository.OwnerRepository;
 import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
 import gr.ed.TechnikonProject.repository.PropertyRepository;
@@ -12,6 +19,7 @@ import gr.ed.TechnikonProject.service.serviceImpl.AdminServiceImpl;
 import gr.ed.TechnikonProject.service.serviceImpl.OwnerServiceImpl;
 import gr.ed.TechnikonProject.util.JpaUtil;
 import jakarta.persistence.EntityManager;
+import java.time.LocalDate;
 
 public class TechnikonProject {
 
@@ -30,82 +38,81 @@ public class TechnikonProject {
         // ADD OWNER 
 //
 //        Owner o = new Owner();
-//        o.setOwnerVat("1234567895");
+//        o.setOwnerVat("1234567898");
 //        o.setOwnerName("Giorgos");
 //        o.setOwnerSurname("Georgopoulos");
 //        o.setOwnerPhoneNumber("6983234567");
 //        o.setOwnerAddress("Xania");
-//        o.setOwnerEmail("periklis@gmail.com");
-//        o.setOwnerUsername("perry");
+//        o.setOwnerEmail("giorgos@gmail.com");
+//        o.setOwnerUsername("george");
 //        o.setOwnerPwd("5431232");
 //        adminService.addOwner(o);
 
-        //OWNER ADDS A NEW PROPERTY
-        
+        //OWNER TWO NEW PROPERTIES
+//        
 //       Property p = new Property();
 //       p.setPropertyAddress("Cuba");
 //       p.setPropertyConstructionYear(LocalDate.of(2010,10,19));
 //       p.setPropertyType(PropertyType.DETACHED_HOUSE);
-//       p.setPropertyOwner(adminService.searchOwnerPerEmail("periklis@gmail.com"));
+//       p.setPropertyOwner(adminService.searchOwnerPerEmail("giorgos@gmail.com"));
 //       ownerService.addProperty(p);
+//       
+//       
+//       
+//       Property p2 = new Property();
+//       p2.setPropertyAddress("Giannena");
+//       p2.setPropertyConstructionYear(LocalDate.of(2019,10,4));
+//       p2.setPropertyType(PropertyType.APPARTMENT);
+//       p2.setPropertyOwner(adminService.searchOwnerPerEmail("giorgos@gmail.com"));
+//       ownerService.addProperty(p2);
 
+
+      //ownerService.updatePropertyAddress(adminService.getAllOwnerProperties("1234567898").get(1), "Larissa");
+      //ownerService.updatePropertyConstructionYear(ownerService.getAllOwnerProperties("1234567898").get(1), LocalDate.now());
+//      ownerService.updatePropertyType(ownerService.getAllOwnerProperties("1234567898").get(1), PropertyType.MAISONETTE);
+       // adminService.deleteOwner(adminService.searchOwnerByOwnerId(3));
+       // adminService.deleteProperty(adminService.searchPropertyByPropertyId(5));
+      
         //OWNER ADD A REPAIR TO THE PROPERTY
 //       PropertyRepair pr = new PropertyRepair();
 //       pr.setRepairSubmissionDate(LocalDate.now());
 //       pr.setRepairStatus(RepairStatus.PENDING);
-//       pr.setRepairType(RepairType.PAINTING);
-//       pr.setRepairDescription("Painting the whole house");
-//       pr.setRepairWorkToBeDone("This is a very large house and it needs to be blue");
-//       pr.setRepairProperty(ownerService.searchPropertyByPropertyId(1));
+//       pr.setRepairType(RepairType.PLUMBING);
+//       pr.setRepairDescription("Plumbing the whole house");
+//       pr.setRepairWorkToBeDone("This is a very large house and it needs to be plumbed");
+//       pr.setRepairProperty(ownerService.getAllOwnerProperties("1234567898").get(1));
 //       ownerService.addPropertyRepair(pr);
 
         //ADMIN PROPOSES DATES AND COST
-//        adminService.updatePropertyRepairProposedStartDate(adminService.searchRepairPerId(1), LocalDate.of(2022, 12, 3));
-//        adminService.updatePropertyRepairProposedEndDate(adminService.searchRepairPerId(1), LocalDate.of(2023, 3, 6));
-//        adminService.updatePropertyRepairProposedCost(adminService.searchRepairPerId(1),5000);
+        adminService.updatePropertyRepairProposedStartDate(adminService.searchRepairByRepairId(8), LocalDate.of(2022, 12, 3));
+        adminService.updatePropertyRepairProposedEndDate(adminService.searchRepairByRepairId(8), LocalDate.of(2023, 3, 6));
+        adminService.updatePropertyRepairProposedCost(adminService.searchRepairByRepairId(8),100);
 //        
         //CUSTOMER ACCEPTS
-//        ownerService.updateRepairAcceptance(ownerService.searchRepairPerId(1), true);
+     ownerService.updateRepairAcceptance(adminService.searchRepairByRepairId(8), false);
         //ADMIN SETS THE ACTUAL DATES OF THE  REPAIR
-//        adminService.updatePropertyRepairActualStartDate(adminService.searchRepairPerId(1),adminService.searchRepairPerId(1).getRepairProposedStartDate());
-//        adminService.updatePropertyRepairActualEndDate(adminService.searchRepairPerId(1),adminService.searchRepairPerId(1).getRepairProposedEndDate());
-         //SETS STATUS TO IN_PROGRESS
+       adminService.updateRepairBasedOnAcceptance(adminService.searchRepairByRepairId(8));
+    
 
-
-
-
-// ========================================================================================================================================
-
-
-
-        //TESTS TO SEE IF PRIMARY AND FOREIGNS KEYS WORK AS THEY SHOULD
-//       PropertyRepair pr = new PropertyRepair();
-//       pr.setRepairSubmissionDate(LocalDate.now());
-//       pr.setRepairStatus(RepairStatus.PENDING);
-//       pr.setRepairType(RepairType.INSULATION);
-//       pr.setRepairDescription("Insulating the whole house");
-//       pr.setRepairWorkToBeDone("This is a very large house and it needs to be Insulated");
-//       pr.setRepairProperty(ownerService.searchPropertyByPropertyId(4));
-//       ownerService.addPropertyRepair(pr);
-
-//    Owner o = new Owner();
-//    o.setOwnerVat("1234567895");
-//    o.setOwnerName("Giorgos");
-//    o.setOwnerSurname("Georgopoulos");
-//    o.setOwnerPhoneNumber("6983234567");
-//    o.setOwnerAddress("Xania");
-//    o.setOwnerEmail("periklis@gmail.com");
-//    o.setOwnerUsername("perry");
-//    o.setOwnerPwd("5431232");
-//    adminService.addOwner(o);
-
-//       Property p = new Property();
-//       p.setPropertyAddress("Havana");
-//       p.setPropertyConstructionYear(LocalDate.of(199,10,19));
-//       p.setPropertyType(PropertyType.APPARTMENT);
-//       p.setPropertyOwner(adminService.searchOwnerPerVat("1234567895"));
-//       ownerService.addProperty(p);
-//       
-//        System.out.println(adminService.searchOwnerPerEmail("periklis@gmail.com"));
+         //Owner Reports
+        //System.out.println(ownerService.getAllOwnerRepairs("1234567893"));
+       //ownerService.getAllOwnerProperties("1234567891");
+       
+       //Owner Search Per Dates
+        //System.out.println(ownerService.searchRepairsByDate(LocalDate.of(2022,11,13)));
+        //System.out.println(ownerService.updatePropertyAddress(propertyRepo.read(2), "XAVAI"));
+      //System.out.println(ownerService.updatePropertyConstructionYear(propertyRepo.read(2), LocalDate.of(2022,12,15)));
+        //System.out.println(ownerService.updatePropertyType(propertyRepo.read(2), PropertyType.DETACHED_HOUSE));
+       //ADMIN SEARCHES BY ID 
+        //System.out.println(adminService.searchOwnerByOwnerId(1));
+        //System.out.println(adminService.searchPropertyByPropertyId(1));
+       // System.out.println(adminService.searchRepairByRepairId(1));
+//=========================================================
+        //Admin report of all the Properties
+        //System.out.println(adminService.getAllPropertyRepairs());
+        
+        
+       
+        
     }
 }

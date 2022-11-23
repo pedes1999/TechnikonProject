@@ -1,5 +1,6 @@
 package gr.ed.TechnikonProject.repository.repositoryImpl;
 
+import gr.ed.TechnikonProject.enums.RepairStatus;
 import gr.ed.TechnikonProject.model.PropertyRepair;
 import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
 import jakarta.persistence.EntityManager;
@@ -314,4 +315,22 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
 
     }
 
+    @Override
+    public boolean updateRepairStatus(int propertyRepairId, RepairStatus repairStatus) throws Exception {
+        PropertyRepair propertyRepair = read(propertyRepairId);
+        try {
+            propertyRepair.setRepairStatus(repairStatus);
+            entityManager.getTransaction().begin();
+            entityManager.merge(propertyRepair);
+            entityManager.getTransaction().commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    
 }

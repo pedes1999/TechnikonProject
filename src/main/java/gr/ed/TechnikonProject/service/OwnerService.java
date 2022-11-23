@@ -10,27 +10,16 @@ import java.util.List;
 public interface OwnerService {
 
     boolean addProperty(final Property property);
-
     boolean addPropertyRepair(final PropertyRepair propertyRepair);
 
-    Property searchPropertyByPropertyId(int propertyId);
 
-    //Owner Reports
-    List<Property> searchPropertyByVATNumber(Owner propertyOwner);
-
-    List<PropertyRepair> getAllRepairs(Owner owner);
-
-    //Repair Searches
     
-   
-
+    //Owner Reports Given their vat Number
+    List<Property> getAllOwnerProperties(String ownerVat);    
+    List<PropertyRepair> getAllOwnerRepairs(String ownerVat);
     
     List<PropertyRepair> searchRepairsByDate(final LocalDate date);
-
     List<PropertyRepair> searchRepairsByDate(final LocalDate startDate, final LocalDate endDate);
-
-    PropertyRepair searchRepairPerId(int propertyRepairId);
-
 
     //update owner info
     boolean updateOwnerAddress(final Owner owner, String ownerAddress);
@@ -41,25 +30,15 @@ public interface OwnerService {
     //update property info
 
     boolean updatePropertyAddress(final Property property, String propertyAddress);
-
     boolean updatePropertyConstructionYear(final Property property, LocalDate propertyConstructionYear);
-
     boolean updatePropertyType(final Property property, PropertyType propertyType);
-
-    
 
     //accept Offer
     boolean updateRepairAcceptance(final PropertyRepair propertyRepair, boolean repairAcceptance);
-    
 
     //validation
     boolean isEmailValid(String email);
-
     boolean isIdValid(int id);
-
     boolean isPwdValid(String password);
-
-
-    //accept Offer
     
 }
