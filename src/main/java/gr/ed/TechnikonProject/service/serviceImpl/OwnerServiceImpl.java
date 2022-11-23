@@ -51,36 +51,36 @@ public class OwnerServiceImpl implements OwnerService {
         return true;
 
     }
-
-
+    
     @Override
     public List<Property> getAllOwnerProperties(String ownerVat) {
-        List<Property> propertyList = new ArrayList<>();
+        List<Property> ownerProperties = new ArrayList<>();
         try {
-            propertyList = propertyRepository.readByVATNumber(ownerVat);
-
-
-
-    @Override
-
-    public List<Property> searchPropertyByVATNumber(Owner propertyOwner) {
-
-
-        List<Property> propertyList = new ArrayList<>();
-        try {
-            propertyList = propertyRepository.readByVATNumber(propertyOwner);
-        } catch (Exception e) {
-            Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.SEVERE, null, e);
+            ownerProperties = propertyRepository.readByVATNumber(ownerVat);
+        } catch(Exception e) { 
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, e);
         }
-        if (propertyList.isEmpty()) {
-            Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.WARNING, "There are no Properties with the given Vat Number");
+        if(ownerProperties.isEmpty()){
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.INFO, "There are no Properties active for this user");
         }
-        return propertyList;
-
+        return ownerProperties;
     }
 
+    
+    @Override
+    public List<PropertyRepair> getAllOwnerRepairs(String ownerVat) {
+        List<PropertyRepair> ownerRepairs = new ArrayList<>();
+        try {
+            ownerRepairs = propertyRepairRepository.readPerOwnerVAT(ownerVat);
+        } catch(Exception e) { 
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        if(ownerRepairs.isEmpty()){
+            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.INFO, "There are no repairs active for this user");
+        }
+        return ownerRepairs;
+    }
+    
     @Override
     public boolean updateRepairAcceptance(PropertyRepair propertyRepair, boolean repairAcceptance) {
         boolean acceptanceUpdated = true;
@@ -176,66 +176,7 @@ public class OwnerServiceImpl implements OwnerService {
         return propertyTypeUpdated;
     }
 
-    @Override
-    public List<PropertyRepair> getAllOwnerRepairs(String ownerVat) {
-        List<PropertyRepair> ownerRepairs = new ArrayList<>();
-        try {
-            ownerRepairs = propertyRepairRepository.readPerOwnerVAT(ownerVat);
-        } catch(Exception e) { 
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
-        if(ownerRepairs.isEmpty()){
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.INFO, "There are no repairs active for this user");
-        }
-        return ownerRepairs;
-    }
 
-    @Override
-    public boolean isEmailValid(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean isIdValid() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean isPwdValid() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    @Override
-    public List<PropertyRepair> getAllRepairs(Owner owner) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean isEmailValid(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean isIdValid() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean isPwdValid() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean updateOwnerAddress(Owner owner, String ownerAddress) {
-        boolean ownerAddressUpdated = true;
-        try {
-        } catch (Exception ex) {
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (!ownerAddressUpdated) {
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.WARNING, "The owner Address was not updated");
-        }
-        return ownerAddressUpdated;  
-    }
 
     @Override
     public boolean updateOwnerEmail(Owner owner, String ownerEmail) {
@@ -264,6 +205,28 @@ public class OwnerServiceImpl implements OwnerService {
         }
         return ownerPwdUpdated;  
     }
-}
+
+
+    @Override
+    public boolean updateOwnerAddress(Owner owner, String ownerAddress) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean isEmailValid(String email) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean isIdValid() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean isPwdValid() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    
 }
 

@@ -33,13 +33,9 @@ public interface OwnerService {
     boolean updatePropertyConstructionYear(final Property property, LocalDate propertyConstructionYear);
     boolean updatePropertyType(final Property property, PropertyType propertyType);
 
-
-
     //accept Offer
     boolean updateRepairAcceptance(final PropertyRepair propertyRepair, boolean repairAcceptance);
-    
 
-    
     //validation
     boolean isEmailValid(String email);
     boolean isIdValid();

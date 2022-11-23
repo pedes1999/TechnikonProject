@@ -9,6 +9,7 @@ import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
 import gr.ed.TechnikonProject.repository.PropertyRepository;
 import gr.ed.TechnikonProject.service.AdminService;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -120,6 +121,23 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
                     .log(Level.SEVERE, null, e);
         }
         return p;
+    }
+    
+     @Override
+    public List<PropertyRepair> getAllPropertyRepairs() {
+        List<PropertyRepair> returnedList = new ArrayList<>();
+        try {
+           returnedList = propertyRepairRepository.read();
+        } catch(Exception e) {
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.WARNING, null, e);
+        }
+        if(returnedList.isEmpty()){
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.INFO,"There are noRepairs at the Moment" );
+        }
+        
+        return returnedList;
     }
 
     //Updates for Repair
@@ -286,28 +304,6 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
     }
 
     @Override
-    public List<PropertyRepair> getAllPropertyRepairs() {
-        List<PropertyRepair> returnedList = new ArrayList<>();
-        try {
-           returnedList = propertyRepairRepository.read();
-        } catch(Exception e) {
-            Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.WARNING, null, e);
-        }
-        if(returnedList.isEmpty()){
-            Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.INFO,"There are noRepairs at the Moment" );
-        }
-        
-        return returnedList;
-    }
-
-
-        }
-        return true;
-    }
-
-    @Override
     public boolean isEmailValid(String email) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -321,20 +317,4 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
     public boolean isPwdValid() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    @Override
-    public List<PropertyRepair> getAllPropertyRepairs() {
-List<PropertyRepair> returnedList = new ArrayList<>();
-        try {
-           returnedList = propertyRepairRepository.read();
-        } catch(Exception e) {
-            Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.WARNING, null, e);
-        }
-        if(returnedList.isEmpty()){
-            Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.INFO,"There are noRepairs at the Moment" );
-        }
-        
-        return returnedList;    }
 }
