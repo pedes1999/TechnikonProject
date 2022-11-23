@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class OwnerServiceImpl implements OwnerService {
 
@@ -212,21 +214,38 @@ public class OwnerServiceImpl implements OwnerService {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
+     @Override
     public boolean isEmailValid(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String regex = "^(.+)@(\\S+)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        System.out.println(email + " : " + matcher.matches());
+        return true;
+
     }
 
     @Override
-    public boolean isIdValid() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean isIdValid(int id) {
+        String s = Integer.toString(id);
+        String regex = "\\d{8}"; 
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(s);
+        System.out.println(s + " : " + matcher.matches());
+        return true;
     }
-
+    
+    //Password is valid when there is at least one number, one lower case and one uppercase letter (password width : 8-20 characters)
+    
     @Override
-    public boolean isPwdValid() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean isPwdValid(String password) {
+        String regex = "^(?=.*[0-9])"
+                       + "(?=.*[a-z])(?=.*[A-Z])"
+                       + "(?=\\S+$).{8,20}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+        System.out.println(password + " : " + matcher.matches());
+        return true;
     }
-
     
 }
 

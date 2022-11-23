@@ -38,7 +38,7 @@ public interface OwnerService {
 
     //validation
     boolean isEmailValid(String email);
-    boolean isIdValid();
-    boolean isPwdValid();
+    boolean isIdValid(int id);
+    boolean isPwdValid(String password);
     
 }
