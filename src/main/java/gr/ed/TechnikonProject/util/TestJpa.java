@@ -6,6 +6,8 @@ import gr.ed.TechnikonProject.repository.PropertyRepository;
 import gr.ed.TechnikonProject.repository.repositoryImpl.OwnerRepositoryImpl;
 import gr.ed.TechnikonProject.repository.repositoryImpl.PropertyRepairRepositoryImpl;
 import gr.ed.TechnikonProject.repository.repositoryImpl.PropertyRepositoryImpl;
+import gr.ed.TechnikonProject.service.AdminService;
+import gr.ed.TechnikonProject.service.serviceImpl.AdminServiceImpl;
 import jakarta.persistence.EntityManager;
 
 public class TestJpa {
@@ -20,7 +22,6 @@ public class TestJpa {
         dI.insertOwners();
         dI.insertProperties();
         dI.insertPropertyRepairs();
-
         //REPAIRS
         //System.out.println(repairRepo.readPerOwnerVAT("1234567893"));
         //System.out.println(repairRepo.readPerDate(LocalDate.of(2022,08,22)));
