@@ -24,12 +24,16 @@ public class Owner {
     private String ownerSurname;
     @Column(length = 25)
     private String ownerAddress;
-    @Column(unique = true ,length = 10)
+    
+    @Column(unique = true, length = 10)
     private String ownerPhoneNumber;
+
     @Column(unique = true ,length = 25)
     private String ownerEmail;
+
     @Column(unique=true,length = 20)
     private String ownerUsername;
+
     @Column(length = 20)
     private String ownerPwd;
 
@@ -137,7 +141,9 @@ public class Owner {
 
     @Override
     public  final String toString() {
+
         return "Owner{" + "ownerId=" + ownerId + ", ownerVat=" + ownerVat + ", ownerName=" + ownerName + ", ownerSurname=" + ownerSurname + ", ownerAddress=" + ownerAddress + ", ownerPhoneNumber=" + ownerPhoneNumber + ", ownerEmail=" + ownerEmail + ", ownerUsername=" + ownerUsername + ", ownerPwd=" + ownerPwd +'}';
+
     }
  
     

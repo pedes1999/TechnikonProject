@@ -15,6 +15,15 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+/**
+ * Implementation of the AdminService interface. 
+ * Same logic here as UserServiceImpl. 
+ * We check validity and then we parse the actual search to
+ * the appropriate repository.
+ * 
+ */
+
 public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
 
     public AdminServiceImpl(OwnerRepository ownerRepository, PropertyRepository propertyRepository, PropertyRepairRepository propertyRepairRepository) {
@@ -62,6 +71,7 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
         } catch (Exception e) {
             Logger.getLogger(AdminServiceImpl.class.getName())
                     .log(Level.WARNING, null, e);
+
         }
 
         if (!owner.isPresent()) {
@@ -71,6 +81,7 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
 
         return owner.get();
     }
+
     
     
     @Override
@@ -111,6 +122,24 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
         }
         return p;
     }
+    
+     @Override
+    public List<PropertyRepair> getAllPropertyRepairs() {
+        List<PropertyRepair> returnedList = new ArrayList<>();
+        try {
+           returnedList = propertyRepairRepository.read();
+        } catch(Exception e) {
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.WARNING, null, e);
+        }
+        if(returnedList.isEmpty()){
+            Logger.getLogger(AdminServiceImpl.class.getName())
+                    .log(Level.INFO,"There are noRepairs at the Moment" );
+        }
+        
+        return returnedList;
+    }
+
     //Updates for Repair
     @Override
     public boolean updatePropertyRepairProposedStartDate(PropertyRepair propertyRepair, LocalDate prPropStart) {
@@ -135,10 +164,10 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         if (!propEndDateUpdated) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, "Proposed End Date Was not updated!");
         }
+
         return propEndDateUpdated;
     }
 
@@ -275,23 +304,17 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
     }
 
     @Override
-    public List<PropertyRepair> getAllPropertyRepairs() {
-        List<PropertyRepair> returnedList = new ArrayList<>();
-        try {
-           returnedList = propertyRepairRepository.read();
-        } catch(Exception e) {
-            Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.WARNING, null, e);
-        }
-        if(returnedList.isEmpty()){
-            Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.INFO,"There are noRepairs at the Moment" );
-        }
-        
-        return returnedList;
+    public boolean isEmailValid(String email) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    @Override
+    public boolean isIdValid() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
-    
-
+    @Override
+    public boolean isPwdValid() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

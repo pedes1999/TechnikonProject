@@ -80,18 +80,18 @@ public class TechnikonProject {
 //       pr.setRepairType(RepairType.PLUMBING);
 //       pr.setRepairDescription("Plumbing the whole house");
 //       pr.setRepairWorkToBeDone("This is a very large house and it needs to be plumbed");
-//       pr.setRepairProperty(ownerService.getAllOwnerProperties("1234567898").get(0));
+//       pr.setRepairProperty(ownerService.getAllOwnerProperties("1234567898").get(1));
 //       ownerService.addPropertyRepair(pr);
 
         //ADMIN PROPOSES DATES AND COST
-//        adminService.updatePropertyRepairProposedStartDate(adminService.searchRepairByRepairId(7), LocalDate.of(2022, 12, 3));
-//        adminService.updatePropertyRepairProposedEndDate(adminService.searchRepairByRepairId(7), LocalDate.of(2023, 3, 6));
-//        adminService.updatePropertyRepairProposedCost(adminService.searchRepairByRepairId(7),100);
+        adminService.updatePropertyRepairProposedStartDate(adminService.searchRepairByRepairId(8), LocalDate.of(2022, 12, 3));
+        adminService.updatePropertyRepairProposedEndDate(adminService.searchRepairByRepairId(8), LocalDate.of(2023, 3, 6));
+        adminService.updatePropertyRepairProposedCost(adminService.searchRepairByRepairId(8),100);
 //        
         //CUSTOMER ACCEPTS
-     //ownerService.updateRepairAcceptance(adminService.searchRepairByRepairId(7), false);
+     ownerService.updateRepairAcceptance(adminService.searchRepairByRepairId(8), false);
         //ADMIN SETS THE ACTUAL DATES OF THE  REPAIR
-       //adminService.updateRepairBasedOnAcceptance(adminService.searchRepairByRepairId(7));
+       adminService.updateRepairBasedOnAcceptance(adminService.searchRepairByRepairId(8));
     
 
          //Owner Reports

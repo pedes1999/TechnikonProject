@@ -35,14 +35,7 @@ public class DataImport {
         this.propertyRepository = propertyRepository;
         this.ownerRepository = ownerRepository;
     }
-
-//    private final OwnerService ownerService;
-//    private final AdminService adminService;
-//
-//    public DataImport(OwnerService ownerService, AdminService adminService) {
-//        this.ownerService = ownerService;
-//        this.adminService = adminService;
-//    }  
+    
       private static List<String[]> readFile(String filename) {
         List<String[]> lines = new ArrayList<>();
         String string;

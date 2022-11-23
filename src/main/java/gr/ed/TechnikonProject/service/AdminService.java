@@ -9,13 +9,12 @@ import java.util.List;
 
 public interface AdminService extends OwnerService {
     //add owner
-    //add property
-    //add repair
     boolean addOwner(Owner owner);
-    
+
     //read Owners
     Owner searchOwnerPerVat(String ownerVatNumber);
     Owner searchOwnerPerEmail(String ownerEmail);
+
 
     Owner searchOwnerByOwnerId(int ownerId);
     Property searchPropertyByPropertyId(int propertyId);
@@ -24,7 +23,7 @@ public interface AdminService extends OwnerService {
     //admin report
     List<PropertyRepair> getAllPropertyRepairs();
    
-    //Updates
+
     boolean updatePropertyRepairProposedStartDate(PropertyRepair propertyRepair, LocalDate prPropStart);
     boolean updatePropertyRepairProposedEndDate(PropertyRepair propertyRepair, LocalDate prPropEnd);
     boolean updatePropertyRepairProposedCost(PropertyRepair propertyRepair, double prPropCost);
@@ -37,7 +36,9 @@ public interface AdminService extends OwnerService {
     
     //delete (3)
     boolean deletePropertyRepair(PropertyRepair propertyRepair);
+
     boolean deleteProperty(Property property);
+
     boolean deleteOwner(Owner owner);
 
 }
