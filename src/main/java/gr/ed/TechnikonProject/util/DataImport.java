@@ -42,6 +42,7 @@ public class DataImport {
         List<String[]> lines = new ArrayList<>();
         String string;
         try(BufferedReader reader =  new BufferedReader(new FileReader(filename));){
+            String headerLine = reader.readLine();
             while ((string = reader.readLine()) != null) {
                 lines.add(string.split(","));
             }
