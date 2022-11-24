@@ -1,3 +1,7 @@
-1234567890,Renaldo,Veledi,Patras,6986543152,adsas@gmail.com,renaldo,123456,
-1234567891,Periklis,desyllas,Patras,698652352,adsasasd@gmail.com,perry,123456,
-1234567893,sokratis,mantzakos,Athens,6986343152,adsasss@gmail.com,sokratis,123456,
+Vat,Name,Surname,Address,Phone Number,Email,username,password,Role
+1234567891,Renaldo,Veledi,Patras,6986543152,renaldo@gmail.com,renaldo,12345ASSDDs,OWNER
+1234567892,Periklis,desyllas,Patras,6986523522,periklis@gmail.com,perry,1234ASDd,ADMIN
+1234567893,sokratis,mantzakos,Athens,6986343152,sokratis@gmail.com,sokratis,123456Asd,OWNER
+1234567894,giorgos,georgopoulos,Lamia,6987562123,giorgos@gmail.com,george,123ASSsd,OWNER
+1234567895,giannis,giannopoulos,Xania,6972314567,giannis@gmail.com,giannis,1234SAASa,OWNER
+1234567896,kostas,kostopoulos,Larissa,6976234123,kostas@gmail.com,kostas,1233asdaAsd,ADMIN

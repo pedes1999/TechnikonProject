@@ -1,7 +1,10 @@
 package gr.ed.TechnikonProject.model;
 
+import gr.ed.TechnikonProject.enums.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -39,13 +42,14 @@ public class Owner {
 
     @OneToMany(mappedBy = "propertyOwner",orphanRemoval=true)
     private List<Property> properties;
+ 
+    @Column(columnDefinition = "enum('OWNER', 'ADMIN')")
+     @Enumerated(EnumType.STRING)
+    private Role userRole;
 
-    public Owner() {
+    public Owner() {}
 
-    }
-
-    public Owner(int ownerId, String ownerVat, String ownerName, String ownerSurname, String ownerAddress, String ownerPhoneNumber, String ownerEmail, String ownerUsername, String ownerPwd, List<Property> properties) {
-        this.ownerId = ownerId;
+    public Owner(String ownerVat, String ownerName, String ownerSurname, String ownerAddress, String ownerPhoneNumber, String ownerEmail, String ownerUsername, String ownerPwd, List<Property> properties, Role isAdmin) {
         this.ownerVat = ownerVat;
         this.ownerName = ownerName;
         this.ownerSurname = ownerSurname;
@@ -55,7 +59,10 @@ public class Owner {
         this.ownerUsername = ownerUsername;
         this.ownerPwd = ownerPwd;
         this.properties = properties;
+        this.userRole = isAdmin;
     }
+    
+    
 
     public int getOwnerId() {
         return ownerId;
@@ -138,6 +145,16 @@ public class Owner {
         this.properties = properties;
 
     }
+
+    public Role getIsAdmin() {
+        return userRole;
+    }
+
+    public void setIsAdmin(Role isAdmin) {
+        this.userRole = isAdmin;
+    }
+    
+    
 
     @Override
     public  final String toString() {
