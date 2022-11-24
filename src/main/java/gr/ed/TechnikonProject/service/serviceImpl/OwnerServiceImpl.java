@@ -1,18 +1,18 @@
 package gr.ed.TechnikonProject.service.serviceImpl;
 
-import gr.ed.TechnikonProject.enums.PropertyType;
+import gr.ed.TechnikonProject.exceptions.InvalidEmailException;
+import gr.ed.TechnikonProject.exceptions.InvalidIdException;
+import gr.ed.TechnikonProject.exceptions.InvalidOwnerException;
+import gr.ed.TechnikonProject.exceptions.InvalidVatException;
 import gr.ed.TechnikonProject.model.Owner;
-import gr.ed.TechnikonProject.model.Property;
-import gr.ed.TechnikonProject.model.PropertyRepair;
 import gr.ed.TechnikonProject.repository.OwnerRepository;
 import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
 import gr.ed.TechnikonProject.repository.PropertyRepository;
 import gr.ed.TechnikonProject.service.OwnerService;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 public class OwnerServiceImpl implements OwnerService {
 
@@ -24,159 +24,116 @@ public class OwnerServiceImpl implements OwnerService {
         this.ownerRepository = ownerRepository;
         this.propertyRepository = propertyRepository;
         this.propertyRepairRepository = propertyRepairRepository;
+
     }
 
     @Override
-    public boolean addProperty(Property property) {
-        try {
-            propertyRepository.create(property);
-        } catch (Exception e) {
-            Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.SEVERE, null, e);
+    public boolean addOwner(Owner owner) {
+        if (!isOwnerValid(owner)) {
+            Logger.getLogger(OwnerServiceImpl.class.getName())
+                    .log(Level.WARNING, null, new InvalidOwnerException(
+                            "Error, invalid user value(s)! ("
+                            + owner.toString() + ")"));
             return false;
         }
-        return true;
-
-    }
-
-    @Override
-    public boolean addPropertyRepair(PropertyRepair propertyRepair) {
         try {
-            propertyRepairRepository.create(propertyRepair);
+            ownerRepository.create(owner);
         } catch (Exception e) {
-            Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.SEVERE, null, e);
+            Logger.getLogger(OwnerServiceImpl.class.getName())
+                    .log(Level.WARNING, null, e);
             return false;
         }
+
+        Logger.getLogger(OwnerServiceImpl.class.getName())
+                .log(Level.INFO, "The owner has been added successfully!");
         return true;
-
-    }
-    
-    @Override
-    public List<Property> getAllOwnerProperties(String ownerVat) {
-        List<Property> ownerProperties = new ArrayList<>();
-        try {
-            ownerProperties = propertyRepository.readByVATNumber(ownerVat);
-        } catch(Exception e) { 
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
-        if(ownerProperties.isEmpty()){
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.INFO, "There are no Properties active for this user");
-        }
-        return ownerProperties;
     }
 
-    
     @Override
-    public List<PropertyRepair> getAllOwnerRepairs(String ownerVat) {
-        List<PropertyRepair> ownerRepairs = new ArrayList<>();
-        try {
-            ownerRepairs = propertyRepairRepository.readPerOwnerVAT(ownerVat);
-        } catch(Exception e) { 
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, e);
+    public Owner searchOwnerByOwnerId(int ownerId) {
+        if (!isIdValid(ownerId)) {
+            Logger.getLogger(OwnerServiceImpl.class.getName())
+                    .log(Level.WARNING, null, new InvalidIdException(
+                            "Error, invalid Id value! ("
+                            + ownerId + ")"));
+            return null;
         }
-        if(ownerRepairs.isEmpty()){
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.INFO, "There are no repairs active for this user");
-        }
-        return ownerRepairs;
-    }
-    
-    @Override
-    public boolean updateRepairAcceptance(PropertyRepair propertyRepair, boolean repairAcceptance) {
-        boolean acceptanceUpdated = true;
+        Owner owner = new Owner();
         try {
-            acceptanceUpdated = propertyRepairRepository.updateRepairAcceptance(propertyRepair.getPropertyRepairId(), repairAcceptance);
+            owner = ownerRepository.read(ownerId);
         } catch (Exception e) {
-            Logger.getLogger(AdminServiceImpl.class.getName())
+            Logger.getLogger(OwnerServiceImpl.class.getName())
                     .log(Level.SEVERE, null, e);
         }
-
-        if (!acceptanceUpdated) {
-            Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.WARNING, "Repair acceptance was not Updated");
-        }
-        return true;
-
+        return owner;
     }
 
     @Override
-    public List<PropertyRepair> searchRepairsByDate(LocalDate date) {
-        List<PropertyRepair> propertyRepairListDate = new ArrayList<>();
+    public Owner searchOwnerPerVat(String ownerVatNumber) {
+        if (!isVatValid(ownerVatNumber)) {
+            Logger.getLogger(OwnerServiceImpl.class.getName())
+                    .log(Level.WARNING, null, new InvalidVatException(
+                            "Error, invalid Vat value! ("
+                            + ownerVatNumber + ")"));
+            return null;
+        }
+
+        Optional<Owner> owner = null;
+
         try {
-            propertyRepairListDate = propertyRepairRepository.readPerDate(date);
+            owner = ownerRepository.readOwnerVat(ownerVatNumber);
         } catch (Exception e) {
-            Logger.getLogger(OwnerServiceImpl.class.getName()).log(Level.WARNING, e.getMessage(), e);
+            Logger.getLogger(OwnerServiceImpl.class.getName())
+                    .log(Level.WARNING, null, e);
         }
 
-        if (propertyRepairListDate.isEmpty()) {
-            Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.INFO, null, "There are no Repairs for the Given Date");
+        if (!owner.isPresent()) {
+            Logger.getLogger(OwnerServiceImpl.class.getName())
+                    .log(Level.WARNING, "There are no owners with the given Vat Number");
         }
-        return propertyRepairListDate;
+
+        return owner.get();
     }
 
     @Override
-    public List<PropertyRepair> searchRepairsByDate(LocalDate startDate, LocalDate endDate) {
-        List<PropertyRepair> propertyRepairListRangeDates = new ArrayList<>();
+    public Owner searchOwnerPerEmail(String ownerEmail) {
+        if (!isEmailValid(ownerEmail)) {
+            Logger.getLogger(OwnerServiceImpl.class.getName())
+                    .log(Level.WARNING, null, new InvalidEmailException(
+                            "Error, invalid Email value! ("
+                            + ownerEmail + ")"));
+            return null;
+        }
+        Optional<Owner> owner = null;
         try {
-            propertyRepairListRangeDates = propertyRepairRepository.readPerRangeOfDates(startDate, endDate);
+            owner = ownerRepository.readOwnerEmail(ownerEmail);
         } catch (Exception e) {
-            Logger.getLogger(OwnerServiceImpl.class.getName()).log(Level.WARNING, e.getMessage(), e);
+            Logger.getLogger(OwnerServiceImpl.class.getName())
+                    .log(Level.WARNING, null, e);
+
         }
 
-        if (propertyRepairListRangeDates.isEmpty()) {
-            Logger.getLogger(AdminServiceImpl.class.getName())
-                    .log(Level.INFO, null, "There are no Repairs for the Given Date");
+        if (!owner.isPresent()) {
+            Logger.getLogger(OwnerServiceImpl.class.getName())
+                    .log(Level.WARNING, "There are no owners with the given Email!");
         }
-        return propertyRepairListRangeDates;
+
+        return owner.get();
     }
 
     @Override
-    public boolean updatePropertyAddress(final Property property, String propertyAddress) {
-        boolean propertyAddressUpdated = true;
-
+    public boolean updateOwnerAddress(Owner owner, String ownerAddress) {
+        boolean ownerAddressUpdated = true;
         try {
-            propertyAddressUpdated = propertyRepository.updatePropertyAddress(property.getPropertyId(), propertyAddress);
+            ownerAddressUpdated = ownerRepository.updateEmail(owner.getOwnerVat(), ownerAddress);
         } catch (Exception ex) {
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OwnerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (!propertyAddressUpdated) {
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.WARNING, "The property Address was not updated");
+        if (!ownerAddressUpdated) {
+            Logger.getLogger(OwnerServiceImpl.class.getName()).log(Level.WARNING, "The owner Address was not updated");
         }
-        return propertyAddressUpdated;
+        return ownerAddressUpdated;
     }
-
-    @Override
-    public boolean updatePropertyConstructionYear(final Property property, LocalDate propertyConstructionYear) {
-        boolean propertyConstYearUpdated = true;
-        try {
-            propertyConstYearUpdated = propertyRepository.updatePropertyConstructionYear(property.getPropertyId(), propertyConstructionYear);
-        } catch (Exception ex) {
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (!propertyConstYearUpdated) {
-
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.WARNING, "The property Construction Year was not updated!");
-        }
-        return propertyConstYearUpdated;
-    }
-
-    @Override
-    public boolean updatePropertyType(final Property property, PropertyType propertyType) {
-        boolean propertyTypeUpdated = true;
-
-        try {
-            propertyTypeUpdated = propertyRepository.updatePropertyType(property.getPropertyId(), propertyType);
-        } catch (Exception ex) {
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (!propertyTypeUpdated) {
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.WARNING, "The property Construction Year was not updated!");
-        }
-        return propertyTypeUpdated;
-    }
-
-
 
     @Override
     public boolean updateOwnerEmail(Owner owner, String ownerEmail) {
@@ -184,12 +141,12 @@ public class OwnerServiceImpl implements OwnerService {
         try {
             ownerEmailUpdated = ownerRepository.updateEmail(owner.getOwnerVat(), ownerEmail);
         } catch (Exception ex) {
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OwnerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (!ownerEmailUpdated) {
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.WARNING, "The owner Email was not updated");
+            Logger.getLogger(OwnerServiceImpl.class.getName()).log(Level.WARNING, "The owner Email was not updated");
         }
-        return ownerEmailUpdated;    
+        return ownerEmailUpdated;
     }
 
     @Override
@@ -198,35 +155,61 @@ public class OwnerServiceImpl implements OwnerService {
         try {
             ownerPwdUpdated = ownerRepository.updatePassword(owner.getOwnerVat(), ownerPwd);
         } catch (Exception ex) {
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OwnerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (!ownerPwdUpdated) {
-            Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.WARNING, "The owner Password was not updated");
+            Logger.getLogger(OwnerServiceImpl.class.getName()).log(Level.WARNING, "The owner Password was not updated");
         }
-        return ownerPwdUpdated;  
-    }
-
-
-    @Override
-    public boolean updateOwnerAddress(Owner owner, String ownerAddress) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return ownerPwdUpdated;
     }
 
     @Override
-    public boolean isEmailValid(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean deleteOwner(Owner owner) {
+        boolean ownerDeleted = true;
+        try {
+            ownerDeleted = ownerRepository.delete(owner.getOwnerId());
+        } catch (Exception e) {
+            Logger.getLogger(OwnerServiceImpl.class.getName())
+                    .log(Level.WARNING, "Somthing went Wrong with Owner Deletion!");
+        }
+        return ownerDeleted;
     }
 
-    @Override
-    public boolean isIdValid() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private boolean isEmailValid(String email) {
+        String regex = "^(.+)@(\\S+)$";
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(email).matches();
     }
 
-    @Override
-    public boolean isPwdValid() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private boolean isIdValid(int id) {
+        return id > 0;
     }
 
-    
+    private boolean isPwdValid(String password) {
+        String regex = "^(?=.*[0-9])"
+                + "(?=.*[a-z])(?=.*[A-Z])"
+                + "(?=\\S+$).{8,20}$";
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(password).matches();
+    }
+
+    private boolean isPhoneNumberValid(String phoneNumber) {
+        String regex = "^\\d{10}$";
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(phoneNumber).matches();
+    }
+
+    private boolean isVatValid(String vatNumber) {
+        String regex = "^\\d{10}$";
+        Pattern pattern = Pattern.compile(regex);
+
+        return pattern.matcher(vatNumber).matches();
+    }
+
+    private boolean isOwnerValid(Owner owner) {
+        return (isVatValid(owner.getOwnerVat())
+                && isEmailValid(owner.getOwnerEmail())
+                && isPwdValid(owner.getOwnerPwd())
+                && isPhoneNumberValid(owner.getOwnerPhoneNumber()));
+    }
 }
-

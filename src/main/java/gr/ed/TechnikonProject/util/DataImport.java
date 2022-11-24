@@ -1,23 +1,23 @@
 package gr.ed.TechnikonProject.util;
 
 import gr.ed.TechnikonProject.enums.PropertyType;
+import gr.ed.TechnikonProject.enums.RepairAcceptance;
 import gr.ed.TechnikonProject.enums.RepairStatus;
 import gr.ed.TechnikonProject.enums.RepairType;
+import gr.ed.TechnikonProject.enums.Role;
 import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.model.PropertyRepair;
-import gr.ed.TechnikonProject.repository.OwnerRepository;
-import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
-import gr.ed.TechnikonProject.repository.PropertyRepository;
+import gr.ed.TechnikonProject.service.OwnerService;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import static java.util.Locale.ROOT;
+import gr.ed.TechnikonProject.service.PropertyRepairService;
+import gr.ed.TechnikonProject.service.PropertyService;
 
 public class DataImport {
      
@@ -26,15 +26,17 @@ public class DataImport {
     private static final String REPAIRS_CSV = "repairs.csv";
             
             
-    private final PropertyRepairRepository propertyRepairRepository;
-    private final PropertyRepository propertyRepository;
-     private final OwnerRepository ownerRepository;
+    private OwnerService ownerService;
+    private PropertyService propertyService;
+    private PropertyRepairService propertyRepairService;
 
-    public DataImport(PropertyRepairRepository propertyRepairRepository, PropertyRepository propertyRepository, OwnerRepository ownerRepository) {
-        this.propertyRepairRepository = propertyRepairRepository;
-        this.propertyRepository = propertyRepository;
-        this.ownerRepository = ownerRepository;
+    public DataImport(OwnerService ownerService, PropertyService propertyService, PropertyRepairService propertyRepairService) {
+        this.ownerService = ownerService;
+        this.propertyService = propertyService;
+        this.propertyRepairService = propertyRepairService;
     }
+
+    
     
       private static List<String[]> readFile(String filename) {
         List<String[]> lines = new ArrayList<>();
@@ -61,20 +63,20 @@ public class DataImport {
           try {
               
               PropertyRepair pr = new PropertyRepair();
-              pr.setRepairProperty(propertyRepository.read(Integer.parseInt(repairString[0])));
+              pr.setRepairProperty(propertyService.searchPropertyByPropertyId(Integer.parseInt(repairString[0])));
               pr.setRepairType(RepairType.valueOf(repairString[1]));
               pr.setRepairDescription(repairString[2]);
               pr.setRepairSubmissionDate(LocalDate.parse(repairString[3]));
               pr.setRepairWorkToBeDone(repairString[4]);
               pr.setRepairProposedStartDate(LocalDate.parse(repairString[5]));
               pr.setRepairProposedEndDate(LocalDate.parse(repairString[6]));
-              pr.setRepairProposedCost(Double.valueOf(repairString[7]));
-              pr.setRepairAcceptance(Boolean.valueOf(repairString[8]));
+              pr.setRepairProposedCost(new BigDecimal(repairString[7].trim()));
+              pr.setRepairAcceptance(RepairAcceptance.valueOf(repairString[8]));
               pr.setRepairStatus(RepairStatus.valueOf(repairString[9]));
               pr.setRepairActualStartDate(LocalDate.parse(repairString[10]));
               pr.setRepairActualEndDate(LocalDate.parse(repairString[11]));
      
-              propertyRepairRepository.create(pr);
+              propertyRepairService.addPropertyRepair(pr);
               
               
           } catch (Exception e) {
@@ -89,10 +91,10 @@ public class DataImport {
             try {                
                 Property p = new Property();
                 p.setPropertyAddress(propertyString[0]);
-                p.setPropertyConstructionYear(LocalDate.parse(propertyString[1]));
+                p.setPropertyConstructionYear(LocalDate.parse(propertyString[1].trim()));
                 p.setPropertyType(PropertyType.valueOf(propertyString[2]));
-                p.setPropertyOwner(ownerRepository.read(Integer.parseInt(propertyString[3])));
-                propertyRepository.create(p);
+                p.setPropertyOwner(ownerService.searchOwnerByOwnerId(Integer.parseInt(propertyString[3])));
+                propertyService.addProperty(p);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -103,18 +105,18 @@ public class DataImport {
         List<String[]> ownerList = readFile("data/" + OWNERS_CSV);
         for (String[] ownerString : ownerList){
             try {
-                //String[] words =ownerString.split(",");
                 Owner o = new Owner();
-                o.setOwnerVat(ownerString[0]);
-                o.setOwnerName(ownerString[1]);
-                o.setOwnerSurname(ownerString[2]);
+                o.setOwnerVat(ownerString[0].trim());
+                o.setOwnerName(ownerString[1].trim());
+                o.setOwnerSurname(ownerString[2].trim());
                 o.setOwnerAddress(ownerString[3]);
-                o.setOwnerPhoneNumber(ownerString[4]);
-                o.setOwnerEmail(ownerString[5]);
-                o.setOwnerUsername(ownerString[6]);
+                o.setOwnerPhoneNumber(ownerString[4].trim());
+                o.setOwnerEmail(ownerString[5].trim());
+                o.setOwnerUsername(ownerString[6].trim());
                 o.setOwnerPwd(ownerString[7]);
+                o.setIsAdmin(Role.valueOf(ownerString[8]));
                 
-                ownerRepository.create(o);
+                ownerService.addOwner(o);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

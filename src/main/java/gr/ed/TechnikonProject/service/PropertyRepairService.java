@@ -1,44 +1,32 @@
+
 package gr.ed.TechnikonProject.service;
 
+import gr.ed.TechnikonProject.enums.RepairAcceptance;
 import gr.ed.TechnikonProject.enums.RepairStatus;
-import gr.ed.TechnikonProject.model.Owner;
-import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.model.PropertyRepair;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface AdminService extends OwnerService {
-    //add owner
-    boolean addOwner(Owner owner);
-
-    //read Owners
-    Owner searchOwnerPerVat(String ownerVatNumber);
-    Owner searchOwnerPerEmail(String ownerEmail);
-
-
-    Owner searchOwnerByOwnerId(int ownerId);
-    Property searchPropertyByPropertyId(int propertyId);
+public interface PropertyRepairService {
+    boolean addPropertyRepair(final PropertyRepair propertyRepair);
+    
     PropertyRepair searchRepairByRepairId(int propertyRepairId);
-                         
-    //admin report
+    
+    List<PropertyRepair> getAllOwnerRepairs(String ownerVat);
     List<PropertyRepair> getAllPropertyRepairs();
-   
-
+    
+    List<PropertyRepair> searchRepairsByDate(final LocalDate date);
+    List<PropertyRepair> searchRepairsByDate(final LocalDate startDate, final LocalDate endDate);
+    
     boolean updatePropertyRepairProposedStartDate(PropertyRepair propertyRepair, LocalDate prPropStart);
     boolean updatePropertyRepairProposedEndDate(PropertyRepair propertyRepair, LocalDate prPropEnd);
-    boolean updatePropertyRepairProposedCost(PropertyRepair propertyRepair, double prPropCost);
+    boolean updatePropertyRepairProposedCost(PropertyRepair propertyRepair, BigDecimal prPropCost);
     boolean updatePropertyRepairStatus(PropertyRepair propertyRepair , RepairStatus repairStatus);
     boolean updatePropertyRepairActualStartDate(PropertyRepair propertyRepair, LocalDate prActualStart);
     boolean updatePropertyRepairActualEndDate(PropertyRepair propertyRepair, LocalDate prActualEnd);
-    
-    //Update the repair Based on User Acceptance
     boolean updateRepairBasedOnAcceptance(PropertyRepair propertyRepair);
+    boolean updateRepairAcceptance(final PropertyRepair propertyRepair, RepairAcceptance repairAcceptance);
     
-    //delete (3)
     boolean deletePropertyRepair(PropertyRepair propertyRepair);
-
-    boolean deleteProperty(Property property);
-
-    boolean deleteOwner(Owner owner);
-
 }

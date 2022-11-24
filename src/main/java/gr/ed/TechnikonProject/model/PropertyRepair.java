@@ -1,5 +1,6 @@
 package gr.ed.TechnikonProject.model;
 
+import gr.ed.TechnikonProject.enums.RepairAcceptance;
 import gr.ed.TechnikonProject.enums.RepairStatus;
 import gr.ed.TechnikonProject.enums.RepairType;
 import jakarta.persistence.Column;
@@ -10,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -40,21 +42,21 @@ public class PropertyRepair {
     //Proposed by admin Data
     private LocalDate repairProposedStartDate;
     private LocalDate repairProposedEndDate;
-    private Double repairProposedCost;
-
-    private Boolean repairAcceptance;
+    private BigDecimal repairProposedCost;
+    
+    @Column(columnDefinition = "enum('PENDING','DECLINED','ACCEPTED')")
+    @Enumerated(EnumType.STRING)
+    private RepairAcceptance repairAcceptance;
 
     public PropertyRepair() {
     }
 
-    public void setPropertyRepairId(int propertyRepairId) {
-        this.propertyRepairId = propertyRepairId;
-    }
-    
-    
-    
     public int getPropertyRepairId() {
         return propertyRepairId;
+    }
+
+    public void setPropertyRepairId(int propertyRepairId) {
+        this.propertyRepairId = propertyRepairId;
     }
 
     public Property getRepairProperty() {
@@ -73,12 +75,28 @@ public class PropertyRepair {
         this.repairType = repairType;
     }
 
+    public RepairStatus getRepairStatus() {
+        return repairStatus;
+    }
+
+    public void setRepairStatus(RepairStatus repairStatus) {
+        this.repairStatus = repairStatus;
+    }
+
     public String getRepairDescription() {
         return repairDescription;
     }
 
     public void setRepairDescription(String repairDescription) {
         this.repairDescription = repairDescription;
+    }
+
+    public String getRepairWorkToBeDone() {
+        return repairWorkToBeDone;
+    }
+
+    public void setRepairWorkToBeDone(String repairWorkToBeDone) {
+        this.repairWorkToBeDone = repairWorkToBeDone;
     }
 
     public LocalDate getRepairSubmissionDate() {
@@ -89,12 +107,20 @@ public class PropertyRepair {
         this.repairSubmissionDate = repairSubmissionDate;
     }
 
-    public String getRepairWorkToBeDone() {
-        return repairWorkToBeDone;
+    public LocalDate getRepairActualStartDate() {
+        return repairActualStartDate;
     }
 
-    public void setRepairWorkToBeDone(String repairWorkToBeDone) {
-        this.repairWorkToBeDone = repairWorkToBeDone;
+    public void setRepairActualStartDate(LocalDate repairActualStartDate) {
+        this.repairActualStartDate = repairActualStartDate;
+    }
+
+    public LocalDate getRepairActualEndDate() {
+        return repairActualEndDate;
+    }
+
+    public void setRepairActualEndDate(LocalDate repairActualEndDate) {
+        this.repairActualEndDate = repairActualEndDate;
     }
 
     public LocalDate getRepairProposedStartDate() {
@@ -113,45 +139,23 @@ public class PropertyRepair {
         this.repairProposedEndDate = repairProposedEndDate;
     }
 
-    public Double getRepairProposedCost() {
+    public BigDecimal getRepairProposedCost() {
         return repairProposedCost;
     }
 
-    public void setRepairProposedCost(Double repairProposedCost) {
+    public void setRepairProposedCost(BigDecimal repairProposedCost) {
         this.repairProposedCost = repairProposedCost;
     }
 
-    public Boolean getRepairAcceptance() {
+    public RepairAcceptance getRepairAcceptance() {
         return repairAcceptance;
     }
 
-    public void setRepairAcceptance(Boolean repairAcceptance) {
+    public void setRepairAcceptance(RepairAcceptance repairAcceptance) {
         this.repairAcceptance = repairAcceptance;
     }
 
-    public RepairStatus getRepairStatus() {
-        return repairStatus;
-    }
 
-    public void setRepairStatus(RepairStatus repairStatus) {
-        this.repairStatus = repairStatus;
-    }
-
-    public LocalDate getRepairActualStartDate() {
-        return repairActualStartDate;
-    }
-
-    public void setRepairActualStartDate(LocalDate repairActualStartDate) {
-        this.repairActualStartDate = repairActualStartDate;
-    }
-
-    public LocalDate getRepairActualEndDate() {
-        return repairActualEndDate;
-    }
-
-    public void setRepairActualEndDate(LocalDate repairActualEndDate) {
-        this.repairActualEndDate = repairActualEndDate;
-    }
 
     @Override
     public final String toString() {

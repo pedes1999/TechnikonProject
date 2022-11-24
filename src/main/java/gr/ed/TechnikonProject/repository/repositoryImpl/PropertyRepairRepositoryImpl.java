@@ -1,10 +1,12 @@
 package gr.ed.TechnikonProject.repository.repositoryImpl;
 
+import gr.ed.TechnikonProject.enums.RepairAcceptance;
 import gr.ed.TechnikonProject.enums.RepairStatus;
 import gr.ed.TechnikonProject.model.PropertyRepair;
 import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -246,7 +248,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      * @throws Exception
      */
     @Override
-    public boolean updateRepairAcceptance(int propertyRepairId, boolean repairAcceptance) throws Exception {
+    public boolean updateRepairAcceptance(int propertyRepairId, RepairAcceptance repairAcceptance) throws Exception {
         PropertyRepair propertyRepair = read(propertyRepairId);
         try {
             propertyRepair.setRepairAcceptance(repairAcceptance);
@@ -270,7 +272,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      * @throws Exception
      */
     @Override
-    public boolean updateRepairProposedCost(int propertyRepairId, double cost) throws Exception {
+    public boolean updateRepairProposedCost(int propertyRepairId, BigDecimal cost) throws Exception {
         PropertyRepair propertyRepair = read(propertyRepairId);
         try {
             propertyRepair.setRepairProposedCost(cost);
