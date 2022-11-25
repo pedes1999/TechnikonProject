@@ -1,7 +1,7 @@
 package gr.ed.TechnikonProject.service.serviceImpl;
 
 import gr.ed.TechnikonProject.enums.PropertyType;
-import gr.ed.TechnikonProject.model.Owner;
+import gr.ed.TechnikonProject.model.User;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.model.PropertyRepair;
 import gr.ed.TechnikonProject.repository.OwnerRepository;
@@ -181,10 +181,10 @@ public class OwnerServiceImpl implements OwnerService {
 
 
     @Override
-    public boolean updateOwnerEmail(Owner owner, String ownerEmail) {
+    public boolean updateOwnerEmail(User owner, String ownerEmail) {
         boolean ownerEmailUpdated = true;
         try {
-            ownerEmailUpdated = ownerRepository.updateEmail(owner.getOwnerVat(), ownerEmail);
+            ownerEmailUpdated = ownerRepository.updateEmail(owner.getUserVat(), ownerEmail);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -195,10 +195,10 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public boolean updateOwnerPwd(Owner owner, String ownerPwd) {
+    public boolean updateOwnerPwd(User owner, String ownerPwd) {
         boolean ownerPwdUpdated = true;
         try {
-            ownerPwdUpdated = ownerRepository.updatePassword(owner.getOwnerVat(), ownerPwd);
+            ownerPwdUpdated = ownerRepository.updatePassword(owner.getUserVat(), ownerPwd);
         } catch (Exception ex) {
             Logger.getLogger(AdminServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -210,7 +210,7 @@ public class OwnerServiceImpl implements OwnerService {
 
 
     @Override
-    public boolean updateOwnerAddress(Owner owner, String ownerAddress) {
+    public boolean updateOwnerAddress(User owner, String ownerAddress) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

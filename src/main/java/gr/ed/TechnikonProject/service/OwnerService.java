@@ -1,7 +1,7 @@
 package gr.ed.TechnikonProject.service;
 
 import gr.ed.TechnikonProject.enums.PropertyType;
-import gr.ed.TechnikonProject.model.Owner;
+import gr.ed.TechnikonProject.model.User;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.model.PropertyRepair;
 import java.time.LocalDate;
@@ -22,9 +22,9 @@ public interface OwnerService {
     List<PropertyRepair> searchRepairsByDate(final LocalDate startDate, final LocalDate endDate);
 
     //update owner info
-    boolean updateOwnerAddress(final Owner owner, String ownerAddress);
-    boolean updateOwnerEmail(final Owner owner, String ownerEmail);
-    boolean updateOwnerPwd(final Owner owner, String ownerPwd);
+    boolean updateOwnerAddress(final User owner, String ownerAddress);
+    boolean updateOwnerEmail(final User owner, String ownerEmail);
+    boolean updateOwnerPwd(final User owner, String ownerPwd);
     
     //update repair info
     //update property info

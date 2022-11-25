@@ -3,7 +3,7 @@ package gr.ed.TechnikonProject.util;
 import gr.ed.TechnikonProject.enums.PropertyType;
 import gr.ed.TechnikonProject.enums.RepairStatus;
 import gr.ed.TechnikonProject.enums.RepairType;
-import gr.ed.TechnikonProject.model.Owner;
+import gr.ed.TechnikonProject.model.User;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.model.PropertyRepair;
 import gr.ed.TechnikonProject.repository.OwnerRepository;
@@ -99,13 +99,15 @@ public class DataImport {
         }
     }
     
-    public void insertOwners(){
+    public void insertUsers(){
         List<String[]> ownerList = readFile("data/" + OWNERS_CSV);
         for (String[] ownerString : ownerList){
             try {
                 //String[] words =ownerString.split(",");
-                Owner o = new Owner();
-                o.setOwnerVat(ownerString[0]);
+                User o = new User();
+               
+                if(ownerString[8].contains("false")){
+                o.setUserVat(ownerString[0]);
                 o.setOwnerName(ownerString[1]);
                 o.setOwnerSurname(ownerString[2]);
                 o.setOwnerAddress(ownerString[3]);
@@ -114,6 +116,11 @@ public class DataImport {
                 o.setOwnerUsername(ownerString[6]);
                 o.setOwnerPwd(ownerString[7]);
                 
+                }
+                else{
+                o.setIsAdmin(true);
+                o.setUserVat(ownerString[0]);
+                }
                 ownerRepository.create(o);
             } catch (Exception e) {
                 System.out.println(e.getMessage());

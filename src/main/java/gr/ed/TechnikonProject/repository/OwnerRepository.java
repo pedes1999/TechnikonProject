@@ -1,14 +1,14 @@
 package gr.ed.TechnikonProject.repository;
 
-import gr.ed.TechnikonProject.model.Owner;
+import gr.ed.TechnikonProject.model.User;
 import java.util.List;
 import java.util.Optional;
 
-public interface OwnerRepository extends Repository<Owner> {
+public interface OwnerRepository extends Repository<User> {
 
-    public Optional<Owner> readOwnerVat(String vat);
+    public Optional<User> readOwnerVat(String vat);
 
-    public Optional<Owner> readOwnerEmail(String email);
+    public Optional<User> readOwnerEmail(String email);
 
     boolean updateAddress(String vatNumber, String newAddress) throws Exception;
 

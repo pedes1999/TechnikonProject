@@ -9,7 +9,7 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 
 @Entity
-public class Owner {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,7 @@ public class Owner {
     
     
     @Column(nullable=false , unique = true, length = 10)
-    private String ownerVat;
+    private String userVat;
     @Column(length = 25)
     private String ownerName;
     @Column(length = 25)
@@ -36,17 +36,29 @@ public class Owner {
 
     @Column(length = 20)
     private String ownerPwd;
+    
+    private boolean isAdmin;
 
+
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+    
     @OneToMany(mappedBy = "propertyOwner",orphanRemoval=true)
     private List<Property> properties;
 
-    public Owner() {
+    public User() {
 
     }
 
-    public Owner(int ownerId, String ownerVat, String ownerName, String ownerSurname, String ownerAddress, String ownerPhoneNumber, String ownerEmail, String ownerUsername, String ownerPwd, List<Property> properties) {
+    public User(int ownerId, String userVat, String ownerName, String ownerSurname, String ownerAddress, String ownerPhoneNumber, String ownerEmail, String ownerUsername, String ownerPwd, List<Property> properties) {
         this.ownerId = ownerId;
-        this.ownerVat = ownerVat;
+        this.userVat = userVat;
         this.ownerName = ownerName;
         this.ownerSurname = ownerSurname;
         this.ownerAddress = ownerAddress;
@@ -65,12 +77,12 @@ public class Owner {
         this.ownerId = ownerId;
     }
 
-    public String getOwnerVat() {
-        return ownerVat;
+    public String getUserVat() {
+        return userVat;
     }
 
-    public void setOwnerVat(String ownerVat) {
-        this.ownerVat = ownerVat;
+    public void setUserVat(String userVat) {
+        this.userVat = userVat;
     }
 
     public String getOwnerName() {
@@ -142,7 +154,7 @@ public class Owner {
     @Override
     public  final String toString() {
 
-        return "Owner{" + "ownerId=" + ownerId + ", ownerVat=" + ownerVat + ", ownerName=" + ownerName + ", ownerSurname=" + ownerSurname + ", ownerAddress=" + ownerAddress + ", ownerPhoneNumber=" + ownerPhoneNumber + ", ownerEmail=" + ownerEmail + ", ownerUsername=" + ownerUsername + ", ownerPwd=" + ownerPwd +'}';
+        return "Owner{" + "ownerId=" + ownerId + ", userVat=" + userVat + ", ownerName=" + ownerName + ", ownerSurname=" + ownerSurname + ", ownerAddress=" + ownerAddress + ", ownerPhoneNumber=" + ownerPhoneNumber + ", ownerEmail=" + ownerEmail + ", ownerUsername=" + ownerUsername + ", ownerPwd=" + ownerPwd +'}';
 
     }
  

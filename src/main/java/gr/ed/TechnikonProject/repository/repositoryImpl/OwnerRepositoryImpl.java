@@ -1,6 +1,6 @@
 package gr.ed.TechnikonProject.repository.repositoryImpl;
 
-import gr.ed.TechnikonProject.model.Owner;
+import gr.ed.TechnikonProject.model.User;
 import gr.ed.TechnikonProject.repository.OwnerRepository;
 import jakarta.persistence.EntityManager;
 
@@ -19,7 +19,7 @@ public class OwnerRepositoryImpl implements OwnerRepository {
     }
     
     @Override
-    public int create(Owner t) {
+    public int create(User t) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(t);
@@ -32,22 +32,22 @@ public class OwnerRepositoryImpl implements OwnerRepository {
     }
 
     @Override
-    public Owner read(int id) {
-        return entityManager.find(Owner.class, id);
+    public User read(int id) {
+        return entityManager.find(User.class, id);
     }
 
     @Override
-    public List<Owner> read() {
-        return entityManager.createQuery("from Owner", Owner.class).getResultList();
+    public List<User> read() {
+        return entityManager.createQuery("from Owner", User.class).getResultList();
     }
 
     @Override
-    public Optional<Owner> readOwnerVat(String vat) {
+    public Optional<User> readOwnerVat(String vat) {
         String selectString = "select * from owner where ownerVat=?";
-        Query sqlQuery = entityManager.createNativeQuery(selectString, Owner.class);
+        Query sqlQuery = entityManager.createNativeQuery(selectString, User.class);
         sqlQuery.setParameter(1, vat);
         try {
-            Owner owner = (Owner) sqlQuery.getSingleResult();
+            User owner = (User) sqlQuery.getSingleResult();
             return Optional.of(owner);
         } catch (Exception NoResultException) {
             return Optional.empty();
@@ -56,12 +56,12 @@ public class OwnerRepositoryImpl implements OwnerRepository {
     }
 
     @Override
-    public Optional<Owner> readOwnerEmail(String email) {
+    public Optional<User> readOwnerEmail(String email) {
         String selectString = "select * from owner where ownerEmail=?";
-        Query sqlQuery = entityManager.createNativeQuery(selectString, Owner.class);
+        Query sqlQuery = entityManager.createNativeQuery(selectString, User.class);
         sqlQuery.setParameter(1, email);
         try {
-            Owner owner = (Owner) sqlQuery.getSingleResult();
+            User owner = (User) sqlQuery.getSingleResult();
             return Optional.of(owner);
         } catch (Exception NoResultException) {
             return Optional.empty();
@@ -70,10 +70,10 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 
     @Override
     public boolean updateAddress(String vatNumber, String newAddress) throws Exception {
-        Optional<Owner> owner = readOwnerVat(vatNumber);
+        Optional<User> owner = readOwnerVat(vatNumber);
         if (owner.isPresent()) {
             try {
-                Owner owner2 = owner.get();
+                User owner2 = owner.get();
                 owner2.setOwnerAddress(newAddress);
                 entityManager.getTransaction().begin();
                 entityManager.merge(owner2);
@@ -88,10 +88,10 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 
     @Override
     public boolean updateEmail(String vatNumber, String newEmail) throws Exception {
-        Optional<Owner> owner = readOwnerVat(vatNumber);
+        Optional<User> owner = readOwnerVat(vatNumber);
         if (owner.isPresent()) {
             try {
-                Owner owner2 = owner.get();
+                User owner2 = owner.get();
                 owner2.setOwnerEmail(newEmail);
                 entityManager.getTransaction().begin();
                 entityManager.merge(owner2);
@@ -106,10 +106,10 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 
     @Override
     public boolean updatePassword(String vatNumber, String newPassword) throws Exception {
-        Optional<Owner> owner = readOwnerVat(vatNumber);
+        Optional<User> owner = readOwnerVat(vatNumber);
         if (owner.isPresent()) {
             try {
-                Owner owner2 = owner.get();
+                User owner2 = owner.get();
                 owner2.setOwnerPwd(newPassword);
                 entityManager.getTransaction().begin();
                 entityManager.merge(owner2);
@@ -124,7 +124,7 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 
     @Override
     public boolean delete(int id) {
-        Owner persistentInstance = entityManager.find(Owner.class, id);
+        User persistentInstance = entityManager.find(User.class, id);
         if (persistentInstance != null) {
             try {
                 entityManager.getTransaction().begin();

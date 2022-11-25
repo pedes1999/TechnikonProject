@@ -1,7 +1,7 @@
 package gr.ed.TechnikonProject.service;
 
 import gr.ed.TechnikonProject.enums.RepairStatus;
-import gr.ed.TechnikonProject.model.Owner;
+import gr.ed.TechnikonProject.model.User;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.model.PropertyRepair;
 import java.time.LocalDate;
@@ -9,14 +9,14 @@ import java.util.List;
 
 public interface AdminService extends OwnerService {
     //add owner
-    boolean addOwner(Owner owner);
+    boolean addOwner(User owner);
 
     //read Owners
-    Owner searchOwnerPerVat(String ownerVatNumber);
-    Owner searchOwnerPerEmail(String ownerEmail);
+    User searchOwnerPerVat(String ownerVatNumber);
+    User searchOwnerPerEmail(String ownerEmail);
 
 
-    Owner searchOwnerByOwnerId(int ownerId);
+    User searchOwnerByOwnerId(int ownerId);
     Property searchPropertyByPropertyId(int propertyId);
     PropertyRepair searchRepairByRepairId(int propertyRepairId);
                          
@@ -39,6 +39,6 @@ public interface AdminService extends OwnerService {
 
     boolean deleteProperty(Property property);
 
-    boolean deleteOwner(Owner owner);
+    boolean deleteOwner(User owner);
 
 }

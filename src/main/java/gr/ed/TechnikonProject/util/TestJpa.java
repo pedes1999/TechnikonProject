@@ -17,7 +17,7 @@ public class TestJpa {
         OwnerRepository ownerRepo = new OwnerRepositoryImpl(entityManager);
         DataImport dI = new DataImport(repairRepo, propertyRepo, ownerRepo);
         //UCOMMENT EDW MAGKES TIS 3 ENTOLES
-        dI.insertOwners();
+        dI.insertUsers();
         dI.insertProperties();
         dI.insertPropertyRepairs();
 

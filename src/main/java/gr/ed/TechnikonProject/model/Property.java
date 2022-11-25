@@ -22,7 +22,7 @@ public class Property {
     private int propertyId;
 
     @ManyToOne
-    private Owner propertyOwner;
+    private User propertyOwner;
 
     @OneToMany(mappedBy = "repairProperty",orphanRemoval=true)
     private List<PropertyRepair> propertyRepairs;
@@ -46,11 +46,11 @@ public class Property {
         this.propertyAddress = propertyAddress;
     }
 
-    public Owner getPropertyOwner() {
+    public User getPropertyOwner() {
         return propertyOwner;
     }
 
-    public void setPropertyOwner(Owner propertyOwner) {
+    public void setPropertyOwner(User propertyOwner) {
         this.propertyOwner = propertyOwner;
     }
 

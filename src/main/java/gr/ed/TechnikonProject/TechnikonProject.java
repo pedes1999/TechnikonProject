@@ -4,7 +4,7 @@ package gr.ed.TechnikonProject;
 import gr.ed.TechnikonProject.enums.PropertyType;
 import gr.ed.TechnikonProject.enums.RepairStatus;
 import gr.ed.TechnikonProject.enums.RepairType;
-import gr.ed.TechnikonProject.model.Owner;
+import gr.ed.TechnikonProject.model.User;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.model.PropertyRepair;
 import gr.ed.TechnikonProject.repository.OwnerRepository;
@@ -37,7 +37,7 @@ public class TechnikonProject {
         
         // ADD OWNER 
 //
-//        Owner o = new Owner();
+//        User o = new User();
 //        o.setOwnerVat("1234567898");
 //        o.setOwnerName("Giorgos");
 //        o.setOwnerSurname("Georgopoulos");

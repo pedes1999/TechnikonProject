@@ -1,7 +1,7 @@
 package gr.ed.TechnikonProject.service.serviceImpl;
 
 import gr.ed.TechnikonProject.enums.RepairStatus;
-import gr.ed.TechnikonProject.model.Owner;
+import gr.ed.TechnikonProject.model.User;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.model.PropertyRepair;
 import gr.ed.TechnikonProject.repository.OwnerRepository;
@@ -34,7 +34,7 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
 
     //ADDS
     @Override
-    public boolean addOwner(Owner owner) {
+    public boolean addOwner(User owner) {
         try {
             ownerRepository.create(owner);
         } catch (Exception e) {
@@ -47,8 +47,8 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
 
     //Reads for owners
     @Override
-    public Owner searchOwnerPerVat(String ownerVatNumber) {
-        Optional<Owner> owner = null;
+    public User searchOwnerPerVat(String ownerVatNumber) {
+        Optional<User> owner = null;
 
         try {
             owner = ownerRepository.readOwnerVat(ownerVatNumber);
@@ -66,8 +66,8 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
     }
 
     @Override
-    public Owner searchOwnerPerEmail(String ownerEmail) {
-        Optional<Owner> owner = null;
+    public User searchOwnerPerEmail(String ownerEmail) {
+        Optional<User> owner = null;
         try {
             owner = ownerRepository.readOwnerEmail(ownerEmail);
         } catch (Exception e) {
@@ -87,8 +87,8 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
     
     
     @Override
-    public Owner searchOwnerByOwnerId(int ownerId) {
-        Owner owner = new Owner();
+    public User searchOwnerByOwnerId(int ownerId) {
+        User owner = new User();
         try {
             owner = ownerRepository.read(ownerId);
         } catch (Exception e) {
@@ -263,7 +263,7 @@ public class AdminServiceImpl extends OwnerServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean deleteOwner(Owner owner) {
+    public boolean deleteOwner(User owner) {
         boolean ownerDeleted = true;
         try {
             ownerDeleted = ownerRepository.delete(owner.getOwnerId());
