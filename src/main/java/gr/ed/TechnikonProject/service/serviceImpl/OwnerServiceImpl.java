@@ -1,9 +1,11 @@
 package gr.ed.TechnikonProject.service.serviceImpl;
 
+import gr.ed.TechnikonProject.enums.Role;
 import gr.ed.TechnikonProject.exceptions.InvalidEmailException;
 import gr.ed.TechnikonProject.exceptions.InvalidIdException;
 import gr.ed.TechnikonProject.exceptions.InvalidOwnerException;
 import gr.ed.TechnikonProject.exceptions.InvalidVatException;
+import gr.ed.TechnikonProject.exceptions.UnauthorizedException;
 import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.repository.OwnerRepository;
 import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
@@ -50,7 +52,7 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public Owner searchOwnerByOwnerId(int ownerId) {
+    public Owner searchOwnerByOwnerId(int ownerId) {   
         if (!isIdValid(ownerId)) {
             Logger.getLogger(OwnerServiceImpl.class.getName())
                     .log(Level.WARNING, null, new InvalidIdException(
@@ -58,14 +60,20 @@ public class OwnerServiceImpl implements OwnerService {
                             + ownerId + ")"));
             return null;
         }
-        Owner owner = new Owner();
+        Optional<Owner> owner = null;
         try {
             owner = ownerRepository.read(ownerId);
+            return owner.get();
         } catch (Exception e) {
             Logger.getLogger(OwnerServiceImpl.class.getName())
                     .log(Level.SEVERE, null, e);
         }
-        return owner;
+         if (!owner.isPresent()) {
+            Logger.getLogger(OwnerServiceImpl.class.getName())
+                    .log(Level.WARNING, "There are no owners with the given Id");
+            return null;
+        }
+        return null;
     }
 
     @Override
@@ -82,17 +90,19 @@ public class OwnerServiceImpl implements OwnerService {
 
         try {
             owner = ownerRepository.readOwnerVat(ownerVatNumber);
+            return owner.get();
         } catch (Exception e) {
             Logger.getLogger(OwnerServiceImpl.class.getName())
-                    .log(Level.WARNING, null, e);
+                    .log(Level.WARNING,null, e);
         }
 
         if (!owner.isPresent()) {
             Logger.getLogger(OwnerServiceImpl.class.getName())
                     .log(Level.WARNING, "There are no owners with the given Vat Number");
+            return null;
         }
 
-        return owner.get();
+        return null;
     }
 
     @Override
@@ -107,10 +117,11 @@ public class OwnerServiceImpl implements OwnerService {
         Optional<Owner> owner = null;
         try {
             owner = ownerRepository.readOwnerEmail(ownerEmail);
+            return owner.get();
         } catch (Exception e) {
             Logger.getLogger(OwnerServiceImpl.class.getName())
                     .log(Level.WARNING, null, e);
-
+            
         }
 
         if (!owner.isPresent()) {
@@ -118,7 +129,7 @@ public class OwnerServiceImpl implements OwnerService {
                     .log(Level.WARNING, "There are no owners with the given Email!");
         }
 
-        return owner.get();
+        return null;
     }
 
     @Override

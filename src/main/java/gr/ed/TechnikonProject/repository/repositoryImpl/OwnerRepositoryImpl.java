@@ -32,8 +32,12 @@ public class OwnerRepositoryImpl implements OwnerRepository {
     }
 
     @Override
-    public Owner read(int id) {
-        return entityManager.find(Owner.class, id);
+    public Optional<Owner> read(int id) {
+        Owner o = entityManager.find(Owner.class, id);
+        if (o != null) {
+            return Optional.of(o);
+        }
+        return Optional.empty();
     }
 
     @Override

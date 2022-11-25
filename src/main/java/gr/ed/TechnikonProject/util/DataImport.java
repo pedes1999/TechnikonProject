@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import gr.ed.TechnikonProject.service.PropertyRepairService;
 import gr.ed.TechnikonProject.service.PropertyService;
+import java.time.Month;
 
 public class DataImport {
      
@@ -69,13 +70,13 @@ public class DataImport {
               pr.setRepairDescription(repairString[2]);
               pr.setRepairSubmissionDate(LocalDate.parse(repairString[3]));
               pr.setRepairWorkToBeDone(repairString[4]);
-              pr.setRepairProposedStartDate(LocalDate.parse(repairString[5]));
-              pr.setRepairProposedEndDate(LocalDate.parse(repairString[6]));
+              pr.setRepairProposedStartDate(LocalDate.parse(repairString[6]));
+              pr.setRepairProposedEndDate(LocalDate.parse(repairString[5]));
               pr.setRepairProposedCost(new BigDecimal(repairString[7].trim()));
               pr.setRepairAcceptance(RepairAcceptance.valueOf(repairString[8]));
               pr.setRepairStatus(RepairStatus.valueOf(repairString[9]));
-              pr.setRepairActualStartDate(LocalDate.parse(repairString[10]));
-              pr.setRepairActualEndDate(LocalDate.parse(repairString[11]));
+              pr.setRepairActualStartDate(LocalDate.parse(repairString[11]));
+              pr.setRepairActualEndDate(LocalDate.parse(repairString[10]));
      
               propertyRepairService.addPropertyRepair(pr);
               
@@ -123,4 +124,5 @@ public class DataImport {
             }
         }
     }
+    
 }

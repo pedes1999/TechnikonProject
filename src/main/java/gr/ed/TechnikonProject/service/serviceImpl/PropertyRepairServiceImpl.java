@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -61,14 +62,20 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
                             + propertyRepairId + ")"));
             return null;
         }
-        PropertyRepair p = new PropertyRepair();
+        Optional<PropertyRepair> p = null;
         try {
             p = propertyRepairRepository.read(propertyRepairId);
+            return p.get();
         } catch (Exception e) {
             Logger.getLogger(PropertyRepairServiceImpl.class.getName())
                     .log(Level.SEVERE, null, e);
         }
-        return p;
+        if (!p.isPresent()) {
+            Logger.getLogger(PropertyRepairServiceImpl.class.getName())
+                    .log(Level.WARNING, "There are no properties with the given Id");
+            return null;
+        }
+        return null;
     }
 
     @Override

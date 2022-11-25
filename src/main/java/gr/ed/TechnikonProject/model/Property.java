@@ -81,7 +81,7 @@ public class Property {
 
     @Override
     public final String toString() {
-        return "Property{" + "propertyId=" + propertyId + ", propertyOwner=" + propertyOwner.getOwnerId() + " propertyAddress=" + propertyAddress + ", propertyConstructionYear=" + propertyConstructionYear + ", propertyType=" + propertyType + '}';
+        return "Property{" + "propertyId=" + propertyId + ",\n propertyOwner=" + propertyOwner.getOwnerId() + ",\n propertyAddress=" + propertyAddress + ",\n propertyConstructionYear=" + propertyConstructionYear + ",\n propertyType=" + propertyType + '}' + "\n\n";
     }
 
 }

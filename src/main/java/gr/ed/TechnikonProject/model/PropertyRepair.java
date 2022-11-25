@@ -159,7 +159,7 @@ public class PropertyRepair {
 
     @Override
     public final String toString() {
-        return "PropertyRepair{" + "propertyRepairId=" + propertyRepairId + ", repairProperty=" + repairProperty.getPropertyId() + ", repairType=" + repairType + ", repairStatus=" + repairStatus + ", repairDescription=" + repairDescription + ", repairWorkToBeDone=" + repairWorkToBeDone + ", repairSubmissionDate=" + repairSubmissionDate + ", repairActualStartDate=" + repairActualStartDate + ", repairActualEndDate=" + repairActualEndDate + ", repairProposedStartDate=" + repairProposedStartDate + ", repairProposedEndDate=" + repairProposedEndDate + ", repairProposedCost=" + repairProposedCost + ", repairAcceptance=" + repairAcceptance + '}';
+        return "PropertyRepair{" + "propertyRepairId=" + propertyRepairId + ",\n repairProperty=" + repairProperty.getPropertyId() + ",\n repairType=" + repairType + ",\n repairStatus=" + repairStatus + ",\n repairDescription=" + repairDescription + ",\n repairWorkToBeDone=" + repairWorkToBeDone + ",\n repairSubmissionDate=" + repairSubmissionDate + ",\n repairActualStartDate=" + repairActualStartDate + ",\n repairActualEndDate=" + repairActualEndDate + ",\n repairProposedStartDate=" + repairProposedStartDate + ",\n repairProposedEndDate=" + repairProposedEndDate + ",\n repairProposedCost=" + repairProposedCost + ",\n repairAcceptance=" + repairAcceptance + '}' + "\n";
     }
     
     

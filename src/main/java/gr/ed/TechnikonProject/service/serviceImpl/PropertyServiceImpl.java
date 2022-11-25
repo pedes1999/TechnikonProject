@@ -12,6 +12,7 @@ import gr.ed.TechnikonProject.service.PropertyService;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -61,15 +62,19 @@ public class PropertyServiceImpl implements PropertyService {
                             + propertyId + ")"));
             return null;
         }
-        Property p = new Property();
+        Optional<Property> p = null;
         try {
             p = propertyRepository.read(propertyId);
+            return p.get();
         } catch (Exception e) {
             Logger.getLogger(PropertyServiceImpl.class.getName())
                     .log(Level.SEVERE, null, e);
         }
-        return p;
-
+        if (!p.isPresent()) {
+            Logger.getLogger(PropertyServiceImpl.class.getName()).log(Level.INFO, "Error,There are no properties with this id" );
+            return null;
+        }
+        return null;
     }
 
     @Override
