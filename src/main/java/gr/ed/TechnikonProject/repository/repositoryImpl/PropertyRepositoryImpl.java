@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public class PropertyRepositoryImpl implements PropertyRepository {
 
@@ -42,12 +43,12 @@ public class PropertyRepositoryImpl implements PropertyRepository {
      * @return the property which has id same with the given one
      */
     @Override
-    public Property read(int id) {
+    public Optional<Property> read(int id) {
         Property p = entityManager.find(Property.class, id);
         if (p != null) {
-            return p;
+            return Optional.of(p);
         } else {
-            return null;
+            return Optional.empty();
         }
     }
 
@@ -68,7 +69,7 @@ public class PropertyRepositoryImpl implements PropertyRepository {
      */
     @Override
     public boolean delete(int id) {
-        Property p = read(id);
+        Optional<Property> p = read(id);
         if (p != null) {
             try {
                 entityManager.getTransaction().begin();
@@ -114,20 +115,23 @@ public class PropertyRepositoryImpl implements PropertyRepository {
      */
     @Override
     public boolean updatePropertyConstructionYear(int id, LocalDate propertyConstructionYear) {
-        Property property = read(id);
+        Optional<Property> property = read(id);
+        if (property.isPresent()) {
+            try {
+                Property property2 = property.get();
+                property2.setPropertyConstructionYear(propertyConstructionYear);
+                entityManager.getTransaction().begin();
+                entityManager.merge(property2);
+                entityManager.getTransaction().commit();
 
-        try {
-            property.setPropertyConstructionYear(propertyConstructionYear);
-            entityManager.getTransaction().begin();
-            entityManager.merge(property);
-            entityManager.getTransaction().commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            return true;
         }
-
-        return true;
+        return false;
     }
 
     /**
@@ -138,19 +142,23 @@ public class PropertyRepositoryImpl implements PropertyRepository {
      */
     @Override
     public boolean updatePropertyType(int id, PropertyType propertyType) {
-        Property property = read(id);
-        try {
-            property.setPropertyType(propertyType);
-            entityManager.getTransaction().begin();
-            entityManager.merge(property);
-            entityManager.getTransaction().commit();
+        Optional<Property> property = read(id);
+        if (property.isPresent()) {
+            try {
+                Property property2 = property.get();
+                property2.setPropertyType(propertyType);
+                entityManager.getTransaction().begin();
+                entityManager.merge(property2);
+                entityManager.getTransaction().commit();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return true;
         }
-
-        return true;
+        return false;
     }
 
     /**
@@ -160,20 +168,25 @@ public class PropertyRepositoryImpl implements PropertyRepository {
      * @return true if the property's address is updated correctly
      */
     @Override
-    public boolean updatePropertyAddress(int id, String propertyAddress) {
-        Property property = read(id);
-        try {
-            property.setPropertyAddress(propertyAddress);
-            entityManager.getTransaction().begin();
-            entityManager.merge(property);
-            entityManager.getTransaction().commit();
+    public boolean updatePropertyAddress(int id, String propertyAddress
+    ) {
+        Optional<Property> property = read(id);
+        if (property.isPresent()) {
+            try {
+                Property property2 = property.get();
+                property2.setPropertyAddress(propertyAddress);
+                entityManager.getTransaction().begin();
+                entityManager.merge(property2);
+                entityManager.getTransaction().commit();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return true;
         }
-
-        return true;
+        return false;
     }
 
 }

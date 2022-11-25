@@ -9,6 +9,7 @@ import jakarta.persistence.Query;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
 
@@ -42,12 +43,12 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      * @return repair record from given id
      */
     @Override
-    public PropertyRepair read(int id) {
+    public Optional<PropertyRepair> read(int id) {
         PropertyRepair pr = entityManager.find(PropertyRepair.class, id);
         if (pr != null) {
-            return pr;
+            return Optional.of(pr);
         } else {
-            return null;
+            return Optional.empty();
         }
 
     }
@@ -68,7 +69,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      */
     @Override
     public boolean delete(int id) {
-        PropertyRepair pr = read(id);
+        Optional<PropertyRepair> pr = read(id);
         if (pr != null) {
             try {
                 entityManager.getTransaction().begin();
@@ -153,19 +154,23 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      */
     @Override
     public boolean updateRepairProposedStartDate(int propertyRepairId, LocalDate dateTime) throws Exception {
-        PropertyRepair propertyRepair = read(propertyRepairId);
-        try {
-            propertyRepair.setRepairProposedStartDate(dateTime);
-            entityManager.getTransaction().begin();
-            entityManager.merge(propertyRepair);
-            entityManager.getTransaction().commit();
+        Optional<PropertyRepair> propertyRepair = read(propertyRepairId);
+        if (propertyRepair.isPresent()) {
+            try {
+                PropertyRepair propertyRepair2 = propertyRepair.get();
+                propertyRepair2.setRepairProposedStartDate(dateTime);
+                entityManager.getTransaction().begin();
+                entityManager.merge(propertyRepair2);
+                entityManager.getTransaction().commit();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return true;
         }
-
-        return true;
+        return false;
     }
 
     /**
@@ -177,19 +182,23 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      */
     @Override
     public boolean updateRepairProposedEndDate(int propertyRepairId, LocalDate dateTime) throws Exception {
-        PropertyRepair propertyRepair = read(propertyRepairId);
-        try {
-            propertyRepair.setRepairProposedEndDate(dateTime);
-            entityManager.getTransaction().begin();
-            entityManager.merge(propertyRepair);
-            entityManager.getTransaction().commit();
+        Optional<PropertyRepair> propertyRepair = read(propertyRepairId);
+        if (propertyRepair.isPresent()) {
+            try {
+                PropertyRepair propertyRepair2 = propertyRepair.get();
+                propertyRepair2.setRepairProposedEndDate(dateTime);
+                entityManager.getTransaction().begin();
+                entityManager.merge(propertyRepair2);
+                entityManager.getTransaction().commit();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return true;
         }
-
-        return true;
+        return false;
     }
 
     /**
@@ -201,19 +210,23 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      */
     @Override
     public boolean updateRepairActualStartDate(int propertyRepairId, LocalDate dateTime) throws Exception {
-        PropertyRepair propertyRepair = read(propertyRepairId);
-        try {
-            propertyRepair.setRepairActualStartDate(dateTime);
-            entityManager.getTransaction().begin();
-            entityManager.merge(propertyRepair);
-            entityManager.getTransaction().commit();
+        Optional<PropertyRepair> propertyRepair = read(propertyRepairId);
+        if (propertyRepair.isPresent()) {
+            try {
+                PropertyRepair propertyRepair2 = propertyRepair.get();
+                propertyRepair2.setRepairActualStartDate(dateTime);
+                entityManager.getTransaction().begin();
+                entityManager.merge(propertyRepair2);
+                entityManager.getTransaction().commit();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return true;
         }
-
-        return true;
+        return false;
     }
 
     /**
@@ -225,21 +238,25 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      */
     @Override
     public boolean updateRepairActualEndDate(int propertyRepairId, LocalDate dateTime) throws Exception {
-        PropertyRepair propertyRepair = read(propertyRepairId);
-        try {
-            propertyRepair.setRepairActualEndDate(dateTime);
-            entityManager.getTransaction().begin();
-            entityManager.merge(propertyRepair);
-            entityManager.getTransaction().commit();
+        Optional<PropertyRepair> propertyRepair = read(propertyRepairId);
+        if (propertyRepair.isPresent()) {
+            try {
+                PropertyRepair propertyRepair2 = propertyRepair.get();
+                propertyRepair2.setRepairActualEndDate(dateTime);
+                entityManager.getTransaction().begin();
+                entityManager.merge(propertyRepair2);
+                entityManager.getTransaction().commit();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return true;
         }
-
-        return true;
+        return false;
     }
-    
+
     /**
      *
      * @param propertyRepairId
@@ -249,19 +266,23 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      */
     @Override
     public boolean updateRepairAcceptance(int propertyRepairId, RepairAcceptance repairAcceptance) throws Exception {
-        PropertyRepair propertyRepair = read(propertyRepairId);
-        try {
-            propertyRepair.setRepairAcceptance(repairAcceptance);
-            entityManager.getTransaction().begin();
-            entityManager.merge(propertyRepair);
-            entityManager.getTransaction().commit();
+        Optional<PropertyRepair> propertyRepair = read(propertyRepairId);
+        if (propertyRepair.isPresent()) {
+            try {
+                PropertyRepair propertyRepair2 = propertyRepair.get();
+                propertyRepair2.setRepairAcceptance(repairAcceptance);
+                entityManager.getTransaction().begin();
+                entityManager.merge(propertyRepair2);
+                entityManager.getTransaction().commit();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return true;
         }
-
-        return true;
+        return false;
     }
 
     /**
@@ -273,19 +294,24 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      */
     @Override
     public boolean updateRepairProposedCost(int propertyRepairId, BigDecimal cost) throws Exception {
-        PropertyRepair propertyRepair = read(propertyRepairId);
-        try {
-            propertyRepair.setRepairProposedCost(cost);
-            entityManager.getTransaction().begin();
-            entityManager.merge(propertyRepair);
-            entityManager.getTransaction().commit();
+        Optional<PropertyRepair> propertyRepair = read(propertyRepairId);
+        if (propertyRepair.isPresent()) {
+            try {
+                PropertyRepair propertyRepair2 = propertyRepair.get();
+                propertyRepair2.setRepairProposedCost(cost);
+                entityManager.getTransaction().begin();
+                entityManager.merge(propertyRepair2);
+                entityManager.getTransaction().commit();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return true;
         }
+        return false;
 
-        return true;
     }
 
     /**
@@ -295,44 +321,51 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      * @return if the Repair has been updated
      */
     @Override
-    public boolean updateRepair(int propertyRepairId, PropertyRepair newPropertyRepair) {
-        PropertyRepair propertyRepair = read(propertyRepairId);
-        try {
-            propertyRepair.setRepairType(newPropertyRepair.getRepairType());
-            propertyRepair.setRepairDescription(newPropertyRepair.getRepairDescription());
-            propertyRepair.setRepairProperty(newPropertyRepair.getRepairProperty());
-            propertyRepair.setRepairWorkToBeDone(newPropertyRepair.getRepairWorkToBeDone());
-            propertyRepair.setRepairAcceptance(newPropertyRepair.getRepairAcceptance());
-            propertyRepair.setRepairStatus(newPropertyRepair.getRepairStatus());
-            propertyRepair.setRepairSubmissionDate(newPropertyRepair.getRepairSubmissionDate());
-            entityManager.getTransaction().begin();
-            entityManager.merge(propertyRepair);
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+    public boolean updateRepair(int propertyRepairId, PropertyRepair newPropertyRepair
+    ) {
+        Optional<PropertyRepair> propertyRepair = read(propertyRepairId);
+        if (propertyRepair.isPresent()) {
+            try {
+                PropertyRepair propertyRepair2 = propertyRepair.get();
+                propertyRepair2.setRepairType(newPropertyRepair.getRepairType());
+                propertyRepair2.setRepairDescription(newPropertyRepair.getRepairDescription());
+                propertyRepair2.setRepairProperty(newPropertyRepair.getRepairProperty());
+                propertyRepair2.setRepairWorkToBeDone(newPropertyRepair.getRepairWorkToBeDone());
+                propertyRepair2.setRepairAcceptance(newPropertyRepair.getRepairAcceptance());
+                propertyRepair2.setRepairStatus(newPropertyRepair.getRepairStatus());
+                propertyRepair2.setRepairSubmissionDate(newPropertyRepair.getRepairSubmissionDate());
+                entityManager.getTransaction().begin();
+                entityManager.merge(propertyRepair2);
+                entityManager.getTransaction().commit();
+            } catch (Exception e) {
+                return false;
 
+            }
+            return true;
         }
-        return true;
+        return false;
 
     }
 
     @Override
     public boolean updateRepairStatus(int propertyRepairId, RepairStatus repairStatus) throws Exception {
-        PropertyRepair propertyRepair = read(propertyRepairId);
-        try {
-            propertyRepair.setRepairStatus(repairStatus);
-            entityManager.getTransaction().begin();
-            entityManager.merge(propertyRepair);
-            entityManager.getTransaction().commit();
+        Optional<PropertyRepair> propertyRepair = read(propertyRepairId);
+        if (propertyRepair.isPresent()) {
+            try {
+                PropertyRepair propertyRepair2 = propertyRepair.get();
+                propertyRepair2.setRepairStatus(repairStatus);
+                entityManager.getTransaction().begin();
+                entityManager.merge(propertyRepair2);
+                entityManager.getTransaction().commit();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return true;
         }
-
-        return true;
+        return false;
     }
 
-    
 }

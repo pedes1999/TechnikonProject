@@ -17,9 +17,8 @@ public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ownerId;
-    
-    
-    @Column(nullable=false , unique = true, length = 10)
+
+    @Column(nullable = false, unique = true, length = 10)
     private String ownerVat;
     @Column(length = 25)
     private String ownerName;
@@ -27,27 +26,28 @@ public class Owner {
     private String ownerSurname;
     @Column(length = 25)
     private String ownerAddress;
-    
+
     @Column(unique = true, length = 10)
     private String ownerPhoneNumber;
 
-    @Column(unique = true ,length = 25)
+    @Column(unique = true, length = 25)
     private String ownerEmail;
 
-    @Column(unique=true,length = 20)
+    @Column(unique = true, length = 20)
     private String ownerUsername;
 
     @Column(length = 20)
     private String ownerPwd;
 
-    @OneToMany(mappedBy = "propertyOwner",orphanRemoval=true)
+    @OneToMany(mappedBy = "propertyOwner", orphanRemoval = true)
     private List<Property> properties;
- 
+
     @Column(columnDefinition = "enum('OWNER', 'ADMIN')")
-     @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private Role userRole;
 
-    public Owner() {}
+    public Owner() {
+    }
 
     public Owner(String ownerVat, String ownerName, String ownerSurname, String ownerAddress, String ownerPhoneNumber, String ownerEmail, String ownerUsername, String ownerPwd, List<Property> properties, Role isAdmin) {
         this.ownerVat = ownerVat;
@@ -61,8 +61,6 @@ public class Owner {
         this.properties = properties;
         this.userRole = isAdmin;
     }
-    
-    
 
     public int getOwnerId() {
         return ownerId;
@@ -136,7 +134,6 @@ public class Owner {
         this.ownerPwd = ownerPwd;
     }
 
-
     public List<Property> getProperties() {
         return properties;
     }
@@ -153,15 +150,12 @@ public class Owner {
     public void setIsAdmin(Role isAdmin) {
         this.userRole = isAdmin;
     }
-    
-    
 
     @Override
-    public  final String toString() {
+    public final String toString() {
 
-        return "Owner{" + "ownerId=" + ownerId + ", ownerVat=" + ownerVat + ", ownerName=" + ownerName + ", ownerSurname=" + ownerSurname + ", ownerAddress=" + ownerAddress + ", ownerPhoneNumber=" + ownerPhoneNumber + ", ownerEmail=" + ownerEmail + ", ownerUsername=" + ownerUsername + ", ownerPwd=" + ownerPwd +'}';
+        return "Owner{" + "ownerId=" + ownerId + ",\n ownerVat=" + ownerVat + ",\n ownerName=" + ownerName + ",\n ownerSurname=" + ownerSurname + ",\n ownerAddress=" + ownerAddress + ",\n ownerPhoneNumber=" + ownerPhoneNumber + ",\n ownerEmail=" + ownerEmail + ",\n ownerUsername=" + ownerUsername + ",\n ownerPwd=" + ownerPwd + "\n" + '}';
 
     }
- 
-    
+
 }

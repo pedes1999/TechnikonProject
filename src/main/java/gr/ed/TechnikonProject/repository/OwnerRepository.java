@@ -1,7 +1,6 @@
 package gr.ed.TechnikonProject.repository;
 
 import gr.ed.TechnikonProject.model.Owner;
-import java.util.List;
 import java.util.Optional;
 
 public interface OwnerRepository extends Repository<Owner> {
