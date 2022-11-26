@@ -69,11 +69,11 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      */
     @Override
     public boolean delete(int id) {
-        Optional<PropertyRepair> pr = read(id);
-        if (pr != null) {
+        PropertyRepair persistentInstance = entityManager.find(PropertyRepair.class, id);
+        if (persistentInstance != null) {
             try {
                 entityManager.getTransaction().begin();
-                entityManager.remove(pr);
+                entityManager.remove(persistentInstance);
                 entityManager.getTransaction().commit();
             } catch (Exception e) {
                 e.printStackTrace();

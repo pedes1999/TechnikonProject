@@ -33,6 +33,17 @@ public class Property {
     @Column(columnDefinition = "enum('DETACHED_HOUSE','MAISONETTE','APPARTMENT')")
     @Enumerated(EnumType.STRING)
     private PropertyType propertyType;
+    
+    public Property() {}
+
+    public Property(Owner propertyOwner, String propertyAddress, LocalDate propertyConstructionYear, PropertyType propertyType) {
+        this.propertyOwner = propertyOwner;
+        this.propertyAddress = propertyAddress;
+        this.propertyConstructionYear = propertyConstructionYear;
+        this.propertyType = propertyType;
+    }
+    
+    
 
     public int getPropertyId() {
         return propertyId;
@@ -81,7 +92,7 @@ public class Property {
 
     @Override
     public final String toString() {
-        return "Property{" + "propertyId=" + propertyId + ",\n propertyOwner=" + propertyOwner.getOwnerId() + ",\n propertyAddress=" + propertyAddress + ",\n propertyConstructionYear=" + propertyConstructionYear + ",\n propertyType=" + propertyType + '}' + "\n\n";
+        return "Property{" + "\n propertyId=" + propertyId + ",\n propertyOwner=" + propertyOwner.getOwnerId() + ",\n propertyAddress=" + propertyAddress + ",\n propertyConstructionYear=" + propertyConstructionYear + ",\n propertyType=" + propertyType + '}' + "\n\n";
     }
 
 }

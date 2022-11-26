@@ -116,7 +116,7 @@ public class DataImport {
                 o.setOwnerEmail(ownerString[5].trim());
                 o.setOwnerUsername(ownerString[6].trim());
                 o.setOwnerPwd(ownerString[7]);
-                o.setIsAdmin(Role.valueOf(ownerString[8]));
+                o.setUserRole(Role.valueOf(ownerString[8]));
                 
                 ownerService.addOwner(o);
             } catch (Exception e) {

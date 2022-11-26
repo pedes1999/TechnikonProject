@@ -51,6 +51,17 @@ public class PropertyRepair {
     public PropertyRepair() {
     }
 
+    public PropertyRepair(Property repairProperty, RepairType repairType, RepairStatus repairStatus, String repairDescription, String repairWorkToBeDone, LocalDate repairSubmissionDate, BigDecimal repairProposedCost) {
+        this.repairProperty = repairProperty;
+        this.repairType = repairType;
+        this.repairStatus = repairStatus;
+        this.repairDescription = repairDescription;
+        this.repairWorkToBeDone = repairWorkToBeDone;
+        this.repairSubmissionDate = repairSubmissionDate;
+        this.repairProposedCost = repairProposedCost;
+    }
+    
+
     public int getPropertyRepairId() {
         return propertyRepairId;
     }
@@ -159,7 +170,7 @@ public class PropertyRepair {
 
     @Override
     public final String toString() {
-        return "PropertyRepair{" + "propertyRepairId=" + propertyRepairId + ",\n repairProperty=" + repairProperty.getPropertyId() + ",\n repairType=" + repairType + ",\n repairStatus=" + repairStatus + ",\n repairDescription=" + repairDescription + ",\n repairWorkToBeDone=" + repairWorkToBeDone + ",\n repairSubmissionDate=" + repairSubmissionDate + ",\n repairActualStartDate=" + repairActualStartDate + ",\n repairActualEndDate=" + repairActualEndDate + ",\n repairProposedStartDate=" + repairProposedStartDate + ",\n repairProposedEndDate=" + repairProposedEndDate + ",\n repairProposedCost=" + repairProposedCost + ",\n repairAcceptance=" + repairAcceptance + '}' + "\n";
+        return "PropertyRepair{" + "\n propertyRepairId=" + propertyRepairId + ",\n repairProperty=" + repairProperty.getPropertyId() + ",\n repairType=" + repairType + ",\n repairStatus=" + repairStatus + ",\n repairDescription=" + repairDescription + ",\n repairWorkToBeDone=" + repairWorkToBeDone + ",\n repairSubmissionDate=" + repairSubmissionDate + ",\n repairActualStartDate=" + repairActualStartDate + ",\n repairActualEndDate=" + repairActualEndDate + ",\n repairProposedStartDate=" + repairProposedStartDate + ",\n repairProposedEndDate=" + repairProposedEndDate + ",\n repairProposedCost=" + repairProposedCost + ",\n repairAcceptance=" + repairAcceptance + '}' + "\n";
     }
     
     

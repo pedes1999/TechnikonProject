@@ -3,8 +3,8 @@ package gr.ed.TechnikonProject;
 import gr.ed.TechnikonProject.enums.PropertyType;
 import gr.ed.TechnikonProject.enums.RepairAcceptance;
 import gr.ed.TechnikonProject.enums.RepairStatus;
-import gr.ed.TechnikonProject.enums.RepairType;
 import gr.ed.TechnikonProject.enums.Role;
+import gr.ed.TechnikonProject.exceptions.UnauthorizedException;
 import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.model.PropertyRepair;
@@ -25,8 +25,9 @@ import gr.ed.TechnikonProject.service.serviceImpl.PropertyRepairServiceImpl;
 import gr.ed.TechnikonProject.service.serviceImpl.PropertyServiceImpl;
 import gr.ed.TechnikonProject.util.DataImport;
 import java.math.BigDecimal;
-import java.time.Month;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TechnikonProject {
 
@@ -41,159 +42,333 @@ public class TechnikonProject {
         PropertyService propertyService = new PropertyServiceImpl(ownerRepo, propertyRepo, repairRepo);
         PropertyRepairService propertyRepairService = new PropertyRepairServiceImpl(ownerRepo, propertyRepo, repairRepo);
         DataImport dI = new DataImport(ownerService, propertyService, propertyRepairService);
-       
-         /*
+
+        /*
        Populate the database with Users,Properties,Repairs
-        */
+         */
 //        dI.insertOwners();
 //        dI.insertProperties();
 //       dI.insertPropertyRepairs();
-
         //BUSINESS FLOW
-        
-        
         // ADD OWNER 
-        Owner o = new Owner();
-        o.setOwnerVat("1234567897");
-        o.setOwnerName("thodoris");
-        o.setOwnerSurname("theodoropoulos");
-        o.setOwnerPhoneNumber("6983234518");
-        o.setOwnerAddress("Tripoli");
-        o.setOwnerEmail("thodoris@gmail.com");
-        o.setOwnerUsername("theo");
-        o.setOwnerPwd("43123Asdds");
-        o.setIsAdmin(Role.OWNER);
-        //ownerService.addOwner(o);
+        Owner user1 = new Owner("1234567897",
+                "thodoris",
+                "theodoropoulos",
+                "Tripoli",
+                "6983234513",
+                "thodoris@gmail.com",
+                "theo",
+                "43123Asdds",
+                Role.OWNER);
+        //ownerService.addOwner(user1);
 
-//        Property p = new Property();
-//        p.setPropertyAddress("Athens");
-//        p.setPropertyConstructionYear(LocalDate.of(2010, 10, 19));
-//        p.setPropertyType(PropertyType.DETACHED_HOUSE);
-//        p.setPropertyOwner(ownerService.searchOwnerPerEmail("thodoris@gmail.com"));
-         //propertyService.addProperty(p);
+        Owner user2 = new Owner("1234567898",
+                "Takis", "Papadopoulos",
+                "El.venixelou 215",
+                "6987654123",
+                "takis@gmail.com",
+                "takis",
+                "takis!23A",
+                Role.ADMIN);
+        //ownerService.addOwner(user2);
 
-//        Property p2 = new Property();
-//        p2.setPropertyAddress("Giannena");
-//        p2.setPropertyConstructionYear(LocalDate.of(2019, 10, 4));
-//        p2.setPropertyType(PropertyType.APPARTMENT);
-//        p2.setPropertyOwner(ownerService.searchOwnerPerEmail("thodoris@gmail.com"));
-        //propertyService.addProperty(p2);
-
+//        propertyService.addProperty(new Property(
+//                ownerService.searchOwnerPerVat( "1234567897") , 
+//                "Mitilini",
+//                LocalDate.of(2002,11,11),
+//                PropertyType.DETACHED_HOUSE));
+//        
+//        propertyService.addProperty(new Property(
+//                ownerService.searchOwnerPerVat( "1234567897"),
+//                "Irakleio",
+//                LocalDate.of(2022, 5, 19),
+//                PropertyType.MAISONETTE));
         //OWNER ADDS A REPAIR TO THE PROPERTY
-//        PropertyRepair pr = new PropertyRepair();
-//        pr.setRepairSubmissionDate(LocalDate.now());
-//        pr.setRepairAcceptance(RepairAcceptance.PENDING);
-//        pr.setRepairStatus(RepairStatus.PENDING);
-//        pr.setRepairType(RepairType.PLUMBING);
-//        pr.setRepairProposedCost(BigDecimal.ZERO);
-//        pr.setRepairDescription("Plumbing the whole house");
-//        pr.setRepairWorkToBeDone("This is a very large house and it needs to be plumbed");
-//        pr.setRepairProperty(propertyService.getAllOwnerProperties("1234567897").get(1));
-        //propertyRepairService.addPropertyRepair(pr);
-        
+//        propertyRepairService.addPropertyRepair(new PropertyRepair(
+//                propertyService.searchPropertyByPropertyId(5),
+//                RepairType.INSULATION,
+//                RepairStatus.PENDING,
+//               "Insulating the whole house",
+//               "This is a very large house and it needs to be insulated",
+//                LocalDate.now(),
+//                BigDecimal.ZERO));
+
         /*
-        Admin Proposes the Starting,ending date and cost.
-        */
-//          propertyRepairService.updatePropertyRepairProposedStartDate(propertyRepairService.searchRepairByRepairId(8), LocalDate.now());
-//        propertyRepairService.updatePropertyRepairProposedEndDate(propertyRepairService.searchRepairByRepairId(8), LocalDate.of(2023,1,2));
-//         propertyRepairService.updatePropertyRepairProposedCost(propertyRepairService.searchRepairByRepairId(8), BigDecimal.valueOf(6000));
-         
-         /*
+        Admin Proposes the Starting,ending date and cost.Some validations take place to check if the user performing this action has admin privilages or not
+         */
+//        updateRepairProposedStart(user2, propertyRepairService.searchRepairByRepairId(8), LocalDate.of(2018, 12, 12), propertyRepairService);
+//        updateRepairProposedEnd(user2, propertyRepairService.searchRepairByRepairId(8), LocalDate.of(2022, 12, 12), propertyRepairService);
+//        updateRepairProposedCost(user2, propertyRepairService.searchRepairByRepairId(8), BigDecimal.valueOf(2000), propertyRepairService);
+        /*
         Owner Either accepts or denies the offer
-        */ 
-      // propertyRepairService.updateRepairAcceptance(propertyRepairService.searchRepairByRepairId(8), RepairAcceptance.ACCEPTED);
-       
-       //propertyRepairService.updateRepairAcceptance(propertyRepairService.searchRepairByRepairId(8), RepairAcceptance.DECLINED);
-       
+         */
+        //updateRepairAcceptance(propertyRepairService.searchRepairByRepairId(8), RepairAcceptance.PENDING, propertyRepairService);
         /*
-        Admin sets the actual repair dates based on owner's acceptance
-        */ 
-        //propertyRepairService.updateRepairBasedOnAcceptance(propertyRepairService.searchRepairByRepairId(8));
-        
-        System.out.println("======================================================================================================");
-        
+        Admin sets the actual repair dates based on owner's acceptance again validation takes place
+         */
+        //updateRepairBasedOnUserAcceptance(user2, propertyRepairService.searchRepairByRepairId(8), propertyRepairService);
+        //CRUD
         //Searches
-        
-        /*
-        Search an owner based on VAT
-        */ 
-        //String vatNumber = "1234567892";
-        //String vatNumber = ""; //Exception Invalid VatNumber
-        //String vatNumber = "1234567890"; //Exception Invalid VatNumber
-        //Owner owner = ownerService.searchOwnerPerVat(vatNumber);
-        //System.out.println("Owner with Vat : "+ vatNumber + " is " + owner);
-        
-        /*
-        Search an owner based on Email
-        */ 
-        //String email = "periklis@gmail.com";
-        //String email = "periklis"; //Invalid Email
-        //String email = ""; //Invalid Email
-        //String email = "asdasd@gmail.com";
-        //Owner owner = ownerService.searchOwnerPerEmail(email);
-       //System.out.println("Owner with Email : "+ email + " is " + owner);
-       
-       /*
-        Search an owner based on Id
-        */ 
-       //Integer id = 1;
-       //Integer id = 0; //Invalid id
-//       Integer id =15;
-//       Owner owner = ownerService.searchOwnerByOwnerId(id);
-//       System.out.println("Owner with id : "+ id + " is " + owner);
-    
-     /*
-        Search an property based on Id
-        */ 
-        //Integer id = 1;
-//        Integer id = 5;
-//        Property property = propertyService.searchPropertyByPropertyId(id);
-//        System.out.println("Property with id : "+ id + " is " + property);
+        //searchUserPerVat(user2, "1234567892", ownerService);              
+        //searchUserPerEmail(user2,"giannis@giannis", ownerService);      
+        //searchUserPerId(user2, 122, ownerService);
+        //searchPropertyPerId(user2, 5, propertyService);
+        //getAllPropertiesForOwner(user1, "1234567897", propertyService, ownerService);
+        //searchRepairsPerId(user2, 5, propertyRepairService);
+        // getAllRepairsForOwner(user2, "1234567897", propertyRepairService, ownerService);
+        //searchRepairsPerDate(user2, ownerService.searchOwnerPerVat("1234567897"), LocalDate.of(2022, 11, 06), propertyRepairService);
+        //searchRepairsPerRangeOfDates(user2, user1, LocalDate.of(2022,11,4), LocalDate.of(2022,11,13), propertyRepairService);
+        //Updates
+        //updateUserAddress(ownerService.searchOwnerByOwnerId(6), "Papamixali 2", ownerService);
+        //updateUserEmail(user1,"pasdds", ownerService);
+        //updateUserPwd(user1, "!asdasd1232aA", ownerService);
+        //updatePropertyAddress(propertyService.searchPropertyByPropertyId(1), "kanari 25", propertyService);
+        //updatePropertyConstructionYear(propertyService.searchPropertyByPropertyId(7), LocalDate.of(1999,2,2), propertyService);
+        //updatePropertyType(propertyService.searchPropertyByPropertyId(7), PropertyType.APPARTMENT, propertyService);
+        //Deletes
+        //deleteOwner(user2,ownerService.searchOwnerByOwnerId(3), ownerService);
+        //deleteProperty(propertyService.searchPropertyByPropertyId(10) , propertyService);
+        //deletePropertyRepair(propertyRepairService.searchRepairByRepairId(10), propertyRepairService);
+    }
 
-        /*
-        Search all properties for a specific owner
-        */ 
-        
-//        String vat = "1234567896";
-//        List<Property> plist = propertyService.getAllOwnerProperties(vat);
-//        System.out.println("Owner with vat " +vat + "has these properties : " + plist);
+    //Searches
+    public static void searchUserPerVat(Owner user, String vatNumber, OwnerService os) {
+        if (!user.getUserRole().equals(Role.ADMIN)) {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+        } else {
+            Owner owner = os.searchOwnerPerVat(vatNumber);
+            System.out.println("User with Vat : " + vatNumber + " is " + owner);
+        }
+    }
 
-         /*
-        Search repair based on id
-        */
-         
-         //Integer id = -1; //Invalid Id value
-         //Integer id = 1; 
-         //Integer id = 10; //No repairs with this id
-//         PropertyRepair pr = propertyRepairService.searchRepairByRepairId(id);
-//         System.out.println("Repair with id : " +id + " is " +pr);
+    public static void searchUserPerEmail(Owner user, String email, OwnerService os) {
+        if (!user.getUserRole().equals(Role.ADMIN)) {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+        } else {
+            Owner owner = os.searchOwnerPerEmail(email);
+            System.out.println("User with Email : " + email + " is " + owner);
+        }
+    }
 
-        /*
-        Get all repairs of a certain owner
-        */
-        
-        //String vat = "1234567891";
-        //String vat = "1234567896";
-        //List<PropertyRepair> pr = propertyRepairService.getAllOwnerRepairs(vat);
-       //System.out.println("Owner with Vat : " +vat + " has these repairs : " +pr);
-       
-       /*
-        Get all repairs based on a date
-        */
-       
-       
-       //LocalDate date = LocalDate.of(2022, 11, 6);  //should return 1,2,4,5
-//       LocalDate date = LocalDate.of(2023, 2, 15);
-//       List<PropertyRepair> pr = propertyRepairService.searchRepairsByDate(date);
-//        System.out.println("Repairs based on date : " +date +  " are " + pr);
+    public static void searchUserPerId(Owner user, int id, OwnerService os) {
+        if (!user.getUserRole().equals(Role.ADMIN)) {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+        } else {
+            Owner owner = os.searchOwnerByOwnerId(id);
+            System.out.println("User with Id : " + id + " is " + owner);
+        }
+    }
 
+    public static void searchPropertyPerId(Owner user, int id, PropertyService ps) {
+        if (!user.getUserRole().equals(Role.ADMIN)) {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+        } else {
+            Property property = ps.searchPropertyByPropertyId(id);
+            System.out.println("Property with Id : " + id + " is " + property);
+        }
+    }
 
-        /*
-        Get all repairs based on a range of dates
-        */
-//        LocalDate datefrom = LocalDate.of(2022, 4, 2); 
-//        LocalDate dateto = LocalDate.now();
-//         List<PropertyRepair> pr = propertyRepairService.searchRepairsByDate(datefrom,dateto);
-//        System.out.println("Repairs based on date From  : " +datefrom  + " date to : " + dateto + "are  : "  + pr);
+    public static void getAllPropertiesForOwner(Owner user, String vat, PropertyService ps, OwnerService os) {
+        if (os.searchOwnerPerVat(vat).equals(user) || user.getUserRole().equals(Role.ADMIN)) {
+            List<Property> plist = ps.getAllOwnerProperties(vat);
+            System.out.println("Properties for Owner with Vat: " + vat + " are " + plist);
+        } else {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+        }
+    }
+
+    public static void searchRepairsPerId(Owner user, int id, PropertyRepairService prs) {
+        if (!user.getUserRole().equals(Role.ADMIN)) {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+        } else {
+            PropertyRepair propertyRepair = prs.searchRepairByRepairId(id);
+            System.out.println("Repair with Id : " + id + " is " + propertyRepair);
+        }
+    }
+
+    public static void getAllRepairsForOwner(Owner user, String vat, PropertyRepairService prs, OwnerService os) {
+        if (os.searchOwnerPerVat(vat).equals(user) || user.getUserRole().equals(Role.ADMIN)) {
+            List<PropertyRepair> prlist = prs.getAllOwnerRepairs(vat);
+            System.out.println("Repairs for Owner with Vat: " + vat + " are " + prlist);
+        } else {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+        }
+    }
+
+    public static void searchRepairsPerDate(Owner user, Owner owner, LocalDate date, PropertyRepairService prs) {
+        if (user.getUserRole().equals(Role.ADMIN) || user.equals(owner)) {
+            List<PropertyRepair> prlist = prs.searchRepairsByDate(date);
+            System.out.println("Repairs with Date : " + date + " is " + prlist);
+        } else {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+        }
+    }
+
+    public static void searchRepairsPerRangeOfDates(Owner user, Owner owner, LocalDate dateFrom, LocalDate dateTo, PropertyRepairService prs) {
+        if (user.getUserRole().equals(Role.ADMIN) || user.equals(owner)) {
+            List<PropertyRepair> prlist = prs.searchRepairsByDate(dateFrom, dateTo);
+            System.out.println("Repairs from Date : " + dateFrom + " to date : " + dateTo + " are : " + prlist);
+        } else {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+        }
+    }
+
+    //Updates
+    public static boolean updateUserAddress(Owner owner, String address, OwnerService os) {
+        return os.updateOwnerAddress(owner, address);
+    }
+
+    public static boolean updateUserEmail(Owner owner, String email, OwnerService os) {
+        return os.updateOwnerEmail(owner, email);
+    }
+
+    public static boolean updateUserPwd(Owner owner, String pwd, OwnerService os) {
+        return os.updateOwnerPwd(owner, pwd);
+    }
+
+    public static boolean updatePropertyAddress(Property property, String address, PropertyService ps) {
+        if (property != null) {
+            return ps.updatePropertyAddress(property, address);
+        }
+        return false;
+    }
+
+    public static boolean updatePropertyConstructionYear(Property property, LocalDate date, PropertyService ps) {
+        if (property != null) {
+            return ps.updatePropertyConstructionYear(property, date);
+        }
+        return false;
+    }
+
+    public static boolean updatePropertyType(Property property, PropertyType type, PropertyService ps) {
+        if (property != null) {
+            return ps.updatePropertyType(property, type);
+        }
+        return false;
+    }
+
+    public static boolean updateRepairProposedStart(Owner user, PropertyRepair pr, LocalDate date, PropertyRepairService prs) {
+        if (!user.getUserRole().equals(Role.ADMIN)) {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+            return false;
+        } else {
+            prs.updatePropertyRepairProposedStartDate(pr, date);
+            return true;
+        }
+    }
+
+    public static boolean updateRepairProposedEnd(Owner user, PropertyRepair pr, LocalDate date, PropertyRepairService prs) {
+        if (!user.getUserRole().equals(Role.ADMIN)) {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+            return false;
+        } else {
+            prs.updatePropertyRepairProposedEndDate(pr, date);
+            return true;
+        }
+    }
+
+    public static boolean updateRepairProposedCost(Owner user, PropertyRepair pr, BigDecimal cost, PropertyRepairService prs) {
+        if (!user.getUserRole().equals(Role.ADMIN)) {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+            return false;
+        } else {
+            prs.updatePropertyRepairProposedCost(pr, cost);
+            return true;
+        }
+    }
+
+    public static boolean updateRepairActualStart(Owner user, PropertyRepair pr, LocalDate date, PropertyRepairService prs) {
+        if (!user.getUserRole().equals(Role.ADMIN)) {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+            return false;
+        } else {
+            prs.updatePropertyRepairActualStartDate(pr, date);
+            return true;
+        }
+    }
+
+    public static boolean updateRepairActualEnd(Owner user, PropertyRepair pr, LocalDate date, PropertyRepairService prs) {
+        if (!user.getUserRole().equals(Role.ADMIN)) {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+            return false;
+        } else {
+            prs.updatePropertyRepairActualEndDate(pr, date);
+            return true;
+        }
+    }
+
+    public static boolean updateRepairStatus(Owner user, PropertyRepair pr, RepairStatus status, PropertyRepairService prs) {
+        if (!user.getUserRole().equals(Role.ADMIN)) {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+            return false;
+        } else {
+            prs.updatePropertyRepairStatus(pr, status);
+            return true;
+        }
+    }
+
+    public static boolean updateRepairAcceptance(PropertyRepair pr, RepairAcceptance repairAccept, PropertyRepairService prs) {
+        return prs.updateRepairAcceptance(pr, repairAccept);
+    }
+
+    public static boolean updateRepairBasedOnUserAcceptance(Owner user, PropertyRepair pr, PropertyRepairService prs) {
+        if (!user.getUserRole().equals(Role.ADMIN)) {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+            return false;
+        }
+        prs.updateRepairBasedOnAcceptance(pr);
+        return true;
+    }
+
+    public static boolean deleteOwner(Owner user, Owner owner, OwnerService os) {
+        if (user.getUserRole().equals(Role.ADMIN) || user.equals(owner)) {
+            os.deleteOwner(owner);
+            return true;
+        } else {
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+            return false;
+        }
+    }
+
+    public static boolean deleteProperty(Property pr, PropertyService ps) {
+        return ps.deleteProperty(pr);
+    }
+
+    public static boolean deletePropertyRepair(PropertyRepair pr, PropertyRepairService prs) {
+        return prs.deletePropertyRepair(pr);
     }
 }
