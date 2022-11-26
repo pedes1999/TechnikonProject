@@ -1,6 +1,7 @@
 package gr.ed.TechnikonProject.service.serviceImpl;
 
 import gr.ed.TechnikonProject.enums.Role;
+import gr.ed.TechnikonProject.exceptions.InvalidAddressException;
 import gr.ed.TechnikonProject.exceptions.InvalidEmailException;
 import gr.ed.TechnikonProject.exceptions.InvalidIdException;
 import gr.ed.TechnikonProject.exceptions.InvalidOwnerException;
@@ -134,9 +135,16 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public boolean updateOwnerAddress(Owner owner, String ownerAddress) {
+        if(!isAddressValid(ownerAddress)){
+            Logger.getLogger(OwnerServiceImpl.class.getName())
+                    .log(Level.WARNING, null, new InvalidAddressException(
+                            "Error, invalid Address value! ("
+                            + ownerAddress + ")"));
+            return false;
+        }
         boolean ownerAddressUpdated = true;
         try {
-            ownerAddressUpdated = ownerRepository.updateEmail(owner.getOwnerVat(), ownerAddress);
+            ownerAddressUpdated = ownerRepository.updateAddress(owner.getOwnerVat(), ownerAddress);
         } catch (Exception ex) {
             Logger.getLogger(OwnerServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -148,6 +156,13 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public boolean updateOwnerEmail(Owner owner, String ownerEmail) {
+        if (!isEmailValid(ownerEmail)) {
+            Logger.getLogger(OwnerServiceImpl.class.getName())
+                    .log(Level.WARNING, null, new InvalidEmailException(
+                            "Error, invalid Email value! ("
+                            + ownerEmail + ")"));
+            return false;
+        }
         boolean ownerEmailUpdated = true;
         try {
             ownerEmailUpdated = ownerRepository.updateEmail(owner.getOwnerVat(), ownerEmail);
@@ -162,6 +177,13 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public boolean updateOwnerPwd(Owner owner, String ownerPwd) {
+        if (!isPwdValid(ownerPwd)) {
+            Logger.getLogger(OwnerServiceImpl.class.getName())
+                    .log(Level.WARNING, null, new InvalidEmailException(
+                            "Error, invalid Password value! ("
+                            + ownerPwd + ")"));
+            return false;
+        }
         boolean ownerPwdUpdated = true;
         try {
             ownerPwdUpdated = ownerRepository.updatePassword(owner.getOwnerVat(), ownerPwd);
@@ -215,6 +237,12 @@ public class OwnerServiceImpl implements OwnerService {
         Pattern pattern = Pattern.compile(regex);
 
         return pattern.matcher(vatNumber).matches();
+    }
+     private boolean isAddressValid(String address) {
+        String regex = "[\\w\\s]*\\d*";
+        Pattern pattern = Pattern.compile(regex);
+
+        return pattern.matcher(address).matches();
     }
 
     private boolean isOwnerValid(Owner owner) {

@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Owner {
@@ -49,7 +50,7 @@ public class Owner {
     public Owner() {
     }
 
-    public Owner(String ownerVat, String ownerName, String ownerSurname, String ownerAddress, String ownerPhoneNumber, String ownerEmail, String ownerUsername, String ownerPwd, List<Property> properties, Role isAdmin) {
+    public Owner(String ownerVat, String ownerName, String ownerSurname, String ownerAddress, String ownerPhoneNumber, String ownerEmail, String ownerUsername, String ownerPwd, Role isAdmin) {
         this.ownerVat = ownerVat;
         this.ownerName = ownerName;
         this.ownerSurname = ownerSurname;
@@ -58,7 +59,6 @@ public class Owner {
         this.ownerEmail = ownerEmail;
         this.ownerUsername = ownerUsername;
         this.ownerPwd = ownerPwd;
-        this.properties = properties;
         this.userRole = isAdmin;
     }
 
@@ -143,18 +143,41 @@ public class Owner {
 
     }
 
-    public Role getIsAdmin() {
+    public Role getUserRole() {
         return userRole;
     }
 
-    public void setIsAdmin(Role isAdmin) {
-        this.userRole = isAdmin;
+    public void setUserRole(Role userRole) {
+        this.userRole = userRole;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.ownerVat);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Owner other = (Owner) obj;
+        return Objects.equals(this.ownerVat, other.ownerVat);
+    }
+    
 
     @Override
     public final String toString() {
 
-        return "Owner{" + "ownerId=" + ownerId + ",\n ownerVat=" + ownerVat + ",\n ownerName=" + ownerName + ",\n ownerSurname=" + ownerSurname + ",\n ownerAddress=" + ownerAddress + ",\n ownerPhoneNumber=" + ownerPhoneNumber + ",\n ownerEmail=" + ownerEmail + ",\n ownerUsername=" + ownerUsername + ",\n ownerPwd=" + ownerPwd + "\n" + '}';
+        return "Owner{" + "\n ownerId=" + ownerId + ",\n ownerVat=" + ownerVat + ",\n ownerName=" + ownerName + ",\n ownerSurname=" + ownerSurname + ",\n ownerAddress=" + ownerAddress + ",\n ownerPhoneNumber=" + ownerPhoneNumber + ",\n ownerEmail=" + ownerEmail + ",\n ownerUsername=" + ownerUsername + ",\n ownerPwd=" + ownerPwd + "\n" + '}';
 
     }
 
