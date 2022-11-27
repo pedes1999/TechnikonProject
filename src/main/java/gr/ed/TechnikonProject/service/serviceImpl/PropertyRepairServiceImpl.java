@@ -31,6 +31,13 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
         this.propertyRepairRepository = propertyRepairRepository;
     }
 
+    /**
+     * It checks if the property repair's data are valid and then it adds it
+     *
+     * @param propertyRepair
+     * @return if the given repair's data are valid or not and if the
+     * propertyrepair has been added
+     */
     @Override
     public boolean addPropertyRepair(PropertyRepair propertyRepair) {
         if (!isRepairValid(propertyRepair)) {
@@ -53,6 +60,14 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
         return true;
     }
 
+    /**
+     * It checks if the id is valid and if it exists in the database or not
+     *
+     * @param propertyRepairId
+     * @return an error message in case of invalid data or not existing repair
+     * in the database (giving the propertyrepair id) , and the repair if the id
+     * exists
+     */
     @Override
     public PropertyRepair searchRepairByRepairId(int propertyRepairId) {
         if (!isIdValid(propertyRepairId)) {
@@ -78,6 +93,14 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
         return null;
     }
 
+    /**
+     * It checks if the given VAT number is valid and it returns a list of the
+     * repairs
+     *
+     * @param ownerVat
+     * @return the repairs ,if they exist, of the properties by given owner's
+     * VAT number
+     */
     @Override
     public List<PropertyRepair> getAllOwnerRepairs(String ownerVat) {
         if (!isVatValid(ownerVat)) {
@@ -99,6 +122,10 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
         return ownerRepairs;
     }
 
+    /**
+     *
+     * @return A list of all the repairs of the system
+     */
     @Override
     public List<PropertyRepair> getAllPropertyRepairs() {
         List<PropertyRepair> returnedList = new ArrayList<>();
@@ -116,6 +143,12 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
         return returnedList;
     }
 
+    /**
+     *
+     * @param date
+     * @return a list of repairs by the given date and a message if there are
+     * not repairs for the specific date
+     */
     @Override
     public List<PropertyRepair> searchRepairsByDate(LocalDate date) {
         List<PropertyRepair> propertyRepairListDate = new ArrayList<>();
@@ -132,6 +165,13 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
         return propertyRepairListDate;
     }
 
+    /**
+     *
+     * @param startDate
+     * @param endDate
+     * @return a list of repairs by the given range of dates and a message if
+     * there are not repairs for the specific range of dates
+     */
     @Override
     public List<PropertyRepair> searchRepairsByDate(LocalDate startDate, LocalDate endDate) {
         List<PropertyRepair> propertyRepairListRangeDates = new ArrayList<>();
@@ -148,6 +188,13 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
         return propertyRepairListRangeDates;
     }
 
+    /**
+     *
+     * @param propertyRepair
+     * @param prPropStart
+     * @return if the proposed started date has been successfully updated in the
+     * given propertyrepair's data
+     */
     @Override
     public boolean updatePropertyRepairProposedStartDate(PropertyRepair propertyRepair, LocalDate prPropStart) {
         boolean propStartDateUpdated = true;
@@ -163,6 +210,13 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
         return propStartDateUpdated;
     }
 
+    /**
+     *
+     * @param propertyRepair
+     * @param prPropEnd
+     * @return if the proposed end date has been successfully updated in the
+     * given propertyrepair's data
+     */
     @Override
     public boolean updatePropertyRepairProposedEndDate(PropertyRepair propertyRepair, LocalDate prPropEnd) {
         boolean propEndDateUpdated = true;
@@ -178,6 +232,13 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
         return propEndDateUpdated;
     }
 
+    /**
+     *
+     * @param propertyRepair
+     * @param prPropCost
+     * @return if the proposed cost has been successfully updated in the given
+     * propertyrepair's data
+     */
     @Override
     public boolean updatePropertyRepairProposedCost(PropertyRepair propertyRepair, BigDecimal prPropCost) {
         boolean propCostUpdated = true;
@@ -192,6 +253,13 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
         return propCostUpdated;
     }
 
+    /**
+     *
+     * @param propertyRepair
+     * @param prActualStart
+     * @return if the actual started date has been successfully updated in the
+     * given propertyrepair's data
+     */
     @Override
     public boolean updatePropertyRepairActualStartDate(PropertyRepair propertyRepair, LocalDate prActualStart) {
         boolean propActualStartUpdated = true;
@@ -206,6 +274,13 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
         return propActualStartUpdated;
     }
 
+    /**
+     *
+     * @param propertyRepair
+     * @param prActualEnd
+     * @return if the actual ended date has been successfully updated in the
+     * given propertyrepair's data
+     */
     @Override
     public boolean updatePropertyRepairActualEndDate(PropertyRepair propertyRepair, LocalDate prActualEnd) {
         boolean propActualEndUpdated = true;
@@ -220,6 +295,13 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
         return propActualEndUpdated;
     }
 
+    /**
+     *
+     * @param propertyRepair
+     * @param repairStatus
+     * @return if the status of the propertyrepair's has been successfully
+     * updated
+     */
     @Override
     public boolean updatePropertyRepairStatus(PropertyRepair propertyRepair, RepairStatus repairStatus) {
         boolean repairStatusUpdated = true;
@@ -234,6 +316,14 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
         return repairStatusUpdated;
     }
 
+    /**
+     * It checks if the given propertyrepair is valid or not and then it updates
+     * the repairacceptance value
+     *
+     * @param propertyRepair
+     * @param repairAcceptance
+     * @return if the update of propertyrepair's acceptance happened or not
+     */
     @Override
     public boolean updateRepairAcceptance(PropertyRepair propertyRepair, RepairAcceptance repairAcceptance) {
         if (!isRepairValid(propertyRepair)) {
@@ -259,6 +349,16 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
 
     }
 
+    /**
+     * It checks the status of given propertyrepair, if it is accepted it is
+     * updating the actual start and end dates and then the repair status to
+     * IN_PROGRESS, if it is not accepted(declined) it sets the actual start and
+     * end dates to null and the status to DECLINED. In case of pending it just
+     * informs about it
+     *
+     * @param propertyRepair
+     * @return according to the status of the given propertyrepair
+     */
     @Override
     public boolean updateRepairBasedOnAcceptance(PropertyRepair propertyRepair) {
         if (propertyRepair.getRepairAcceptance().equals(RepairAcceptance.PENDING)) {
@@ -289,6 +389,11 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
         return true;
     }
 
+    /**
+     *
+     * @param propertyRepair
+     * @return if the given property repair has been successfully deleted
+     */
     @Override
     public boolean deletePropertyRepair(PropertyRepair propertyRepair) {
         boolean propertyRepairDeleted = true;
@@ -304,11 +409,12 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
         }
         return propertyRepairDeleted;
     }
-    
+
+    //Validation patterns
     private boolean isIdValid(int id) {
         return id > 0;
     }
-    
+
     private boolean isVatValid(String vatNumber) {
         String regex = "^\\d{10}$";
         Pattern pattern = Pattern.compile(regex);

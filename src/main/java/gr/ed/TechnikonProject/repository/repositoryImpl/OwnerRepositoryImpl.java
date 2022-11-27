@@ -9,15 +9,19 @@ import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 
-
 public class OwnerRepositoryImpl implements OwnerRepository {
-       protected EntityManager entityManager;
 
+    protected EntityManager entityManager;
 
     public OwnerRepositoryImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-    
+
+    /**
+     *
+     * @param t
+     * @return id of the created owner
+     */
     @Override
     public int create(Owner t) {
         try {
@@ -31,6 +35,11 @@ public class OwnerRepositoryImpl implements OwnerRepository {
         return t.getOwnerId();
     }
 
+    /**
+     *
+     * @param id
+     * @return owner record from the given id
+     */
     @Override
     public Optional<Owner> read(int id) {
         Owner o = entityManager.find(Owner.class, id);
@@ -40,11 +49,20 @@ public class OwnerRepositoryImpl implements OwnerRepository {
         return Optional.empty();
     }
 
+    /**
+     *
+     * @return all the owners of the database
+     */
     @Override
     public List<Owner> read() {
         return entityManager.createQuery("from Owner", Owner.class).getResultList();
     }
 
+    /**
+     *
+     * @param vat
+     * @return the owner who has the given VAT number
+     */
     @Override
     public Optional<Owner> readOwnerVat(String vat) {
         String selectString = "select * from owner where ownerVat=?";
@@ -59,6 +77,11 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 
     }
 
+    /**
+     *
+     * @param email
+     * @return the owner who has the given email
+     */
     @Override
     public Optional<Owner> readOwnerEmail(String email) {
         String selectString = "select * from owner where ownerEmail=?";
@@ -72,6 +95,14 @@ public class OwnerRepositoryImpl implements OwnerRepository {
         }
     }
 
+    /**
+     *
+     * @param vatNumber
+     * @param newAddress
+     * @return if the address of the owner, who has the given VAT number has
+     * been updated
+     * @throws Exception
+     */
     @Override
     public boolean updateAddress(String vatNumber, String newAddress) throws Exception {
         Optional<Owner> owner = readOwnerVat(vatNumber);
@@ -90,6 +121,14 @@ public class OwnerRepositoryImpl implements OwnerRepository {
         return false;
     }
 
+    /**
+     *
+     * @param vatNumber
+     * @param newEmail
+     * @return if the email of the owner, who has the given VAT number has been
+     * updated
+     * @throws Exception
+     */
     @Override
     public boolean updateEmail(String vatNumber, String newEmail) throws Exception {
         Optional<Owner> owner = readOwnerVat(vatNumber);
@@ -108,6 +147,14 @@ public class OwnerRepositoryImpl implements OwnerRepository {
         return false;
     }
 
+    /**
+     *
+     * @param vatNumber
+     * @param newPassword
+     * @return if the password of the owner, who has the given VAT number has
+     * been updated
+     * @throws Exception
+     */
     @Override
     public boolean updatePassword(String vatNumber, String newPassword) throws Exception {
         Optional<Owner> owner = readOwnerVat(vatNumber);
@@ -126,6 +173,11 @@ public class OwnerRepositoryImpl implements OwnerRepository {
         return false;
     }
 
+    /**
+     *
+     * @param id
+     * @return if the owner has been deleted
+     */
     @Override
     public boolean delete(int id) {
         Owner persistentInstance = entityManager.find(Owner.class, id);

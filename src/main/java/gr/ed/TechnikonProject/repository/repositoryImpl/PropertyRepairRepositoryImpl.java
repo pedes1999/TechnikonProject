@@ -346,7 +346,13 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
         return false;
 
     }
-
+     /**
+      * 
+      * @param propertyRepairId
+      * @param repairStatus
+      * @return if the status of the repair has been updated
+      * @throws Exception 
+      */
     @Override
     public boolean updateRepairStatus(int propertyRepairId, RepairStatus repairStatus) throws Exception {
         Optional<PropertyRepair> propertyRepair = read(propertyRepairId);
