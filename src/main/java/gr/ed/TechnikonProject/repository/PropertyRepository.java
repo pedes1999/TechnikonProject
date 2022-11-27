@@ -6,10 +6,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface PropertyRepository extends Repository<Property> {
-
     List<Property> readByVATNumber(String ownerVat) throws Exception;
 
     boolean updatePropertyAddress(int propertyId, String propertyAddress) throws Exception;
+
 
     boolean updatePropertyConstructionYear(int propertyId, LocalDate propertyConstructionYear) throws Exception;
 

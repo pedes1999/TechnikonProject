@@ -49,7 +49,7 @@ public class TechnikonProject {
          */
 //        dI.insertOwners();
 //        dI.insertProperties();
-//       dI.insertPropertyRepairs();
+//        dI.insertPropertyRepairs();
         //BUSINESS FLOW
         // ADD OWNER 
         Owner sampleOwner = new Owner("1234567897",
@@ -110,6 +110,7 @@ public class TechnikonProject {
        // updateRepairBasedOnUserAcceptance(sampleAdmin, propertyRepairService.searchRepairByRepairId(8), propertyRepairService);
         //=================================================================================================================================
         //CRUD
+
             //Search user by vat number
 //        searchUserPerVat(sampleAdmin, "1234567890", ownerService); //User does not exist 
 //        searchUserPerVat(sampleAdmin, "1234567891", ownerService); //returns user with given vat
@@ -168,9 +169,10 @@ public class TechnikonProject {
 //        deleteOwner(sampleAdmin,ownerService.searchOwnerByOwnerId(3), ownerService);
 //        deleteProperty(propertyService.searchPropertyByPropertyId(10) , propertyService);
 //        deletePropertyRepair(propertyRepairService.searchRepairByRepairId(10), propertyRepairService);
+
     }
 
-    //Searches
+    //Searches(only the ADMIN can do these actions)
     public static void searchUserPerVat(Owner user, String vatNumber, OwnerService os) {
         if (!user.getUserRole().equals(Role.ADMIN)) {
             Logger.getLogger(TechnikonProject.class.getName())
@@ -215,6 +217,7 @@ public class TechnikonProject {
         }
     }
 
+    //It returns all the properties of a specific owner (the OWNER can search only his/her properties and the ADMIN can search for any owner's properties)
     public static void getAllPropertiesForOwner(Owner user, String vat, PropertyService ps, OwnerService os) {
         if (os.searchOwnerPerVat(vat).equals(user) || user.getUserRole().equals(Role.ADMIN)) {
             List<Property> plist = ps.getAllOwnerProperties(vat);
@@ -226,6 +229,7 @@ public class TechnikonProject {
         }
     }
 
+    //Only the ADMIN can search a repair using its id
     public static void searchRepairsPerId(Owner user, int id, PropertyRepairService prs) {
         if (!user.getUserRole().equals(Role.ADMIN)) {
             Logger.getLogger(TechnikonProject.class.getName())
@@ -237,6 +241,7 @@ public class TechnikonProject {
         }
     }
 
+    //It returns all the repairs of the properties of a specific owner (the OWNER can search only his/her repairs and the ADMIN can search for any repairs)
     public static void getAllRepairsForOwner(Owner user, String vat, PropertyRepairService prs, OwnerService os) {
         if (os.searchOwnerPerVat(vat).equals(user) || user.getUserRole().equals(Role.ADMIN)) {
             List<PropertyRepair> prlist = prs.getAllOwnerRepairs(vat);
@@ -248,6 +253,7 @@ public class TechnikonProject {
         }
     }
 
+    //It returns all the repairs of the properties given a specific date (the OWNER can search only his/her repairs and the ADMIN can search for any repairs)
     public static void searchRepairsPerDate(Owner user, Owner owner, LocalDate date, PropertyRepairService prs) {
         if (user.getUserRole().equals(Role.ADMIN) || user.equals(owner)) {
             List<PropertyRepair> prlist = prs.searchRepairsByDate(date);
@@ -259,6 +265,7 @@ public class TechnikonProject {
         }
     }
 
+    //It returns all the repairs of the properties given a specific range of dates (the OWNER can search only his/her repairs and the ADMIN can search for any repairs)
     public static void searchRepairsPerRangeOfDates(Owner user, Owner owner, LocalDate dateFrom, LocalDate dateTo, PropertyRepairService prs) {
         if (user.getUserRole().equals(Role.ADMIN) || user.equals(owner)) {
             List<PropertyRepair> prlist = prs.searchRepairsByDate(dateFrom, dateTo);
@@ -270,7 +277,7 @@ public class TechnikonProject {
         }
     }
 
-    //Updates
+    //Updates that both owner and admin can do
     public static boolean updateUserAddress(Owner owner, String address, OwnerService os) {
         return os.updateOwnerAddress(owner, address);
     }
@@ -304,6 +311,7 @@ public class TechnikonProject {
         return false;
     }
 
+    //Only the admin can update the repair proposed start date
     public static boolean updateRepairProposedStart(Owner user, PropertyRepair pr, LocalDate date, PropertyRepairService prs) {
         if (!user.getUserRole().equals(Role.ADMIN)) {
             Logger.getLogger(TechnikonProject.class.getName())
@@ -316,6 +324,7 @@ public class TechnikonProject {
         }
     }
 
+    //Only the admin can update the repair proposed end date
     public static boolean updateRepairProposedEnd(Owner user, PropertyRepair pr, LocalDate date, PropertyRepairService prs) {
         if (!user.getUserRole().equals(Role.ADMIN)) {
             Logger.getLogger(TechnikonProject.class.getName())
@@ -328,6 +337,7 @@ public class TechnikonProject {
         }
     }
 
+    //Only the admin can update the repair proposed cost
     public static boolean updateRepairProposedCost(Owner user, PropertyRepair pr, BigDecimal cost, PropertyRepairService prs) {
         if (!user.getUserRole().equals(Role.ADMIN)) {
             Logger.getLogger(TechnikonProject.class.getName())
@@ -340,6 +350,7 @@ public class TechnikonProject {
         }
     }
 
+    ////Only the admin can update the repair actual start date
     public static boolean updateRepairActualStart(Owner user, PropertyRepair pr, LocalDate date, PropertyRepairService prs) {
         if (!user.getUserRole().equals(Role.ADMIN)) {
             Logger.getLogger(TechnikonProject.class.getName())
@@ -352,6 +363,7 @@ public class TechnikonProject {
         }
     }
 
+    //Only the admin can update the repair actual end date
     public static boolean updateRepairActualEnd(Owner user, PropertyRepair pr, LocalDate date, PropertyRepairService prs) {
         if (!user.getUserRole().equals(Role.ADMIN)) {
             Logger.getLogger(TechnikonProject.class.getName())
@@ -364,6 +376,7 @@ public class TechnikonProject {
         }
     }
 
+    //Only the admin can update the repair status
     public static boolean updateRepairStatus(Owner user, PropertyRepair pr, RepairStatus status, PropertyRepairService prs) {
         if (!user.getUserRole().equals(Role.ADMIN)) {
             Logger.getLogger(TechnikonProject.class.getName())
@@ -380,6 +393,7 @@ public class TechnikonProject {
         return prs.updateRepairAcceptance(pr, repairAccept);
     }
 
+    //Only the admin can do this action updating the repair status according to propertyrepair's status
     public static boolean updateRepairBasedOnUserAcceptance(Owner user, PropertyRepair pr, PropertyRepairService prs) {
         if (!user.getUserRole().equals(Role.ADMIN)) {
             Logger.getLogger(TechnikonProject.class.getName())
@@ -391,6 +405,7 @@ public class TechnikonProject {
         return true;
     }
 
+    //The ADMIN can delete any owner while the OWNER can only delete himself/herself
     public static boolean deleteOwner(Owner user, Owner owner, OwnerService os) {
         if (user.getUserRole().equals(Role.ADMIN) || user.equals(owner)) {
             os.deleteOwner(owner);
@@ -403,10 +418,12 @@ public class TechnikonProject {
         }
     }
 
+    //Both ADMIN and OWNER can delete a property
     public static boolean deleteProperty(Property pr, PropertyService ps) {
         return ps.deleteProperty(pr);
     }
 
+    //Both ADMIN and OWNER can delete a property
     public static boolean deletePropertyRepair(PropertyRepair pr, PropertyRepairService prs) {
         return prs.deletePropertyRepair(pr);
     }

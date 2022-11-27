@@ -30,6 +30,13 @@ public class PropertyServiceImpl implements PropertyService {
 
     }
 
+    /**
+     * It checks if the property's data are valid and then add the owner in the
+     * database
+     *
+     * @param property
+     * @return if the property has been added
+     */
     @Override
     public boolean addProperty(Property property) {
         if (!isPropertyValid(property)) {
@@ -53,6 +60,14 @@ public class PropertyServiceImpl implements PropertyService {
 
     }
 
+    /**
+     * It checks if the id is valid and if it exists in the database or not
+     *
+     * @param propertyId
+     * @return an error message in case of invalid data or not existing property
+     * in the database (giving the property id) , and the property if the id
+     * exists
+     */
     @Override
     public Property searchPropertyByPropertyId(int propertyId) {
         if (!isIdValid(propertyId)) {
@@ -71,12 +86,20 @@ public class PropertyServiceImpl implements PropertyService {
                     .log(Level.SEVERE, null, e);
         }
         if (!p.isPresent()) {
-            Logger.getLogger(PropertyServiceImpl.class.getName()).log(Level.INFO, "Error,There are no properties with this id" );
+            Logger.getLogger(PropertyServiceImpl.class.getName()).log(Level.INFO, "Error,There are no properties with this id");
             return null;
         }
         return null;
     }
 
+    /**
+     * It checks if the given VAT number is valid and it returns the properties
+     * of an owner
+     *
+     * @param ownerVat
+     * @return A list of properties from a specific owner (fount by the VAT
+     * number) or a message if the owner doesn't have properties
+     */
     @Override
     public List<Property> getAllOwnerProperties(String ownerVat) {
         if (!isVatValid(ownerVat)) {
@@ -98,6 +121,15 @@ public class PropertyServiceImpl implements PropertyService {
         return ownerProperties;
     }
 
+    /**
+     * It checks if the given property is valid and then it updates the given
+     * property's address
+     *
+     * @param property
+     * @param propertyAddress
+     * @return if the given address is valid or not and if the address of the
+     * given property has been updated
+     */
     @Override
     public boolean updatePropertyAddress(final Property property, String propertyAddress) {
         if (!isPropertyValid(property)) {
@@ -120,6 +152,15 @@ public class PropertyServiceImpl implements PropertyService {
         return propertyAddressUpdated;
     }
 
+    /**
+     * It checks if the given property is valid and then it updates the given
+     * property's construction year
+     *
+     * @param property
+     * @param propertyConstructionYear
+     * @return if the given property is valid or not and if the construction
+     * year of the given property has been updated
+     */
     @Override
     public boolean updatePropertyConstructionYear(final Property property, LocalDate propertyConstructionYear) {
         if (!isPropertyValid(property)) {
@@ -142,6 +183,15 @@ public class PropertyServiceImpl implements PropertyService {
         return propertyConstYearUpdated;
     }
 
+    /**
+     * It checks if the given property is valid and then it updates the given
+     * property's type
+     *
+     * @param property
+     * @param propertyType
+     * @return if the given property is valid or not and if the type of the
+     * given property has been updated
+     */
     @Override
     public boolean updatePropertyType(final Property property, PropertyType propertyType) {
         if (!isPropertyValid(property)) {
@@ -164,6 +214,11 @@ public class PropertyServiceImpl implements PropertyService {
         return propertyTypeUpdated;
     }
 
+    /**
+     *
+     * @param property
+     * @return if the property has been successfully deleted or not
+     */
     @Override
     public boolean deleteProperty(Property property) {
         boolean propertyDeleted = true;
@@ -180,6 +235,7 @@ public class PropertyServiceImpl implements PropertyService {
         return propertyDeleted;
     }
 
+    //Validation patterns
     private boolean isIdValid(int id) {
         return id > 0;
     }

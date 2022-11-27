@@ -73,7 +73,7 @@ public class PropertyRepositoryImpl implements PropertyRepository {
         if (persistentInstance != null) {
             try {
                 entityManager.getTransaction().begin();
-                entityManager.remove(persistentInstance );
+                entityManager.remove(persistentInstance);
                 entityManager.getTransaction().commit();
             } catch (Exception e) {
                e.printStackTrace();

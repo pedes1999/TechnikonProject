@@ -30,6 +30,13 @@ public class OwnerServiceImpl implements OwnerService {
 
     }
 
+    /**
+     * It checks if the owner's data are valid and then add the owner in the
+     * database
+     *
+     * @param owner
+     * @return if the owner has been added
+     */
     @Override
     public boolean addOwner(Owner owner) {
         if (!isOwnerValid(owner)) {
@@ -52,8 +59,15 @@ public class OwnerServiceImpl implements OwnerService {
         return true;
     }
 
+    /**
+     * It checks if the id is valid and if it exists in the system or not
+     *
+     * @param ownerId
+     * @return an error message in case of invalid data or not existing owner in
+     * the database (giving the owner id) , and the owner if the id exists
+     */
     @Override
-    public Owner searchOwnerByOwnerId(int ownerId) {   
+    public Owner searchOwnerByOwnerId(int ownerId) {
         if (!isIdValid(ownerId)) {
             Logger.getLogger(OwnerServiceImpl.class.getName())
                     .log(Level.WARNING, null, new InvalidIdException(
@@ -69,7 +83,7 @@ public class OwnerServiceImpl implements OwnerService {
             Logger.getLogger(OwnerServiceImpl.class.getName())
                     .log(Level.SEVERE, null, e);
         }
-         if (!owner.isPresent()) {
+        if (!owner.isPresent()) {
             Logger.getLogger(OwnerServiceImpl.class.getName())
                     .log(Level.WARNING, "There are no owners with the given Id");
             return null;
@@ -77,6 +91,15 @@ public class OwnerServiceImpl implements OwnerService {
         return null;
     }
 
+    /**
+     * It checks if the VAT number is valid and if it exists in the database or
+     * not
+     *
+     * @param ownerVatNumber
+     * @return an error message in case of invalid data or not existing owner
+     * (giving the VAT number) in the database , and the owner if the VAT number
+     * exists
+     */
     @Override
     public Owner searchOwnerPerVat(String ownerVatNumber) {
         if (!isVatValid(ownerVatNumber)) {
@@ -94,7 +117,7 @@ public class OwnerServiceImpl implements OwnerService {
             return owner.get();
         } catch (Exception e) {
             Logger.getLogger(OwnerServiceImpl.class.getName())
-                    .log(Level.WARNING,null, e);
+                    .log(Level.WARNING, null, e);
         }
 
         if (!owner.isPresent()) {
@@ -106,6 +129,14 @@ public class OwnerServiceImpl implements OwnerService {
         return null;
     }
 
+    /**
+     * It checks if the email is valid and if it exists in the database or not
+     *
+     * @param ownerEmail
+     * @return an error message in case of invalid data or not existing owner
+     * (giving the owner's email) in the database , and the owner if the email
+     * exists
+     */
     @Override
     public Owner searchOwnerPerEmail(String ownerEmail) {
         if (!isEmailValid(ownerEmail)) {
@@ -122,7 +153,7 @@ public class OwnerServiceImpl implements OwnerService {
         } catch (Exception e) {
             Logger.getLogger(OwnerServiceImpl.class.getName())
                     .log(Level.WARNING, null, e);
-            
+
         }
 
         if (!owner.isPresent()) {
@@ -133,9 +164,18 @@ public class OwnerServiceImpl implements OwnerService {
         return null;
     }
 
+    /**
+     * It checks if the given address is valid and then it updates the given
+     * owner's address
+     *
+     * @param owner
+     * @param ownerAddress
+     * @return if the given address is valid or not and if the address of the
+     * given owner has been updated
+     */
     @Override
     public boolean updateOwnerAddress(Owner owner, String ownerAddress) {
-        if(!isAddressValid(ownerAddress)){
+        if (!isAddressValid(ownerAddress)) {
             Logger.getLogger(OwnerServiceImpl.class.getName())
                     .log(Level.WARNING, null, new InvalidAddressException(
                             "Error, invalid Address value! ("
@@ -154,6 +194,15 @@ public class OwnerServiceImpl implements OwnerService {
         return ownerAddressUpdated;
     }
 
+    /**
+     * It checks if the given email is valid and then it updates the given
+     * owner's email
+     *
+     * @param owner
+     * @param ownerEmail
+     * @return if the given email is valid or not and if the email of the given
+     * owner has been updated
+     */
     @Override
     public boolean updateOwnerEmail(Owner owner, String ownerEmail) {
         if (!isEmailValid(ownerEmail)) {
@@ -175,6 +224,15 @@ public class OwnerServiceImpl implements OwnerService {
         return ownerEmailUpdated;
     }
 
+    /**
+     * It checks if the given password is valid and then it updates the given
+     * owner's password
+     *
+     * @param owner
+     * @param ownerPwd
+     * @return if the given password is valid or not and if the password of the
+     * given owner has been updated
+     */
     @Override
     public boolean updateOwnerPwd(Owner owner, String ownerPwd) {
         if (!isPwdValid(ownerPwd)) {
@@ -196,6 +254,11 @@ public class OwnerServiceImpl implements OwnerService {
         return ownerPwdUpdated;
     }
 
+    /**
+     *
+     * @param owner
+     * @return if the given owner has be deleted or not
+     */
     @Override
     public boolean deleteOwner(Owner owner) {
         boolean ownerDeleted = true;
@@ -203,11 +266,12 @@ public class OwnerServiceImpl implements OwnerService {
             ownerDeleted = ownerRepository.delete(owner.getOwnerId());
         } catch (Exception e) {
             Logger.getLogger(OwnerServiceImpl.class.getName())
-                    .log(Level.WARNING, "Somthing went Wrong with Owner Deletion!");
+                    .log(Level.WARNING, "Something went Wrong with Owner Deletion!");
         }
         return ownerDeleted;
     }
 
+    //Validation patterns
     private boolean isEmailValid(String email) {
         String regex = "^(.+)@(\\S+)$";
         Pattern pattern = Pattern.compile(regex);
@@ -238,7 +302,8 @@ public class OwnerServiceImpl implements OwnerService {
 
         return pattern.matcher(vatNumber).matches();
     }
-     private boolean isAddressValid(String address) {
+
+    private boolean isAddressValid(String address) {
         String regex = "[\\w\\s]*\\d*";
         Pattern pattern = Pattern.compile(regex);
 
