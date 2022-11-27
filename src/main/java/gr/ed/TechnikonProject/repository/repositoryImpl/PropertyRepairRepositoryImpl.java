@@ -76,7 +76,6 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
                 entityManager.remove(persistentInstance);
                 entityManager.getTransaction().commit();
             } catch (Exception e) {
-                e.printStackTrace();
                 return false;
             }
             return true;
@@ -90,7 +89,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      * @return List of repairs based on a given owner VAT
      */
     @Override
-    public List<PropertyRepair> readPerOwnerVAT(String ownerVAT) {
+    public List<PropertyRepair> readPerOwnerVAT(String ownerVAT) throws Exception {
         String findRepairPerOwnerVATString = "select * from propertyrepair as pr "
                 + "inner join property as p on pr.repairProperty_propertyId = p.propertyId "
                 + " inner join owner as o on p.propertyOwner_ownerId = o.ownerId "
@@ -101,7 +100,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
         try {
             findRepairPerOwnerVATQuery.setParameter(1, ownerVAT);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return findRepairPerOwnerVATQuery.getResultList();
     }
@@ -112,14 +111,14 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      * @return List of repairs based on a given date
      */
     @Override
-    public List<PropertyRepair> readPerDate(LocalDate date) {
+    public List<PropertyRepair> readPerDate(LocalDate date) throws Exception{
         String findRepairPerDateString = "select * from propertyrepair where ? between repairActualStartDate and repairActualEndDate";
         Query findRepairPerDateQuery = entityManager.createNativeQuery(findRepairPerDateString, PropertyRepair.class);
         try {
             findRepairPerDateQuery.setParameter(1, date);
 
         } catch (Exception e) {
-            e.printStackTrace();
+           throw new Exception(e);
         }
         return findRepairPerDateQuery.getResultList();
     }
@@ -131,7 +130,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      * @return List of repairs based on a given range of dates
      */
     @Override
-    public List<PropertyRepair> readPerRangeOfDates(LocalDate startDate, LocalDate endDate) {
+    public List<PropertyRepair> readPerRangeOfDates(LocalDate startDate, LocalDate endDate) throws Exception{
         String findRepairPerDatesString = "select * from propertyrepair where repairActualStartDate>=? and repairActualEndDate <= ?";
         Query findRepairPerDatesQuery = entityManager.createNativeQuery(findRepairPerDatesString, PropertyRepair.class);
         try {
@@ -139,7 +138,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
             findRepairPerDatesQuery.setParameter(2, endDate);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return findRepairPerDatesQuery.getResultList();
 
@@ -164,8 +163,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
                 entityManager.getTransaction().commit();
 
             } catch (Exception e) {
-                e.printStackTrace();
-                return false;
+               throw new Exception(e);
             }
 
             return true;
@@ -192,8 +190,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
                 entityManager.getTransaction().commit();
 
             } catch (Exception e) {
-                e.printStackTrace();
-                return false;
+                throw new Exception(e);
             }
 
             return true;
@@ -220,8 +217,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
                 entityManager.getTransaction().commit();
 
             } catch (Exception e) {
-                e.printStackTrace();
-                return false;
+             throw new Exception(e);
             }
 
             return true;
@@ -248,8 +244,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
                 entityManager.getTransaction().commit();
 
             } catch (Exception e) {
-                e.printStackTrace();
-                return false;
+                throw new Exception(e);
             }
 
             return true;
@@ -276,8 +271,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
                 entityManager.getTransaction().commit();
 
             } catch (Exception e) {
-                e.printStackTrace();
-                return false;
+                throw new Exception(e);
             }
 
             return true;
@@ -304,8 +298,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
                 entityManager.getTransaction().commit();
 
             } catch (Exception e) {
-                e.printStackTrace();
-                return false;
+                throw new Exception(e);
             }
 
             return true;
@@ -322,7 +315,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      */
     @Override
     public boolean updateRepair(int propertyRepairId, PropertyRepair newPropertyRepair
-    ) {
+    ) throws Exception{
         Optional<PropertyRepair> propertyRepair = read(propertyRepairId);
         if (propertyRepair.isPresent()) {
             try {
@@ -338,7 +331,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
                 entityManager.merge(propertyRepair2);
                 entityManager.getTransaction().commit();
             } catch (Exception e) {
-                return false;
+                throw new Exception(e);
 
             }
             return true;
@@ -359,8 +352,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
                 entityManager.getTransaction().commit();
 
             } catch (Exception e) {
-                e.printStackTrace();
-                return false;
+               throw new Exception(e);
             }
 
             return true;

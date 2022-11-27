@@ -15,14 +15,14 @@ public interface PropertyRepairRepository extends Repository<PropertyRepair> {
      * @param ownerVAT
      * @return List of Repairs for a specific owner ID
      */
-    List<PropertyRepair> readPerOwnerVAT(String ownerVAT);
+    List<PropertyRepair> readPerOwnerVAT(String ownerVAT) throws Exception;
 
     /**
      *
      * @param date
      * @return List of Repairs for a Date Given
      */
-    List<PropertyRepair> readPerDate(LocalDate date);
+    List<PropertyRepair> readPerDate(LocalDate date) throws Exception;
 
     /**
      *
@@ -30,7 +30,7 @@ public interface PropertyRepairRepository extends Repository<PropertyRepair> {
      * @param endDate
      * @return List of repairs based on a range of given Dates;
      */
-    List<PropertyRepair> readPerRangeOfDates(LocalDate startDate, LocalDate endDate);
+    List<PropertyRepair> readPerRangeOfDates(LocalDate startDate, LocalDate endDate) throws Exception;
 
     //Repair Date Handling
     boolean updateRepairProposedStartDate(int propertyRepairId, LocalDate dateTime) throws Exception;
@@ -48,6 +48,6 @@ public interface PropertyRepairRepository extends Repository<PropertyRepair> {
     boolean updateRepairStatus(int propertyRepairId, RepairStatus repairStatus) throws Exception;
 
     //repair misc handling
-    boolean updateRepair(int propertyRepairId, PropertyRepair newPropertyRepair);
+    boolean updateRepair(int propertyRepairId, PropertyRepair newPropertyRepair) throws Exception;
 
 }

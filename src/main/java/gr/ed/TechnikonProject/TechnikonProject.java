@@ -3,6 +3,7 @@ package gr.ed.TechnikonProject;
 import gr.ed.TechnikonProject.enums.PropertyType;
 import gr.ed.TechnikonProject.enums.RepairAcceptance;
 import gr.ed.TechnikonProject.enums.RepairStatus;
+import gr.ed.TechnikonProject.enums.RepairType;
 import gr.ed.TechnikonProject.enums.Role;
 import gr.ed.TechnikonProject.exceptions.UnauthorizedException;
 import gr.ed.TechnikonProject.model.Owner;
@@ -51,7 +52,7 @@ public class TechnikonProject {
 //       dI.insertPropertyRepairs();
         //BUSINESS FLOW
         // ADD OWNER 
-        Owner user1 = new Owner("1234567897",
+        Owner sampleOwner = new Owner("1234567897",
                 "thodoris",
                 "theodoropoulos",
                 "Tripoli",
@@ -60,9 +61,9 @@ public class TechnikonProject {
                 "theo",
                 "43123Asdds",
                 Role.OWNER);
-        //ownerService.addOwner(user1);
+        //ownerService.addOwner(sampleOwner);
 
-        Owner user2 = new Owner("1234567898",
+        Owner sampleAdmin = new Owner("1234567898",
                 "Takis", "Papadopoulos",
                 "El.venixelou 215",
                 "6987654123",
@@ -70,7 +71,7 @@ public class TechnikonProject {
                 "takis",
                 "takis!23A",
                 Role.ADMIN);
-        //ownerService.addOwner(user2);
+        //ownerService.addOwner(sampleAdmin);
 
 //        propertyService.addProperty(new Property(
 //                ownerService.searchOwnerPerVat( "1234567897") , 
@@ -85,7 +86,7 @@ public class TechnikonProject {
 //                PropertyType.MAISONETTE));
         //OWNER ADDS A REPAIR TO THE PROPERTY
 //        propertyRepairService.addPropertyRepair(new PropertyRepair(
-//                propertyService.searchPropertyByPropertyId(5),
+//                propertyService.searchPropertyByPropertyId(9),
 //                RepairType.INSULATION,
 //                RepairStatus.PENDING,
 //               "Insulating the whole house",
@@ -96,39 +97,77 @@ public class TechnikonProject {
         /*
         Admin Proposes the Starting,ending date and cost.Some validations take place to check if the user performing this action has admin privilages or not
          */
-//        updateRepairProposedStart(user2, propertyRepairService.searchRepairByRepairId(8), LocalDate.of(2018, 12, 12), propertyRepairService);
-//        updateRepairProposedEnd(user2, propertyRepairService.searchRepairByRepairId(8), LocalDate.of(2022, 12, 12), propertyRepairService);
-//        updateRepairProposedCost(user2, propertyRepairService.searchRepairByRepairId(8), BigDecimal.valueOf(2000), propertyRepairService);
+//        updateRepairProposedStart(sampleAdmin, propertyRepairService.searchRepairByRepairId(8), LocalDate.of(2018, 12, 12), propertyRepairService);
+//        updateRepairProposedEnd(sampleAdmin, propertyRepairService.searchRepairByRepairId(8), LocalDate.of(2022, 12, 12), propertyRepairService);
+//        updateRepairProposedCost(sampleAdmin, propertyRepairService.searchRepairByRepairId(8), BigDecimal.valueOf(2000), propertyRepairService);
         /*
         Owner Either accepts or denies the offer
          */
-        //updateRepairAcceptance(propertyRepairService.searchRepairByRepairId(8), RepairAcceptance.PENDING, propertyRepairService);
+       // updateRepairAcceptance(propertyRepairService.searchRepairByRepairId(8), RepairAcceptance.DECLINED, propertyRepairService);
         /*
         Admin sets the actual repair dates based on owner's acceptance again validation takes place
          */
-        //updateRepairBasedOnUserAcceptance(user2, propertyRepairService.searchRepairByRepairId(8), propertyRepairService);
+       // updateRepairBasedOnUserAcceptance(sampleAdmin, propertyRepairService.searchRepairByRepairId(8), propertyRepairService);
+        //=================================================================================================================================
         //CRUD
-        //Searches
-        //searchUserPerVat(user2, "1234567892", ownerService);              
-        //searchUserPerEmail(user2,"giannis@giannis", ownerService);      
-        //searchUserPerId(user2, 122, ownerService);
-        //searchPropertyPerId(user2, 5, propertyService);
-        //getAllPropertiesForOwner(user1, "1234567897", propertyService, ownerService);
-        //searchRepairsPerId(user2, 5, propertyRepairService);
-        // getAllRepairsForOwner(user2, "1234567897", propertyRepairService, ownerService);
-        //searchRepairsPerDate(user2, ownerService.searchOwnerPerVat("1234567897"), LocalDate.of(2022, 11, 06), propertyRepairService);
-        //searchRepairsPerRangeOfDates(user2, user1, LocalDate.of(2022,11,4), LocalDate.of(2022,11,13), propertyRepairService);
+            //Search user by vat number
+//        searchUserPerVat(sampleAdmin, "1234567890", ownerService); //User does not exist 
+//        searchUserPerVat(sampleAdmin, "1234567891", ownerService); //returns user with given vat
+//        searchUserPerVat(sampleAdmin, "12345", ownerService); //Invalid Vat Exception
+//        searchUserPerVat(sampleOwner, "1234567890", ownerService); //Unauthorized Exception 
+        
+
+            //search user by email
+//        searchUserPerEmail(sampleAdmin,"giannis@giannis", ownerService); //user does not exist
+//        searchUserPerEmail(sampleAdmin,"giannis@gmail.com", ownerService); //returns user with given email
+//        searchUserPerEmail(sampleAdmin,"giannis", ownerService);  //Invalid Email Exception
+//        searchUserPerEmail(sampleOwner,"giannis@gmail.com", ownerService); //Unauthorized Exception
+        
+            //search user by id
+//        searchUserPerId(sampleAdmin, 122, ownerService); //user does not exist
+//        searchUserPerId(sampleAdmin, 4, ownerService); //returns user with id 4
+//        searchUserPerId(sampleAdmin, -1, ownerService); //Invalid Id Exception
+//        searchUserPerId(sampleOwner, 122, ownerService); //Unauthorized Exception
+
+            //search property by id
+//        searchPropertyPerId(sampleAdmin, 18, propertyService); //property does not exist
+//        searchPropertyPerId(sampleAdmin, 5, propertyService); //returns property with id 5
+//        searchPropertyPerId(sampleAdmin, -1, propertyService); // Invalid id Exception
+//        searchPropertyPerId(sampleOwner, 5, propertyService); //Unauthorized Exception
+            
+            //get all owner's properties
+//        getAllPropertiesForOwner(sampleOwner, "1234567897", propertyService, ownerService); //returns properties for owner with given vat
+//        getAllPropertiesForOwner(sampleAdmin, "1234567897", propertyService, ownerService); //returns properties for owner with given vat(by Admin)
+//        getAllPropertiesForOwner(sampleOwner, "1234567893", propertyService, ownerService); //user cannot get another user's properties(Unauthorized Exception)
+
+            //search repairs by id
+//        searchRepairsPerId(sampleAdmin, 52, propertyRepairService); //repair does not exist
+//        searchRepairsPerId(sampleAdmin, 5, propertyRepairService);  //returns repair with id 5
+//        searchRepairsPerId(sampleAdmin, -1, propertyRepairService);  //Invalid id Exception
+//        searchRepairsPerId(sampleOwner, 5, propertyRepairService);   //Unauthorized Exception
+
+
+            //get all owner's repairs
+//        getAllRepairsForOwner(sampleOwner, "1234567897", propertyRepairService, ownerService); //owner can get only his repairs
+//        getAllRepairsForOwner(sampleAdmin, "1234567891", propertyRepairService, ownerService); //admin can get every user's repair
+//        getAllRepairsForOwner(sampleOwner, "1234567891", propertyRepairService, ownerService); //owner cannot search for another owner's repairs
+
+        //search repairs by date
+       //searchRepairsPerDate(sampleOwner, ownerService.searchOwnerPerVat("1234567897"), LocalDate.of(2022, 11, 06), propertyRepairService);
+       
+       //search repairs by range of dates
+        //searchRepairsPerRangeOfDates(sampleAdmin, sampleOwner, LocalDate.of(2022,11,4), LocalDate.of(2022,11,13), propertyRepairService);
         //Updates
-        //updateUserAddress(ownerService.searchOwnerByOwnerId(6), "Papamixali 2", ownerService);
-        //updateUserEmail(user1,"pasdds", ownerService);
-        //updateUserPwd(user1, "!asdasd1232aA", ownerService);
-        //updatePropertyAddress(propertyService.searchPropertyByPropertyId(1), "kanari 25", propertyService);
-        //updatePropertyConstructionYear(propertyService.searchPropertyByPropertyId(7), LocalDate.of(1999,2,2), propertyService);
-        //updatePropertyType(propertyService.searchPropertyByPropertyId(7), PropertyType.APPARTMENT, propertyService);
+//        updateUserAddress(ownerService.searchOwnerByOwnerId(6), "Papamixali 2", ownerService);
+//        updateUserEmail(sampleOwner,"pasdds", ownerService);
+//        updateUserPwd(sampleOwner, "!asdasd1232aA", ownerService);
+//        updatePropertyAddress(propertyService.searchPropertyByPropertyId(1), "kanari 25", propertyService);
+//        updatePropertyConstructionYear(propertyService.searchPropertyByPropertyId(7), LocalDate.of(1999,2,2), propertyService);
+//        updatePropertyType(propertyService.searchPropertyByPropertyId(7), PropertyType.APPARTMENT, propertyService);
         //Deletes
-        //deleteOwner(user2,ownerService.searchOwnerByOwnerId(3), ownerService);
-        //deleteProperty(propertyService.searchPropertyByPropertyId(10) , propertyService);
-        //deletePropertyRepair(propertyRepairService.searchRepairByRepairId(10), propertyRepairService);
+//        deleteOwner(sampleAdmin,ownerService.searchOwnerByOwnerId(3), ownerService);
+//        deleteProperty(propertyService.searchPropertyByPropertyId(10) , propertyService);
+//        deletePropertyRepair(propertyRepairService.searchRepairByRepairId(10), propertyRepairService);
     }
 
     //Searches
