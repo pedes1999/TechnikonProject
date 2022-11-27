@@ -111,14 +111,14 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      * @return List of repairs based on a given date
      */
     @Override
-    public List<PropertyRepair> readPerDate(LocalDate date) throws Exception{
+    public List<PropertyRepair> readPerDate(LocalDate date) throws Exception {
         String findRepairPerDateString = "select * from propertyrepair where ? between repairActualStartDate and repairActualEndDate";
         Query findRepairPerDateQuery = entityManager.createNativeQuery(findRepairPerDateString, PropertyRepair.class);
         try {
             findRepairPerDateQuery.setParameter(1, date);
 
         } catch (Exception e) {
-           throw new Exception(e);
+            throw new Exception(e);
         }
         return findRepairPerDateQuery.getResultList();
     }
@@ -130,7 +130,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      * @return List of repairs based on a given range of dates
      */
     @Override
-    public List<PropertyRepair> readPerRangeOfDates(LocalDate startDate, LocalDate endDate) throws Exception{
+    public List<PropertyRepair> readPerRangeOfDates(LocalDate startDate, LocalDate endDate) throws Exception {
         String findRepairPerDatesString = "select * from propertyrepair where repairActualStartDate>=? and repairActualEndDate <= ?";
         Query findRepairPerDatesQuery = entityManager.createNativeQuery(findRepairPerDatesString, PropertyRepair.class);
         try {
@@ -163,7 +163,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
                 entityManager.getTransaction().commit();
 
             } catch (Exception e) {
-               throw new Exception(e);
+                throw new Exception(e);
             }
 
             return true;
@@ -217,7 +217,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
                 entityManager.getTransaction().commit();
 
             } catch (Exception e) {
-             throw new Exception(e);
+                throw new Exception(e);
             }
 
             return true;
@@ -315,7 +315,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
      */
     @Override
     public boolean updateRepair(int propertyRepairId, PropertyRepair newPropertyRepair
-    ) throws Exception{
+    ) throws Exception {
         Optional<PropertyRepair> propertyRepair = read(propertyRepairId);
         if (propertyRepair.isPresent()) {
             try {
@@ -339,13 +339,14 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
         return false;
 
     }
-     /**
-      * 
-      * @param propertyRepairId
-      * @param repairStatus
-      * @return if the status of the repair has been updated
-      * @throws Exception 
-      */
+
+    /**
+     *
+     * @param propertyRepairId
+     * @param repairStatus
+     * @return if the status of the repair has been updated
+     * @throws Exception
+     */
     @Override
     public boolean updateRepairStatus(int propertyRepairId, RepairStatus repairStatus) throws Exception {
         Optional<PropertyRepair> propertyRepair = read(propertyRepairId);
@@ -358,7 +359,7 @@ public class PropertyRepairRepositoryImpl implements PropertyRepairRepository {
                 entityManager.getTransaction().commit();
 
             } catch (Exception e) {
-               throw new Exception(e);
+                throw new Exception(e);
             }
 
             return true;

@@ -172,7 +172,6 @@ public class Owner {
         final Owner other = (Owner) obj;
         return Objects.equals(this.ownerVat, other.ownerVat);
     }
-    
 
     @Override
     public final String toString() {

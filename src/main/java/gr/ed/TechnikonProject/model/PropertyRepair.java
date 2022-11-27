@@ -27,14 +27,14 @@ public class PropertyRepair {
     @Column(columnDefinition = "enum('PAINTING','INSULATION', 'FRAMES', 'PLUMBING', 'ELECTRICAL_WORK')")
     @Enumerated(EnumType.STRING)
     private RepairType repairType;
-    
+
     @Column(columnDefinition = "enum('PENDING','DECLINED','IN_PROGRESS', 'COMPLETE')")
     @Enumerated(EnumType.STRING)
     private RepairStatus repairStatus;
 
     private String repairDescription;
     private String repairWorkToBeDone;
-    
+
     //Actual Dates
     private LocalDate repairSubmissionDate;
     private LocalDate repairActualStartDate;
@@ -43,7 +43,7 @@ public class PropertyRepair {
     private LocalDate repairProposedStartDate;
     private LocalDate repairProposedEndDate;
     private BigDecimal repairProposedCost;
-    
+
     @Column(columnDefinition = "enum('PENDING','DECLINED','ACCEPTED')")
     @Enumerated(EnumType.STRING)
     private RepairAcceptance repairAcceptance;
@@ -60,7 +60,6 @@ public class PropertyRepair {
         this.repairSubmissionDate = repairSubmissionDate;
         this.repairProposedCost = repairProposedCost;
     }
-    
 
     public int getPropertyRepairId() {
         return propertyRepairId;
@@ -166,13 +165,9 @@ public class PropertyRepair {
         this.repairAcceptance = repairAcceptance;
     }
 
-
-
     @Override
     public final String toString() {
         return "PropertyRepair{" + "\n propertyRepairId=" + propertyRepairId + ",\n repairProperty=" + repairProperty.getPropertyId() + ",\n repairType=" + repairType + ",\n repairStatus=" + repairStatus + ",\n repairDescription=" + repairDescription + ",\n repairWorkToBeDone=" + repairWorkToBeDone + ",\n repairSubmissionDate=" + repairSubmissionDate + ",\n repairActualStartDate=" + repairActualStartDate + ",\n repairActualEndDate=" + repairActualEndDate + ",\n repairProposedStartDate=" + repairProposedStartDate + ",\n repairProposedEndDate=" + repairProposedEndDate + ",\n repairProposedCost=" + repairProposedCost + ",\n repairAcceptance=" + repairAcceptance + '}' + "\n";
     }
-    
-    
 
 }

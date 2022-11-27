@@ -1,9 +1,8 @@
-
 package gr.ed.TechnikonProject.exceptions;
 
+public class InvalidIdException extends Exception {
 
-public class InvalidIdException extends Exception{
-    public InvalidIdException(String errorMsg){
+    public InvalidIdException(String errorMsg) {
         super(errorMsg);
     }
 }
