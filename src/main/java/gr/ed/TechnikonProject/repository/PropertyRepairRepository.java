@@ -9,12 +9,29 @@ import java.util.List;
 
 public interface PropertyRepairRepository extends Repository<PropertyRepair> {
 
-    //Read based on specific criteria.
-    List<PropertyRepair> readPerOwnerVAT(String ownerVAT);
-    
-    List<PropertyRepair> readPerDate(LocalDate date);
+    //Read based on owner VAT
+    /**
+     *
+     * @param ownerVAT
+     * @return List of Repairs for a specific owner ID
+     */
+    List<PropertyRepair> readPerOwnerVAT(String ownerVAT) throws Exception;
 
-    List<PropertyRepair> readPerRangeOfDates(LocalDate startDate, LocalDate endDate);
+    /**
+     *
+     * @param date
+     * @return List of Repairs for a Date Given
+     */
+    List<PropertyRepair> readPerDate(LocalDate date) throws Exception;
+
+    /**
+     *
+     * @param startDate
+     * @param endDate
+     * @return List of repairs based on a range of given Dates;
+     */
+    List<PropertyRepair> readPerRangeOfDates(LocalDate startDate, LocalDate endDate) throws Exception;
+
 
     //Repair Date Handling.
     boolean updateRepairProposedStartDate(int propertyRepairId, LocalDate dateTime) throws Exception;
@@ -30,8 +47,8 @@ public interface PropertyRepairRepository extends Repository<PropertyRepair> {
     boolean updateRepairAcceptance(int propertyRepairId, RepairAcceptance repairAcceptance) throws Exception;
 
     boolean updateRepairStatus(int propertyRepairId, RepairStatus repairStatus) throws Exception;
+    //repair misc handling
+    boolean updateRepair(int propertyRepairId, PropertyRepair newPropertyRepair) throws Exception;
 
-    //Repair misc handling
-    boolean updateRepair(int propertyRepairId, PropertyRepair newPropertyRepair);
 
 }
