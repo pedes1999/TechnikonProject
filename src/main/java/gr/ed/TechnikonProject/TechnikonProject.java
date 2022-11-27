@@ -103,60 +103,49 @@ public class TechnikonProject {
         /*
         Owner Either accepts or denies the offer
          */
-       // updateRepairAcceptance(propertyRepairService.searchRepairByRepairId(8), RepairAcceptance.DECLINED, propertyRepairService);
+        //updateRepairAcceptance(propertyRepairService.searchRepairByRepairId(8), RepairAcceptance.DECLINED, propertyRepairService);
         /*
         Admin sets the actual repair dates based on owner's acceptance again validation takes place
          */
-       // updateRepairBasedOnUserAcceptance(sampleAdmin, propertyRepairService.searchRepairByRepairId(8), propertyRepairService);
+        //updateRepairBasedOnUserAcceptance(sampleAdmin, propertyRepairService.searchRepairByRepairId(8), propertyRepairService);
         //=================================================================================================================================
         //CRUD
-
-            //Search user by vat number
+        //Search user by vat number
 //        searchUserPerVat(sampleAdmin, "1234567890", ownerService); //User does not exist 
 //        searchUserPerVat(sampleAdmin, "1234567891", ownerService); //returns user with given vat
 //        searchUserPerVat(sampleAdmin, "12345", ownerService); //Invalid Vat Exception
 //        searchUserPerVat(sampleOwner, "1234567890", ownerService); //Unauthorized Exception 
-        
-
-            //search user by email
+        //search user by email
 //        searchUserPerEmail(sampleAdmin,"giannis@giannis", ownerService); //user does not exist
 //        searchUserPerEmail(sampleAdmin,"giannis@gmail.com", ownerService); //returns user with given email
 //        searchUserPerEmail(sampleAdmin,"giannis", ownerService);  //Invalid Email Exception
 //        searchUserPerEmail(sampleOwner,"giannis@gmail.com", ownerService); //Unauthorized Exception
-        
-            //search user by id
+        //search user by id
 //        searchUserPerId(sampleAdmin, 122, ownerService); //user does not exist
 //        searchUserPerId(sampleAdmin, 4, ownerService); //returns user with id 4
 //        searchUserPerId(sampleAdmin, -1, ownerService); //Invalid Id Exception
 //        searchUserPerId(sampleOwner, 122, ownerService); //Unauthorized Exception
-
-            //search property by id
+        //search property by id
 //        searchPropertyPerId(sampleAdmin, 18, propertyService); //property does not exist
 //        searchPropertyPerId(sampleAdmin, 5, propertyService); //returns property with id 5
 //        searchPropertyPerId(sampleAdmin, -1, propertyService); // Invalid id Exception
 //        searchPropertyPerId(sampleOwner, 5, propertyService); //Unauthorized Exception
-            
-            //get all owner's properties
+        //get all owner's properties
 //        getAllPropertiesForOwner(sampleOwner, "1234567897", propertyService, ownerService); //returns properties for owner with given vat
 //        getAllPropertiesForOwner(sampleAdmin, "1234567897", propertyService, ownerService); //returns properties for owner with given vat(by Admin)
 //        getAllPropertiesForOwner(sampleOwner, "1234567893", propertyService, ownerService); //user cannot get another user's properties(Unauthorized Exception)
-
-            //search repairs by id
+        //search repairs by id
 //        searchRepairsPerId(sampleAdmin, 52, propertyRepairService); //repair does not exist
 //        searchRepairsPerId(sampleAdmin, 5, propertyRepairService);  //returns repair with id 5
 //        searchRepairsPerId(sampleAdmin, -1, propertyRepairService);  //Invalid id Exception
 //        searchRepairsPerId(sampleOwner, 5, propertyRepairService);   //Unauthorized Exception
-
-
-            //get all owner's repairs
+        //get all owner's repairs
 //        getAllRepairsForOwner(sampleOwner, "1234567897", propertyRepairService, ownerService); //owner can get only his repairs
 //        getAllRepairsForOwner(sampleAdmin, "1234567891", propertyRepairService, ownerService); //admin can get every user's repair
 //        getAllRepairsForOwner(sampleOwner, "1234567891", propertyRepairService, ownerService); //owner cannot search for another owner's repairs
-
         //search repairs by date
-       //searchRepairsPerDate(sampleOwner, ownerService.searchOwnerPerVat("1234567897"), LocalDate.of(2022, 11, 06), propertyRepairService);
-       
-       //search repairs by range of dates
+        //searchRepairsPerDate(sampleOwner, ownerService.searchOwnerPerVat("1234567897"), LocalDate.of(2022, 11, 06), propertyRepairService);
+        //search repairs by range of dates
         //searchRepairsPerRangeOfDates(sampleAdmin, sampleOwner, LocalDate.of(2022,11,4), LocalDate.of(2022,11,13), propertyRepairService);
         //Updates
 //        updateUserAddress(ownerService.searchOwnerByOwnerId(6), "Papamixali 2", ownerService);
@@ -169,7 +158,6 @@ public class TechnikonProject {
 //        deleteOwner(sampleAdmin,ownerService.searchOwnerByOwnerId(3), ownerService);
 //        deleteProperty(propertyService.searchPropertyByPropertyId(10) , propertyService);
 //        deletePropertyRepair(propertyRepairService.searchRepairByRepairId(10), propertyRepairService);
-
     }
 
     //Searches(only the ADMIN can do these actions)

@@ -10,8 +10,7 @@ public interface PropertyService {
     
     Property searchPropertyByPropertyId(int propertyId);
     List<Property> getAllOwnerProperties(String ownerVat);
-    
-    
+       
     boolean updatePropertyAddress(final Property property, String propertyAddress);
     boolean updatePropertyConstructionYear(final Property property, LocalDate propertyConstructionYear);
     boolean updatePropertyType(final Property property, PropertyType propertyType);

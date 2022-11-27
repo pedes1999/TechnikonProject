@@ -24,7 +24,7 @@ public class Property {
     @ManyToOne
     private Owner propertyOwner;
 
-    @OneToMany(mappedBy = "repairProperty",orphanRemoval=true)
+    @OneToMany(mappedBy = "repairProperty", orphanRemoval = true)
     private List<PropertyRepair> propertyRepairs;
 
     private String propertyAddress;
@@ -33,8 +33,9 @@ public class Property {
     @Column(columnDefinition = "enum('DETACHED_HOUSE','MAISONETTE','APPARTMENT')")
     @Enumerated(EnumType.STRING)
     private PropertyType propertyType;
-    
-    public Property() {}
+
+    public Property() {
+    }
 
     public Property(Owner propertyOwner, String propertyAddress, LocalDate propertyConstructionYear, PropertyType propertyType) {
         this.propertyOwner = propertyOwner;
@@ -42,8 +43,6 @@ public class Property {
         this.propertyConstructionYear = propertyConstructionYear;
         this.propertyType = propertyType;
     }
-    
-    
 
     public int getPropertyId() {
         return propertyId;
@@ -69,7 +68,6 @@ public class Property {
         return propertyRepairs;
     }
 
-    
     public void setPropertyRepairs(List<PropertyRepair> propertyRepairs) {
         this.propertyRepairs = propertyRepairs;
     }

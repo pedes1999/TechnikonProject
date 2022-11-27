@@ -1,7 +1,6 @@
 package gr.ed.TechnikonProject.repository.repositoryImpl;
 
 import gr.ed.TechnikonProject.enums.PropertyType;
-import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.model.Property;
 import gr.ed.TechnikonProject.repository.PropertyRepository;
 import jakarta.persistence.EntityManager;
@@ -76,7 +75,7 @@ public class PropertyRepositoryImpl implements PropertyRepository {
                 entityManager.remove(persistentInstance);
                 entityManager.getTransaction().commit();
             } catch (Exception e) {
-               e.printStackTrace();
+                e.printStackTrace();
             }
             return true;
         }
@@ -89,7 +88,7 @@ public class PropertyRepositoryImpl implements PropertyRepository {
      * @return the list of properties with the same VAT number
      */
     @Override
-    public List<Property> readByVATNumber(String ownerVat) throws Exception{
+    public List<Property> readByVATNumber(String ownerVat) throws Exception {
         //String ow = PropertyVATOwner.getOwnerVat();
         String findpropertyVATOwnerString = "select * from property"
                 + " inner join owner on property.propertyOwner_ownerId = owner.ownerId"
@@ -100,7 +99,7 @@ public class PropertyRepositoryImpl implements PropertyRepository {
         try {
             findpropertyVATOwnerQuery.setParameter(1, ownerVat);
         } catch (Exception e) {
-           throw new Exception(e);
+            throw new Exception(e);
         }
         return findpropertyVATOwnerQuery.getResultList();
 
@@ -113,7 +112,7 @@ public class PropertyRepositoryImpl implements PropertyRepository {
      * @return true if the construction year is updated correctly
      */
     @Override
-    public boolean updatePropertyConstructionYear(int id, LocalDate propertyConstructionYear) throws Exception{
+    public boolean updatePropertyConstructionYear(int id, LocalDate propertyConstructionYear) throws Exception {
         Optional<Property> property = read(id);
         if (property.isPresent()) {
             try {
@@ -139,7 +138,7 @@ public class PropertyRepositoryImpl implements PropertyRepository {
      * @return true if the property type is updated correctly
      */
     @Override
-    public boolean updatePropertyType(int id, PropertyType propertyType) throws Exception{
+    public boolean updatePropertyType(int id, PropertyType propertyType) throws Exception {
         Optional<Property> property = read(id);
         if (property.isPresent()) {
             try {
@@ -166,7 +165,7 @@ public class PropertyRepositoryImpl implements PropertyRepository {
      */
     @Override
     public boolean updatePropertyAddress(int id, String propertyAddress
-    ) throws Exception{
+    ) throws Exception {
         Optional<Property> property = read(id);
         if (property.isPresent()) {
             try {

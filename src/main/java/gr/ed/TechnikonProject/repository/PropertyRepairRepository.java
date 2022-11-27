@@ -32,7 +32,6 @@ public interface PropertyRepairRepository extends Repository<PropertyRepair> {
      */
     List<PropertyRepair> readPerRangeOfDates(LocalDate startDate, LocalDate endDate) throws Exception;
 
-
     //Repair Date Handling.
     boolean updateRepairProposedStartDate(int propertyRepairId, LocalDate dateTime) throws Exception;
 
@@ -47,8 +46,8 @@ public interface PropertyRepairRepository extends Repository<PropertyRepair> {
     boolean updateRepairAcceptance(int propertyRepairId, RepairAcceptance repairAcceptance) throws Exception;
 
     boolean updateRepairStatus(int propertyRepairId, RepairStatus repairStatus) throws Exception;
+
     //repair misc handling
     boolean updateRepair(int propertyRepairId, PropertyRepair newPropertyRepair) throws Exception;
-
 
 }
