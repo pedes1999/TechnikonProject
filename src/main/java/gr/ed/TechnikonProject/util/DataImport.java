@@ -62,9 +62,9 @@ public class DataImport {
                 PropertyRepair pr = new PropertyRepair();
                 pr.setRepairProperty(propertyService.searchPropertyByPropertyId(Integer.parseInt(repairString[0])));
                 pr.setRepairType(RepairType.valueOf(repairString[1]));
-                pr.setRepairDescription(repairString[2]);
+                pr.setRepairDescription(repairString[2].toLowerCase());
                 pr.setRepairSubmissionDate(LocalDate.parse(repairString[3]));
-                pr.setRepairWorkToBeDone(repairString[4]);
+                pr.setRepairWorkToBeDone(repairString[4].toLowerCase());
                 pr.setRepairProposedStartDate(LocalDate.parse(repairString[6]));
                 pr.setRepairProposedEndDate(LocalDate.parse(repairString[5]));
                 pr.setRepairProposedCost(new BigDecimal(repairString[7].trim()));
@@ -86,7 +86,7 @@ public class DataImport {
         for (String[] propertyString : propertyList) {
             try {
                 Property p = new Property();
-                p.setPropertyAddress(propertyString[0]);
+                p.setPropertyAddress(propertyString[0].toLowerCase());
                 p.setPropertyConstructionYear(LocalDate.parse(propertyString[1].trim()));
                 p.setPropertyType(PropertyType.valueOf(propertyString[2]));
                 p.setPropertyOwner(ownerService.searchOwnerByOwnerId(Integer.parseInt(propertyString[3])));
@@ -103,12 +103,12 @@ public class DataImport {
             try {
                 Owner o = new Owner();
                 o.setOwnerVat(ownerString[0].trim());
-                o.setOwnerName(ownerString[1].trim());
-                o.setOwnerSurname(ownerString[2].trim());
-                o.setOwnerAddress(ownerString[3]);
+                o.setOwnerName(ownerString[1].trim().toLowerCase());
+                o.setOwnerSurname(ownerString[2].trim().toLowerCase());
+                o.setOwnerAddress(ownerString[3].toLowerCase());
                 o.setOwnerPhoneNumber(ownerString[4].trim());
-                o.setOwnerEmail(ownerString[5].trim());
-                o.setOwnerUsername(ownerString[6].trim());
+                o.setOwnerEmail(ownerString[5].trim().toLowerCase());
+                o.setOwnerUsername(ownerString[6].trim().toLowerCase());
                 o.setOwnerPwd(ownerString[7]);
                 o.setUserRole(Role.valueOf(ownerString[8]));
 
