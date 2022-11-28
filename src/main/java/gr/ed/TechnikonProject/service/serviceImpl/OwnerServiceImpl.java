@@ -28,7 +28,7 @@ public class OwnerServiceImpl implements OwnerService {
 
     }
 
-    /**
+    /*
      * It checks if the owner's data are valid and then add the owner in the
      * database
      *
