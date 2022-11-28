@@ -99,6 +99,7 @@ public class DataImport {
 
     public void insertOwners() {
         List<String[]> ownerList = readFile("data/" + OWNERS_CSV);
+        List<Owner> olist = new ArrayList<>();
         for (String[] ownerString : ownerList) {
             try {
                 Owner o = new Owner();
@@ -117,6 +118,7 @@ public class DataImport {
                 System.out.println(e.getMessage());
             }
         }
+
     }
 
 }

@@ -49,6 +49,7 @@ public class Owner {
 
     public Owner() {
     }
+    
 
     public Owner(String ownerVat, String ownerName, String ownerSurname, String ownerAddress, String ownerPhoneNumber, String ownerEmail, String ownerUsername, String ownerPwd, Role isAdmin) {
         this.ownerVat = ownerVat;
