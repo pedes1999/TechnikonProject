@@ -368,7 +368,7 @@ public class PropertyRepairServiceImpl implements PropertyRepairService {
             try {
                 updatePropertyRepairActualStartDate(propertyRepair, propertyRepair.getRepairProposedStartDate());
                 updatePropertyRepairActualEndDate(propertyRepair, propertyRepair.getRepairProposedEndDate());
-                propertyRepair.setRepairStatus(RepairStatus.IN_PROGRESS);
+                updatePropertyRepairStatus(propertyRepair,RepairStatus.IN_PROGRESS);
             } catch (Exception e) {
                 Logger.getLogger(PropertyRepairServiceImpl.class.getName())
                         .log(Level.WARNING, "Somthing went Wrong with Repair Updates!");
