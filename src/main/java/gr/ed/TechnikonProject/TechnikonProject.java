@@ -33,12 +33,14 @@ import java.util.logging.Logger;
 public class TechnikonProject {
 
     public static void main(String[] args) {
+        //Initializing Entity Manager 
         EntityManager entityManager = JpaUtil.getEntityManager();
-
+        
+        //Initializing Repos
         PropertyRepository propertyRepo = new PropertyRepositoryImpl(entityManager);
         PropertyRepairRepository repairRepo = new PropertyRepairRepositoryImpl(entityManager);
         OwnerRepository ownerRepo = new OwnerRepositoryImpl(entityManager);
-
+        //Initializing Services
         OwnerService ownerService = new OwnerServiceImpl(ownerRepo, propertyRepo, repairRepo);
         PropertyService propertyService = new PropertyServiceImpl(ownerRepo, propertyRepo, repairRepo);
         PropertyRepairService propertyRepairService = new PropertyRepairServiceImpl(ownerRepo, propertyRepo, repairRepo);
@@ -93,6 +95,14 @@ public class TechnikonProject {
 //               "This is a very large house and it needs to be insulated",
 //                LocalDate.now(),
 //                BigDecimal.ZERO));
+//         propertyRepairService.addPropertyRepair(new PropertyRepair(
+//                propertyService.searchPropertyByPropertyId(10),
+//                RepairType.PLUMBING,
+//                RepairStatus.PENDING,
+//               "plumbing the whole house",
+//               "This is a very large house and it needs to be plumbed",
+//                LocalDate.now(),
+//                BigDecimal.ZERO));
 
         /*
         Admin Proposes the Starting,ending date and cost.Some validations take place to check if the user performing this action has admin privilages or not
@@ -104,6 +114,8 @@ public class TechnikonProject {
         Owner Either accepts or denies the offer
          */
         //updateRepairAcceptance(propertyRepairService.searchRepairByRepairId(8), RepairAcceptance.DECLINED, propertyRepairService);
+        //updateRepairAcceptance(propertyRepairService.searchRepairByRepairId(8), RepairAcceptance.ACCEPTED, propertyRepairService);
+
         /*
         Admin sets the actual repair dates based on owner's acceptance again validation takes place
          */
@@ -112,9 +124,9 @@ public class TechnikonProject {
         //CRUD
         //Search user by vat number
 //        searchUserPerVat(sampleAdmin, "1234567890", ownerService); //User does not exist 
-//        searchUserPerVat(sampleAdmin, "1234567891", ownerService); //returns user with given vat
+//        searchUserPerVat(sampleAdmin, "1234567892", ownerService); //returns user with given vat
 //        searchUserPerVat(sampleAdmin, "12345", ownerService); //Invalid Vat Exception
-//        searchUserPerVat(sampleOwner, "1234567890", ownerService); //Unauthorized Exception 
+//        searchUserPerVat(sampleOwner, "1234567890", ownerService); //Unauthorized Exception
         //search user by email
 //        searchUserPerEmail(sampleAdmin,"giannis@giannis", ownerService); //user does not exist
 //        searchUserPerEmail(sampleAdmin,"giannis@gmail.com", ownerService); //returns user with given email
@@ -147,46 +159,44 @@ public class TechnikonProject {
         //searchRepairsPerDate(sampleOwner, ownerService.searchOwnerPerVat("1234567897"), LocalDate.of(2022, 11, 06), propertyRepairService);
         //search repairs by range of dates
         //searchRepairsPerRangeOfDates(sampleAdmin, sampleOwner, LocalDate.of(2022,11,4), LocalDate.of(2022,11,13), propertyRepairService);
-        
-        
         //Updates
-                //update user address
-//        updateUserAddress(sampleOwner , sampleOwner, "Papamixali 2", ownerService); //updates owner's address
-//        updateUserAddress(sampleAdmin ,ownerService.searchOwnerByOwnerId(6), "Papamixali 2", ownerService); // admin updates every owner's address
-//        updateUserAddress(sampleOwner , ownerService.searchOwnerByOwnerId(2), "Papamixali 2", ownerService); //owner cannot update another owner's address
-                //update user email 
+        //update user address
+//        updateUserAddress(sampleOwner, sampleOwner, "Papamixali 2", ownerService); //updates owner's address
+//        updateUserAddress(sampleAdmin, ownerService.searchOwnerByOwnerId(6), "Papamixali 2", ownerService); // admin updates every owner's address
+//        updateUserAddress(sampleOwner, ownerService.searchOwnerByOwnerId(2), "Papamixali 2", ownerService); //owner cannot update another owner's address
+        //update user email 
 //        updateUserEmail(sampleOwner,sampleOwner,"pasdds@gmai.c", ownerService); //owner can change his email
 //        updateUserEmail(sampleOwner,ownerService.searchOwnerByOwnerId(6),"asdas@gmail.com", ownerService); //owner cannot change another owner's email
 //        updateUserEmail(sampleAdmin,ownerService.searchOwnerByOwnerId(2),"pasdds@sadsa.gr", ownerService); //admin can change everyone's email
-                //update user pwd
+        //update user pwd
 //        updateUserPwd(sampleOwner,sampleOwner, "!asdasd1232aA", ownerService);//owner can change their pwd
 //        updateUserPwd(sampleOwner ,ownerService.searchOwnerByOwnerId(6), "!asdsad54534A", ownerService); //owner cannot change another owner's pwd
 //        updateUserPwd(sampleAdmin,ownerService.searchOwnerByOwnerId(2), "!asd232232aA", ownerService); // admin can change everyone's pwd
-                //update property address
+        //update property address
 //        updatePropertyAddress(sampleOwner,propertyService.searchPropertyByPropertyId(9), "kanari 25", propertyService); //owner can change their properties address
 //        updatePropertyAddress(sampleOwner ,propertyService.searchPropertyByPropertyId(1), "kanari 25", propertyService); // owner cannot change another owner's property
 //        updatePropertyAddress(sampleAdmin , propertyService.searchPropertyByPropertyId(2), "kanari 25", propertyService); // admin can change everything
-                //update property construction year
+        //update property construction year
 //        updatePropertyConstructionYear(sampleOwner,propertyService.searchPropertyByPropertyId(9), LocalDate.of(1999,2,2), propertyService);//owner can change their property's year
 //        updatePropertyConstructionYear(sampleOwner,propertyService.searchPropertyByPropertyId(1), LocalDate.of(1999,2,2), propertyService); // owner cannot change another owner's property year
 //        updatePropertyConstructionYear(sampleAdmin,propertyService.searchPropertyByPropertyId(2), LocalDate.of(1999,2,2), propertyService);// admin can change everything
-                //update property type
+        //update property type
 //        updatePropertyType(sampleOwner,propertyService.searchPropertyByPropertyId(9), PropertyType.APPARTMENT, propertyService);//owner can change their property's type
 //        updatePropertyType(sampleOwner,propertyService.searchPropertyByPropertyId(1), PropertyType.APPARTMENT, propertyService);// owner cannot change another owner's property type
 //        updatePropertyType(sampleAdmin,propertyService.searchPropertyByPropertyId(2), PropertyType.DETACHED_HOUSE, propertyService);// admin can change everything
         //Deletes
-            //Owner Delete
+        //Owner Delete
 //        deleteOwner(sampleAdmin,ownerService.searchOwnerByOwnerId(3), ownerService); //admin can delete every owner
 //        deleteOwner(sampleOwner,ownerService.searchOwnerByOwnerId(7), ownerService); //owner can only delete himself
 //        deleteOwner(sampleOwner,ownerService.searchOwnerByOwnerId(4), ownerService); //Unauthorized EXception
-            //Property Delete
+        //Property Delete
 //       deleteProperty(sampleAdmin,propertyService.searchPropertyByPropertyId(3) , propertyService); //admin can delete every property
 //       deleteProperty(ownerService.searchOwnerByOwnerId(5),propertyService.searchPropertyByPropertyId(5) , propertyService); //owner can only delete their properties
 //       deleteProperty(sampleOwner,propertyService.searchPropertyByPropertyId(6) , propertyService); //owner cannot delete another owner's properties
-            //Repair Delete
-//       deletePropertyRepair(sampleAdmin,propertyRepairService.searchRepairByRepairId(4), propertyRepairService); //admin can delete every repair
-//       deletePropertyRepair(ownerService.searchOwnerByOwnerId(1),propertyRepairService.searchRepairByRepairId(1), propertyRepairService); //owner can delete only their repairs
-//       deletePropertyRepair(ownerService.searchOwnerByOwnerId(1),propertyRepairService.searchRepairByRepairId(2), propertyRepairService);  //owner cannot delete another owner's repairs
+        //Repair Delete
+//       deletePropertyRepair(sampleAdmin,propertyRepairService.searchRepairByRepairId(1), propertyRepairService); //admin can delete every repair
+//       deletePropertyRepair(ownerService.searchOwnerByOwnerId(1),propertyRepairService.searchRepairByRepairId(2), propertyRepairService); //owner can delete only their repairs
+//       deletePropertyRepair(ownerService.searchOwnerByOwnerId(1),propertyRepairService.searchRepairByRepairId(4), propertyRepairService);  //owner cannot delete another owner's repairs
     }
 
     //Searches(only the ADMIN can do these actions)
@@ -198,6 +208,7 @@ public class TechnikonProject {
         } else {
             Owner owner = os.searchOwnerPerVat(vatNumber);
             System.out.println("User with Vat : " + vatNumber + " is " + owner);
+            System.out.println("===========================================================");
         }
     }
 
@@ -209,6 +220,7 @@ public class TechnikonProject {
         } else {
             Owner owner = os.searchOwnerPerEmail(email);
             System.out.println("User with Email : " + email + " is " + owner);
+            System.out.println("===========================================================");
         }
     }
 
@@ -220,6 +232,7 @@ public class TechnikonProject {
         } else {
             Owner owner = os.searchOwnerByOwnerId(id);
             System.out.println("User with Id : " + id + " is " + owner);
+            System.out.println("===========================================================");
         }
     }
 
@@ -231,6 +244,7 @@ public class TechnikonProject {
         } else {
             Property property = ps.searchPropertyByPropertyId(id);
             System.out.println("Property with Id : " + id + " is " + property);
+            System.out.println("===========================================================");
         }
     }
 
@@ -239,6 +253,7 @@ public class TechnikonProject {
         if (os.searchOwnerPerVat(vat).equals(user) || user.getUserRole().equals(Role.ADMIN)) {
             List<Property> plist = ps.getAllOwnerProperties(vat);
             System.out.println("Properties for Owner with Vat: " + vat + " are " + plist);
+            System.out.println("===========================================================");
         } else {
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
@@ -255,6 +270,7 @@ public class TechnikonProject {
         } else {
             PropertyRepair propertyRepair = prs.searchRepairByRepairId(id);
             System.out.println("Repair with Id : " + id + " is " + propertyRepair);
+            System.out.println("===========================================================");
         }
     }
 
@@ -263,6 +279,7 @@ public class TechnikonProject {
         if (os.searchOwnerPerVat(vat).equals(user) || user.getUserRole().equals(Role.ADMIN)) {
             List<PropertyRepair> prlist = prs.getAllOwnerRepairs(vat);
             System.out.println("Repairs for Owner with Vat: " + vat + " are " + prlist);
+            System.out.println("===========================================================");
         } else {
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
@@ -275,6 +292,7 @@ public class TechnikonProject {
         if (user.getUserRole().equals(Role.ADMIN) || user.equals(owner)) {
             List<PropertyRepair> prlist = prs.searchRepairsByDate(date);
             System.out.println("Repairs with Date : " + date + " is " + prlist);
+            System.out.println("===========================================================");
         } else {
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
@@ -287,6 +305,7 @@ public class TechnikonProject {
         if (user.getUserRole().equals(Role.ADMIN) || user.equals(owner)) {
             List<PropertyRepair> prlist = prs.searchRepairsByDate(dateFrom, dateTo);
             System.out.println("Repairs from Date : " + dateFrom + " to date : " + dateTo + " are : " + prlist);
+            System.out.println("===========================================================");
         } else {
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
@@ -295,21 +314,12 @@ public class TechnikonProject {
     }
 
     //Updates that both owner and admin can do
-    public static boolean updateUserAddress(Owner user , Owner owner, String address, OwnerService os) {
-         if (user.getUserRole().equals(Role.ADMIN) || user.equals(owner)) {
-        return os.updateOwnerAddress(owner, address);
-         } else {
-            Logger.getLogger(TechnikonProject.class.getName())
-                    .log(Level.WARNING, null, new UnauthorizedException(
-                            "Sorry, you are not authorized to perform this action!"));
-            return false;
-        }
-    }
-
-    public static boolean updateUserEmail(Owner user,Owner owner, String email, OwnerService os) {
+    public static boolean updateUserAddress(Owner user, Owner owner, String address, OwnerService os) {
         if (user.getUserRole().equals(Role.ADMIN) || user.equals(owner)) {
-        return os.updateOwnerEmail(owner, email);
-         } else {
+            System.out.println("===========================================================");
+            return os.updateOwnerAddress(owner, address);
+        } else {
+            System.out.println("===========================================================");
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
                             "Sorry, you are not authorized to perform this action!"));
@@ -317,10 +327,12 @@ public class TechnikonProject {
         }
     }
 
-    public static boolean updateUserPwd(Owner user , Owner owner, String pwd, OwnerService os) {
+    public static boolean updateUserEmail(Owner user, Owner owner, String email, OwnerService os) {
         if (user.getUserRole().equals(Role.ADMIN) || user.equals(owner)) {
-        return os.updateOwnerPwd(owner, pwd);
-         } else {
+            System.out.println("===========================================================");
+            return os.updateOwnerEmail(owner, email);
+        } else {
+            System.out.println("===========================================================");
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
                             "Sorry, you are not authorized to perform this action!"));
@@ -328,10 +340,25 @@ public class TechnikonProject {
         }
     }
 
-    public static boolean updatePropertyAddress(Owner user , Property property, String address, PropertyService ps) {
+    public static boolean updateUserPwd(Owner user, Owner owner, String pwd, OwnerService os) {
+        if (user.getUserRole().equals(Role.ADMIN) || user.equals(owner)) {
+            System.out.println("===========================================================");
+            return os.updateOwnerPwd(owner, pwd);
+        } else {
+            System.out.println("===========================================================");
+            Logger.getLogger(TechnikonProject.class.getName())
+                    .log(Level.WARNING, null, new UnauthorizedException(
+                            "Sorry, you are not authorized to perform this action!"));
+            return false;
+        }
+    }
+
+    public static boolean updatePropertyAddress(Owner user, Property property, String address, PropertyService ps) {
         if (user.getUserRole().equals(Role.ADMIN) || property.getPropertyOwner().equals(user)) {
+            System.out.println("===========================================================");
             return ps.updatePropertyAddress(property, address);
         } else {
+            System.out.println("===========================================================");
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
                             "Sorry, you are not authorized to perform this action!"));
@@ -339,10 +366,12 @@ public class TechnikonProject {
         }
     }
 
-    public static boolean updatePropertyConstructionYear(Owner user,Property property, LocalDate date, PropertyService ps) {
+    public static boolean updatePropertyConstructionYear(Owner user, Property property, LocalDate date, PropertyService ps) {
         if (user.getUserRole().equals(Role.ADMIN) || property.getPropertyOwner().equals(user)) {
+            System.out.println("===========================================================");
             return ps.updatePropertyConstructionYear(property, date);
         } else {
+            System.out.println("===========================================================");
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
                             "Sorry, you are not authorized to perform this action!"));
@@ -350,10 +379,12 @@ public class TechnikonProject {
         }
     }
 
-    public static boolean updatePropertyType(Owner user,Property property, PropertyType type, PropertyService ps) {
-       if (user.getUserRole().equals(Role.ADMIN) || property.getPropertyOwner().equals(user)) {
+    public static boolean updatePropertyType(Owner user, Property property, PropertyType type, PropertyService ps) {
+        if (user.getUserRole().equals(Role.ADMIN) || property.getPropertyOwner().equals(user)) {
+            System.out.println("===========================================================");
             return ps.updatePropertyType(property, type);
         } else {
+            System.out.println("===========================================================");
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
                             "Sorry, you are not authorized to perform this action!"));
@@ -369,6 +400,7 @@ public class TechnikonProject {
                             "Sorry, you are not authorized to perform this action!"));
             return false;
         } else {
+            System.out.println("===========================================================");
             prs.updatePropertyRepairProposedStartDate(pr, date);
             return true;
         }
@@ -377,11 +409,13 @@ public class TechnikonProject {
     //Only the admin can update the repair proposed end date
     public static boolean updateRepairProposedEnd(Owner user, PropertyRepair pr, LocalDate date, PropertyRepairService prs) {
         if (!user.getUserRole().equals(Role.ADMIN)) {
+            System.out.println("===========================================================");
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
                             "Sorry, you are not authorized to perform this action!"));
             return false;
         } else {
+            System.out.println("===========================================================");
             prs.updatePropertyRepairProposedEndDate(pr, date);
             return true;
         }
@@ -390,11 +424,13 @@ public class TechnikonProject {
     //Only the admin can update the repair proposed cost
     public static boolean updateRepairProposedCost(Owner user, PropertyRepair pr, BigDecimal cost, PropertyRepairService prs) {
         if (!user.getUserRole().equals(Role.ADMIN)) {
+            System.out.println("===========================================================");
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
                             "Sorry, you are not authorized to perform this action!"));
             return false;
         } else {
+            System.out.println("===========================================================");
             prs.updatePropertyRepairProposedCost(pr, cost);
             return true;
         }
@@ -403,11 +439,13 @@ public class TechnikonProject {
     ////Only the admin can update the repair actual start date
     public static boolean updateRepairActualStart(Owner user, PropertyRepair pr, LocalDate date, PropertyRepairService prs) {
         if (!user.getUserRole().equals(Role.ADMIN)) {
+            System.out.println("===========================================================");
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
                             "Sorry, you are not authorized to perform this action!"));
             return false;
         } else {
+            System.out.println("===========================================================");
             prs.updatePropertyRepairActualStartDate(pr, date);
             return true;
         }
@@ -416,11 +454,13 @@ public class TechnikonProject {
     //Only the admin can update the repair actual end date
     public static boolean updateRepairActualEnd(Owner user, PropertyRepair pr, LocalDate date, PropertyRepairService prs) {
         if (!user.getUserRole().equals(Role.ADMIN)) {
+            System.out.println("===========================================================");
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
                             "Sorry, you are not authorized to perform this action!"));
             return false;
         } else {
+            System.out.println("===========================================================");
             prs.updatePropertyRepairActualEndDate(pr, date);
             return true;
         }
@@ -429,11 +469,13 @@ public class TechnikonProject {
     //Only the admin can update the repair status
     public static boolean updateRepairStatus(Owner user, PropertyRepair pr, RepairStatus status, PropertyRepairService prs) {
         if (!user.getUserRole().equals(Role.ADMIN)) {
+            System.out.println("===========================================================");
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
                             "Sorry, you are not authorized to perform this action!"));
             return false;
         } else {
+            System.out.println("===========================================================");
             prs.updatePropertyRepairStatus(pr, status);
             return true;
         }
@@ -446,11 +488,13 @@ public class TechnikonProject {
     //Only the admin can do this action updating the repair status according to propertyrepair's status
     public static boolean updateRepairBasedOnUserAcceptance(Owner user, PropertyRepair pr, PropertyRepairService prs) {
         if (!user.getUserRole().equals(Role.ADMIN)) {
+            System.out.println("===========================================================");
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
                             "Sorry, you are not authorized to perform this action!"));
             return false;
         }
+        System.out.println("===========================================================");
         prs.updateRepairBasedOnAcceptance(pr);
         return true;
     }
@@ -458,9 +502,11 @@ public class TechnikonProject {
     //The ADMIN can delete any owner while the OWNER can only delete himself/herself
     public static boolean deleteOwner(Owner user, Owner owner, OwnerService os) {
         if (user.getUserRole().equals(Role.ADMIN) || user.equals(owner)) {
+            System.out.println("===========================================================");
             os.deleteOwner(owner);
             return true;
         } else {
+            System.out.println("===========================================================");
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
                             "Sorry, you are not authorized to perform this action!"));
@@ -471,8 +517,10 @@ public class TechnikonProject {
     //Both ADMIN and OWNER can delete a property(Owner can delete only their properties)
     public static boolean deleteProperty(Owner user, Property pr, PropertyService ps) {
         if (user.getUserRole().equals(Role.ADMIN) || pr.getPropertyOwner().equals(user)) {
+            System.out.println("===========================================================");
             return ps.deleteProperty(pr);
         } else {
+            System.out.println("===========================================================");
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
                             "Sorry, you are not authorized to perform this action!"));
@@ -481,10 +529,12 @@ public class TechnikonProject {
     }
 
     //Both ADMIN and OWNER can delete a repair(Owner can delete only their repairs)
-    public static boolean deletePropertyRepair(Owner user,PropertyRepair pr, PropertyRepairService prs) {
-         if (user.getUserRole().equals(Role.ADMIN) || pr.getRepairProperty().getPropertyOwner().equals(user)) {
+    public static boolean deletePropertyRepair(Owner user, PropertyRepair pr, PropertyRepairService prs) {
+        if (user.getUserRole().equals(Role.ADMIN) || pr.getRepairProperty().getPropertyOwner().equals(user)) {
+            System.out.println("===========================================================");
             return prs.deletePropertyRepair(pr);
         } else {
+            System.out.println("===========================================================");
             Logger.getLogger(TechnikonProject.class.getName())
                     .log(Level.WARNING, null, new UnauthorizedException(
                             "Sorry, you are not authorized to perform this action!"));

@@ -1,12 +1,10 @@
 package gr.ed.TechnikonProject.service.serviceImpl;
 
-import gr.ed.TechnikonProject.enums.Role;
 import gr.ed.TechnikonProject.exceptions.InvalidAddressException;
 import gr.ed.TechnikonProject.exceptions.InvalidEmailException;
 import gr.ed.TechnikonProject.exceptions.InvalidIdException;
 import gr.ed.TechnikonProject.exceptions.InvalidOwnerException;
 import gr.ed.TechnikonProject.exceptions.InvalidVatException;
-import gr.ed.TechnikonProject.exceptions.UnauthorizedException;
 import gr.ed.TechnikonProject.model.Owner;
 import gr.ed.TechnikonProject.repository.OwnerRepository;
 import gr.ed.TechnikonProject.repository.PropertyRepairRepository;
